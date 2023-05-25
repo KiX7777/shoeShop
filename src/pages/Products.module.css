@@ -1,0 +1,11 @@
+.list a {
+  font-size: 18px;
+}
+.list a:visited,
+.list a:link {
+  color: black;
+  text-decoration: none;
+}
+.list a:hover {
+  text-decoration: underline;
+}/*# sourceMappingURL=Products.module.css.map */

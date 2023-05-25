@@ -1,0 +1,56 @@
+.productCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  animation: add 400ms ease;
+  gap: 1rem;
+  justify-content: space-between;
+  box-shadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
+}
+.productCard img {
+  width: 4rem;
+  border-radius: 0.5rem;
+}
+.productCard .delete {
+  width: 1.6rem;
+  cursor: pointer;
+}
+.productCard .delete:hover {
+  filter: invert(20%) sepia(93%) saturate(6404%) hue-rotate(358deg) brightness(91%) contrast(122%);
+}
+
+.cardTxt {
+  flex: 1;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.cardTxt p {
+  font-size: 1.2rem;
+  color: hsl(219, 9%, 45%);
+}
+
+.cartPrices {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.productCardTotal {
+  color: black;
+  font-weight: bold;
+}
+
+.productTitle {
+  display: flex;
+  flex-direction: column;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.productTitle span {
+  margin-bottom: 0;
+}/*# sourceMappingURL=CartItem.module.css.map */
