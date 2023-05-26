@@ -9,18 +9,21 @@ import classes from './Products.module.css'
 import Skeleton from 'react-loading-skeleton'
 
 export interface Product {
-  id: number
+  id: string
   category: string
   description: string
   image: string
   price: number
+  size: number
   title: string
   rating: {
     rate: number
     count: number
   }
+  quantity: number
+  total: number
 }
-
+let initial = true
 // let proizvod = {
 //   category: "men's clothing",
 //   description:
@@ -50,8 +53,11 @@ const Products = () => {
   console.log(location.pathname)
 
   useEffect(() => {
-    dispatch(fetchData())
-  }, [dispatch])
+    if (initial) {
+      dispatch(fetchData())
+      initial = false
+    }
+  }, [])
 
   return (
     <>

@@ -39,7 +39,6 @@ nav .navRight .cart {
 }
 nav .navRight .incart {
   position: absolute;
-  display: none;
   right: -5px;
   top: -5px;
   background-color: #e47018;
@@ -90,6 +89,31 @@ nav .hamburger {
   display: none;
 }
 
+.shakeTop {
+  animation: shake-top 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+  filter: invert(42%) sepia(96%) saturate(649%) hue-rotate(350deg) brightness(97%) contrast(93%);
+}
+@keyframes shake-top {
+  0%, 100% {
+    transform: rotate(0deg);
+    transform-origin: 50% 0;
+  }
+  10% {
+    transform: rotate(2deg);
+  }
+  20%, 40%, 60% {
+    transform: rotate(-4deg);
+  }
+  30%, 50%, 70% {
+    transform: rotate(4deg);
+  }
+  80% {
+    transform: rotate(-2deg);
+  }
+  90% {
+    transform: rotate(2deg);
+  }
+}
 @media (max-width: 480px) {
   body {
     width: 100vw;

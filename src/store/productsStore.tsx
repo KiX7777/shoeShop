@@ -9,10 +9,23 @@ export const fetchData = createAsyncThunk('products/fetch', async () => {
     throw new Error('Getting data failed!')
   }
   const data = (await res.json()) as Product[]
-  console.log(data)
-  // setTimeout()
+  const products = [] as Product[]
 
-  return data
+  for (const prod in data) {
+    let id = `${data[prod].id}`
+    let el = {
+      ...data[prod],
+      quantity: 1,
+      total: data[prod].price,
+      size: 1,
+      id: id,
+    } as Product
+    products.push(el)
+  }
+
+  localStorage.setItem('products', JSON.stringify(products))
+
+  return products
 })
 
 // export const getData = () => {

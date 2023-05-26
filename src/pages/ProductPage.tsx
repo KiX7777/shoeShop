@@ -1,103 +1,185 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import classes from './ProductPage.module.css'
+import { useAppDispatch, useAppSelector } from '../store/Store'
+import { cartActions } from '../store/cartStore'
+import { Product } from './Products'
+import ProductPageLayout from '../UI/ProductPageLayout'
+import Gallery from '../Components/Gallery'
+import { formatPrice } from '../helpers'
 
 const ProductPage = () => {
-  return (
-    <main className={classes.mainContainer}>
-      <div className={classes.overlay}></div>
+  const dispatch = useAppDispatch()
+  const [quantity, setquantity] = useState(1)
+  const [size, setSize] = useState(40)
+  const params = useParams()
+  const id = params.product!.slice(8)
+  const sizeRef = useRef<HTMLParagraphElement>(null)
 
-      <div className={classes.imageCont}>
-        <div className={classes.mainPic}>
-          <span className={classes.left}>
-            <img src='images/icon-previous.svg' alt='' />
-          </span>
-          <span className={classes.right}>
-            <img src='images/icon-next.svg' alt='' />
-          </span>
-          <img src='/shoes/superstar.png' alt='' id='mainpic' />
+  useEffect(() => {
+    sizeRef.current?.classList.add(`${classes.slideinblurredleft}`)
+
+    const timeout = setTimeout(() => {
+      sizeRef.current?.classList.remove(`${classes.slideinblurredleft}`)
+    }, 301)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [quantity])
+
+  let products: Product[]
+
+  function setStorage() {
+    localStorage.setItem('products', JSON.stringify(products))
+  }
+
+  products = useAppSelector<Product[]>((state) => state.products.products)
+
+  if (products.length === 0) {
+    const productsStorage = localStorage.getItem('products')
+    products = JSON.parse(productsStorage!) as Product[]
+  }
+
+  const product = products.find((prod) => prod.id === id) as Product
+
+  function handleAddToCart(prod: Product) {
+    const product = {
+      ...prod,
+      id: `${prod.id}${prod.size}${prod.title.slice(0, 10)}`,
+    }
+    dispatch(cartActions.add(product))
+    setquantity(1)
+  }
+  function handleRemoveFromCart(id: string) {
+    dispatch(cartActions.remove(id))
+  }
+  return (
+    <ProductPageLayout>
+      <main className={classes.mainContainer}>
+        <div className={classes.overlay}></div>
+
+        <div className={classes.imageCont}>
+          <Gallery image={product.image} />
+          {/* <div className={classes.mainPic}>
+            <span className={classes.left}>
+              <img src='images/icon-previous.svg' alt='' />
+            </span>
+            <span className={classes.right}>
+              <img src='images/icon-next.svg' alt='' />
+            </span>
+            <img src={product.image} alt='' id='mainpic' />
+          </div> */}
+          <div className={classes.gallery}>
+            <img
+              src='images/thumb_1.jpg'
+              className={classes.active}
+              data-id='1'
+              alt=''
+            />
+            <img src='images/thumb_2.jpg' className='' data-id='2' alt='' />
+            <img src='images/thumb_3.jpg' data-id='3' alt='' />
+            <img src='images/thumb_4.jpg' data-id='4' alt='' />
+          </div>
         </div>
-        <div className={classes.gallery}>
+        <div className={`${classes.imageCont} ${classes.modal}`}>
           <img
-            src='images/thumb_1.jpg'
-            className={classes.active}
-            data-id='1'
+            src='images/icons8-close-window-50.png'
             alt=''
+            className={classes.closeIcon}
           />
-          <img src='images/thumb_2.jpg' className='' data-id='2' alt='' />
-          <img src='images/thumb_3.jpg' data-id='3' alt='' />
-          <img src='images/thumb_4.jpg' data-id='4' alt='' />
-        </div>
-      </div>
-      <div className={`${classes.imageCont} ${classes.modal}`}>
-        <img
-          src='images/icons8-close-window-50.png'
-          alt=''
-          className={classes.closeIcon}
-        />
-        <div className={classes.mainPic}>
-          {/* <!-- <span className="left"
+          <div className={classes.mainPic}>
+            {/* <!-- <span className="left"
         ><img src="images/icon-previous.svg" alt=""
       /></span>
       <span className="right"><img src="images/icon-next.svg" alt="" /></span> --> */}
-          <img src='images/air_jordan_1.webp' alt='' id='mainpic' />
-        </div>
-        <div className={`${classes.gallery} ${classes.gallerymodal}`}>
-          <img
-            src='images/thumb_1.jpg'
-            className={classes.active}
-            data-id='1'
-            alt=''
-          />
-          <img src='images/thumb_2.jpg' className='' data-id='2' alt='' />
-          <img src='images/thumb_3.jpg' data-id='3' alt='' />
-          <img src='images/thumb_4.jpg' data-id='4' alt='' />
-        </div>
-      </div>
-      <div className={classes.infoCont}>
-        <div className={classes.titleCont}>
-          <span className={classes.brand}>ADIDAS ORIGINALS</span>
-          <h2>Adidas Superstar</h2>
-        </div>
-        <div className={classes.description}>
-          These low-profile sneakers are your perfect casual wear companion.
-          Featuring a durable rubber outer sole, they’ll withstand everything
-          the weather can offer.
-        </div>
-        <div className={classes.pricesCont}>
-          <div className={classes.current}>
-            <p className={classes.currPrice}>€85,00</p>
-            <span className={classes.discount}>30%</span>
+            <img src={product.image} alt='' id='mainpic' />
           </div>
-          <p className={classes.oldPrice}>€110,50</p>
-        </div>
-        <div className={classes.buttons}>
-          <div className={classes.quantity}>
-            <button id='minus'>
-              <img src='images/icon-minus.svg' alt='' />
-            </button>
-            <p className={classes.currentquantity}>0</p>
-            <button id='plus'>
-              <img src='images/icon-plus.svg' alt='' />
-            </button>
-          </div>
-          <div className={classes.add}>
-            <select name='size' className={classes.size}>
-              <option value='40'>40</option>
-              <option value='41'>41</option>
-              <option value='42'>42</option>
-              <option value='43'>43</option>
-              <option value='44'>44</option>
-              <option value='45'>45</option>
-              <option value='46'>46</option>
-            </select>
-            <button className={classes.addtocart}>
-              <img src='images/icon-cart.svg' alt='' />
-              Add to cart
-            </button>
+          <div className={`${classes.gallery} ${classes.gallerymodal}`}>
+            <img
+              src='images/thumb_1.jpg'
+              className={classes.active}
+              data-id='1'
+              alt=''
+            />
+            <img src='images/thumb_2.jpg' className='' data-id='2' alt='' />
+            <img src='images/thumb_3.jpg' data-id='3' alt='' />
+            <img src='images/thumb_4.jpg' data-id='4' alt='' />
           </div>
         </div>
-      </div>
-    </main>
+        <div className={classes.infoCont}>
+          <div className={classes.titleCont}>
+            <span className={classes.brand}>{product.title}</span>
+            <h2>{product.title}</h2>
+          </div>
+          <div className={classes.description}>{product.description}</div>
+          <div className={classes.pricesCont}>
+            <div className={classes.current}>
+              <p className={classes.currPrice}>€{product.price}</p>
+              <span className={classes.discount}>30%</span>
+            </div>
+            <p className={classes.oldPrice}>
+              {formatPrice(product.price + product.price * 0.3)}
+            </p>
+          </div>
+          <div className={classes.buttons}>
+            <div className={classes.quantity}>
+              <button
+                id='minus'
+                onClick={() => {
+                  setquantity((prev) => prev - 1)
+                  if (quantity <= 1) {
+                    setquantity(1)
+                  }
+                }}
+              >
+                <img src='/icon-minus.svg' alt='' />
+              </button>
+              <p ref={sizeRef} className={classes.currentquantity}>
+                {quantity}
+              </p>
+              <button
+                id='plus'
+                onClick={() => {
+                  setquantity((prev) => prev + 1)
+                }}
+              >
+                <img src='/icon-plus.svg' alt='' />
+              </button>
+            </div>
+            <div className={classes.add}>
+              <select
+                name='size'
+                className={classes.size}
+                value={size}
+                onChange={(e) => {
+                  setSize(+e.target.value)
+                }}
+              >
+                <option value='40'>40</option>
+                <option value='41'>41</option>
+                <option value='42'>42</option>
+                <option value='43'>43</option>
+                <option value='44'>44</option>
+                <option value='45'>45</option>
+                <option value='46'>46</option>
+              </select>
+              <button
+                className={classes.addtocart}
+                onClick={() => {
+                  const prod = { ...product, quantity: quantity, size: size }
+                  console.log(products)
+                  handleAddToCart(prod)
+                }}
+              >
+                <img src='/icon-cart.svg' alt='' />
+                Add to cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </ProductPageLayout>
   )
 }
 

@@ -18,10 +18,11 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/products'>
               <Route index element={<Products />} />
-              <Route path=':product' element={<Product />} />
+              {/* <Route path=':product' element={<Product />} /> */}
+              <Route path=':product' element={<ProductPage />} />
             </Route>
             <Route path='/about' element={<About />} />
-            <Route path='/men' element={<ProductPage />} />
+            {/* <Route path='/men' element={<ProductPage />} /> */}
             <Route path='*' element={<h1>Error 404 - Not Found</h1>} />
           </Routes>
         </Suspense>

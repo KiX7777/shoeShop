@@ -4,10 +4,10 @@
 .productCard {
   @include flex(center, center);
   width: 100%;
-  animation: add 400ms ease;
   gap: 1rem;
   justify-content: space-between;
   box-shadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
+  animation: add 500ms ease forwards;
   img {
     width: 4rem;
     border-radius: 0.5rem;
@@ -21,6 +21,7 @@
       brightness(91%) contrast(122%);
   }
 }
+
 .cardTxt {
   flex: 1;
   gap: 0.5rem;
@@ -50,4 +51,59 @@
   span {
     margin-bottom: 0;
   }
+}
+
+.plusBtn,
+.minusBtn {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.minusBtn img {
+  height: auto;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+@keyframes add {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+    transform-origin: top;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes remove {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: top;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+.remove {
+  animation: remove 500ms ease forwards;
 }

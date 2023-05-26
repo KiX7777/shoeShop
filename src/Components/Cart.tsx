@@ -1,10 +1,14 @@
 import classes from './Cart.module.css'
 import { useAppSelector } from '../store/Store'
 import CartItem from './CartItem'
+import { formatPrice } from '../helpers'
+import { uuid } from 'uuidv4'
+import { useEffect } from 'react'
 
 const Cart = () => {
   const isOpen = useAppSelector((state) => state.cart.isOpen)
   const cart = useAppSelector((state) => state.cart.products)
+  const total = useAppSelector((state) => state.cart.total)
 
   const cartProducts = cart.map((prod) => (
     <CartItem key={prod.id} id={prod.id} />
@@ -31,6 +35,7 @@ const Cart = () => {
           Your cart is empty
         </p>
         {cartProducts}
+
         {/* <CartItem /> */}
 
         {/* <div className="productCard">
@@ -67,11 +72,20 @@ const Cart = () => {
     <img src="/images/icon-delete.svg" id="delete" alt="" />
   </div>
   <div className="productCard">  */}
-
+      </div>
+      <div className={classes.checkout}>
+        {total > 0 && <p className={classes.total}>{formatPrice(total)}</p>}
         <button
           type='button'
           id='checkout'
-          className={cart.length > 0 ? `${classes.show}` : ``}
+          onClick={() => {
+            console.log(cart)
+          }}
+          className={
+            cart.length > 0
+              ? `${classes.show} ${classes.checkoutBtn}`
+              : `${classes.checkoutBtn}`
+          }
         >
           Checkout
         </button>

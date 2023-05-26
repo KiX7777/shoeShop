@@ -5,6 +5,7 @@ import { Product } from './Products'
 import { useNavigate } from 'react-router-dom'
 import { cartActions } from '../store/cartStore'
 import classes from './Product.module.css'
+import { CSSTransition } from 'react-transition-group'
 
 const ProductItem = () => {
   const dispatch = useAppDispatch()
@@ -12,13 +13,13 @@ const ProductItem = () => {
   const products = useAppSelector<Product[]>((state) => state.products.products)
   const cart = useAppSelector((state) => state.cart.products)
   const params = useParams()
-  const id = +params.product!.slice(8)
+  const id = params.product!.slice(8)
   const product = products.find((prod) => prod.id === id) as Product
 
   function handleAddToCart(prod: Product) {
     dispatch(cartActions.add(prod))
   }
-  function handleRemoveFromCart(id: number) {
+  function handleRemoveFromCart(id: string) {
     dispatch(cartActions.remove(id))
   }
   return (

@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import classes from './Nav.module.css'
-import { useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useAppDispatch } from '../store/Store'
 import { cartActions } from '../store/cartStore'
 import { useAppSelector } from '../store/Store'
@@ -8,11 +8,29 @@ import Cart from './Cart'
 
 const Nav = () => {
   const isOpen = useAppSelector((state) => state.cart.isOpen)
+  const cartRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
+  const cart = useAppSelector((state) => state.cart.products)
   const [mobileMenu, setmobileMenu] = useState(false)
+  const productsCount = cart.reduce((acc, curr) => acc + curr.quantity, 0)
+
   function handleOpenCart() {
     dispatch(cartActions.toggleCart())
   }
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      cartRef.current?.classList.add(`${classes.shakeTop}`)
+    }
+
+    const timeout = setTimeout(() => {
+      cartRef.current?.classList.remove(`${classes.shakeTop}`)
+    }, 501)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [cart])
 
   return (
     <>
@@ -152,14 +170,16 @@ const Nav = () => {
           </li>
         </ul>
         <ul className={classes.navRight}>
-          <div className={classes.cart} onClick={handleOpenCart}>
+          <div className={classes.cart} ref={cartRef} onClick={handleOpenCart}>
             <img
               src='/icon-cart.svg'
               alt='cart logo'
               id='cart'
               className={classes.cartIcon}
             />
-            <span className={classes.incart}></span>
+            {cart.length > 0 && (
+              <span className={classes.incart}>{productsCount}</span>
+            )}
           </div>
           <img
             src='/avatar.webp'

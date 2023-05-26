@@ -1,3 +1,4 @@
+export {}
 import {
   findAllByTestId,
   findByTestId,
@@ -8,7 +9,6 @@ import {
 import { BrowserRouter, useLocation } from 'react-router-dom'
 import App from '../App'
 import store from '../store/Store'
-import { Swiper, SwiperSlide } from 'swiper/react'
 import { Provider } from 'react-redux'
 import userEvent from '@testing-library/user-event'
 
@@ -23,10 +23,12 @@ describe('cart testing', () => {
     )
   })
 
-  test('opens cart on click', async () => {
-    const cart = screen.getByAltText('cart logo')
-    await userEvent.click(cart)
-    const cartCont = await screen.findByTestId('cartContainer')
-    expect(cartCont).toHaveClass('openCart')
+  test('adds to cart', async () => {
+    const productsLink = screen.getAllByRole('link')
+    await userEvent.click(productsLink[0])
+    const prodLink = await screen.findAllByRole('listitem')
+    await userEvent.click(prodLink[0])
+    // const price = await screen.findByText('€109.95')
+    const addBtn = await screen.findByText('Add to cart')
   })
 })

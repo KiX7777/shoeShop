@@ -70,7 +70,7 @@
   color: hsl(219, 9%, 45%);
   font-weight: bold;
 }
-.cartContainer button {
+.cartContainer .checkoutBtn {
   padding: 1.4rem 1rem;
   font-size: 1.2rem;
   border: none;
@@ -85,7 +85,7 @@
   animation: add 400ms ease;
   margin-top: 1rem;
 }
-.cartContainer button:hover {
+.cartContainer .checkoutBtn:hover {
   background-color: #e26f16;
 }
 .cartContainer .show {
@@ -96,6 +96,18 @@
   opacity: 1;
   transform: scale(1);
   transform-origin: top;
+}
+
+.total {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.checkout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 @media (max-width: 480px) {
