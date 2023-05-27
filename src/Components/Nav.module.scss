@@ -5,7 +5,6 @@ nav {
   @include flex(center, center);
   z-index: 1;
   position: relative;
-  max-width: 110rem;
   margin: 0 auto;
   padding: 3.2em;
   height: 10rem;
@@ -19,7 +18,7 @@ nav {
   }
   .navLeft {
     @include flex(center, center);
-
+    margin: 0 auto;
     gap: 2.4rem;
   }
 

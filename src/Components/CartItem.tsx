@@ -36,7 +36,7 @@ const CartItem = ({ id }: { id: string }) => {
   }
 
   return (
-    <div ref={cardRef} className={classes.productCard}>
+    <div ref={cardRef} className={classes.productCard} data-testid='cartItem'>
       {' '}
       <img src={productitem?.image} alt='product image' />
       <div className={classes.cardTxt}>
@@ -67,6 +67,7 @@ const CartItem = ({ id }: { id: string }) => {
           src='/icon-delete.svg'
           className={classes.delete}
           alt='trash can icon'
+          data-testid='deleteBtn'
           onClick={() => {
             handleDelete(id)
           }}

@@ -1,3 +1,6 @@
 .aboutContainer {
   height: calc(100dvh - 10rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }/*# sourceMappingURL=About.module.css.map */

@@ -1,3 +1,6 @@
+@use '../../styles/colors' as *;
+@use '../../styles/mixins' as *;
+
 .list {
   a {
     font-size: 18px;
@@ -10,4 +13,50 @@
   a:hover {
     text-decoration: underline;
   }
+}
+
+.productsContainer {
+  height: calc(100dvh - 10rem);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 0;
+  position: relative;
+}
+
+.mainContainer {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(20rem, 20%) 1fr;
+  padding: 5rem 10rem;
+  gap: 5rem;
+  height: 90%;
+}
+
+.sideBar {
+  height: 100%;
+  border: 2px solid $primaryOrange;
+  border-radius: 20px;
+}
+
+.cardsContainer {
+  height: 100%;
+  padding: 2.4rem;
+  gap: 1rem;
+  overflow: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.cardsContainer::-webkit-scrollbar {
+  width: 4px;
+}
+.cardsContainer::-webkit-scrollbar-thumb {
+  background-color: $primaryOrange;
+  visibility: hidden;
+  transition: all 500ms;
+}
+.cardsContainer:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
 }

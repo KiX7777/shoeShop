@@ -60,7 +60,7 @@ const ProductPage = () => {
         <div className={classes.overlay}></div>
 
         <div className={classes.imageCont}>
-          <Gallery image={product.image} />
+          {/* <Gallery image={product.image} /> */}
           {/* <div className={classes.mainPic}>
             <span className={classes.left}>
               <img src='images/icon-previous.svg' alt='' />

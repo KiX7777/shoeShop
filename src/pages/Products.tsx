@@ -7,6 +7,7 @@ import { useAppSelector } from '../store/Store'
 import LinkLoader from '../UI/LinkLoader'
 import classes from './Products.module.css'
 import Skeleton from 'react-loading-skeleton'
+import ProductCard from '../Components/ProductCard'
 
 export interface Product {
   id: string
@@ -60,21 +61,59 @@ const Products = () => {
   }, [])
 
   return (
-    <>
+    <div className={classes.productsContainer}>
       <h1>Products</h1>
-      {status === 'loading' ? (
+      <div className={classes.mainContainer}>
+        <div className={classes.sideBar}></div>
+        <div className={classes.cardsContainer}>
+          <ProductCard
+            brand='Adidas'
+            name='Adidas Superstar'
+            image='/shoes/superstar.png'
+          />
+          <ProductCard
+            brand='Nike'
+            name='Nike Blazer Low 77 PRM'
+            image='/shoes/blazerprm.png'
+          />
+          <ProductCard
+            brand='Jordan'
+            name='Air Jordan 1'
+            image='/shoes/air1-redblack.png'
+          />
+          <ProductCard
+            brand='Puma'
+            name='Scuderia Ferrari Drift Cat 7'
+            image='/shoes/pumaDrift.png'
+          />
+          <ProductCard
+            brand='Jordan'
+            name='Air Jordan 1'
+            image='/shoes/air1-green.png'
+          />
+          <ProductCard
+            brand='Converse'
+            name='Chuck Taylor All Star'
+            image='/shoes/allStar.png'
+          />
+          <ProductCard
+            brand='Jordan'
+            name='Air Jordan 1 Blue White'
+            image='/shoes/air1-blue.png'
+          />
+          <ProductCard
+            brand='Adidas'
+            name='Adidas Superstar Black'
+            image='/shoes/superstar-black.png'
+          />
+        </div>
+      </div>
+      {/* {status === 'loading' ? (
         <LinkLoader />
       ) : (
         <ul className={classes.list}>{productsList}</ul>
-      )}
-      <button
-        onClick={() => {
-          console.log(products)
-        }}
-      >
-        LOG
-      </button>
-    </>
+      )} */}
+    </div>
   )
 }
 

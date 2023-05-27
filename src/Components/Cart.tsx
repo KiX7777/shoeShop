@@ -24,7 +24,7 @@ const Cart = () => {
       }
     >
       <span>Cart</span>
-      <div className={classes.cartProducts}>
+      <div className={classes.cartProducts} data-testid='cartProducts'>
         <p
           className={
             cart.length > 0
