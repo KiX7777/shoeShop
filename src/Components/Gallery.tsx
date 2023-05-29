@@ -10,8 +10,13 @@ import './Gallery.css'
 import { Pagination, Navigation, EffectCube } from 'swiper'
 import { useAppSelector } from '../store/Store'
 
-const Gallery = ({ image }: { image: string }) => {
-  const products = useAppSelector((state) => state.products.products)
+const Gallery = ({ image, images }: { image: string; images: string[] }) => {
+  const sorted = [...images].sort()
+  const slides = sorted.map((img, idx) => (
+    <SwiperSlide key={idx}>
+      <img src={img} />
+    </SwiperSlide>
+  ))
 
   return (
     <>
@@ -34,15 +39,7 @@ const Gallery = ({ image }: { image: string }) => {
         //   '--swiper-navigation-color': '#FF7D1B',
         // }}
       >
-        <SwiperSlide>
-          <img src={image} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={image} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={image} />
-        </SwiperSlide>
+        {slides}
       </Swiper>
     </>
   )

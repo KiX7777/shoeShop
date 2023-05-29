@@ -8,20 +8,22 @@ import LinkLoader from '../UI/LinkLoader'
 import classes from './Products.module.css'
 import Skeleton from 'react-loading-skeleton'
 import ProductCard from '../Components/ProductCard'
+import { pushImages } from '../helpers'
+import { sortPriceUp } from '../helpers'
 
 export interface Product {
   id: string
   category: string
+  brand: string
   description: string
-  image: string
+  url: string
+  color: string
   price: number
   size: number
   title: string
-  rating: {
-    rate: number
-    count: number
-  }
   quantity: number
+  image: string
+  images: string[]
   total: number
 }
 let initial = true
@@ -43,8 +45,10 @@ const Products = () => {
   const status = useAppSelector((state) => state.products.status)
   const dispatch = useAppDispatch()
 
-  const productsList = products.map((prod, idx) => (
-    <li key={prod.id}>
+  const sorted = [...products].sort(sortPriceUp)
+
+  const productsList = sorted.map((prod, idx) => (
+    <li key={`${prod.id}${prod.title}`}>
       <Link to={`product-${prod.id}`}>
         {status === 'loading' ? <Skeleton /> : prod.title}
       </Link>
@@ -60,54 +64,32 @@ const Products = () => {
     }
   }, [])
 
+  const productsCards = sorted.map((prod) => (
+    <ProductCard brand={prod.brand} name={prod.title} image={prod.images[0]} />
+  ))
+
   return (
     <div className={classes.productsContainer}>
       <h1>Products</h1>
+      <button
+        onClick={() => {
+          pushImages(products)
+        }}
+      >
+        SEND
+      </button>
       <div className={classes.mainContainer}>
         <div className={classes.sideBar}></div>
         <div className={classes.cardsContainer}>
-          <ProductCard
+          {/* <ProductCard
             brand='Adidas'
             name='Adidas Superstar'
             image='/shoes/superstar.png'
-          />
-          <ProductCard
-            brand='Nike'
-            name='Nike Blazer Low 77 PRM'
-            image='/shoes/blazerprm.png'
-          />
-          <ProductCard
-            brand='Jordan'
-            name='Air Jordan 1'
-            image='/shoes/air1-redblack.png'
-          />
-          <ProductCard
-            brand='Puma'
-            name='Scuderia Ferrari Drift Cat 7'
-            image='/shoes/pumaDrift.png'
-          />
-          <ProductCard
-            brand='Jordan'
-            name='Air Jordan 1'
-            image='/shoes/air1-green.png'
-          />
-          <ProductCard
-            brand='Converse'
-            name='Chuck Taylor All Star'
-            image='/shoes/allStar.png'
-          />
-          <ProductCard
-            brand='Jordan'
-            name='Air Jordan 1 Blue White'
-            image='/shoes/air1-blue.png'
-          />
-          <ProductCard
-            brand='Adidas'
-            name='Adidas Superstar Black'
-            image='/shoes/superstar-black.png'
-          />
+          /> */}
+          {productsCards}
         </div>
       </div>
+
       {/* {status === 'loading' ? (
         <LinkLoader />
       ) : (

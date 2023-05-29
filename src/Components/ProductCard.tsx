@@ -16,11 +16,12 @@ const ProductCard = ({
       // background:
       //   "url('https://1000merken.com/wp-content/uploads/2020/04/Air-Jordan-Logo.png')",
       background: "url('/nikeLogo.png')",
-      backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
-      left: '-15%',
+      backgroundSize: '80%',
+
+      left: '0%',
     }
-  } else if (brandName === 'Adidas') {
+  } else if (brandName === 'Adidas Originals') {
     backgroundStyles = {
       // background:
       //   "url('https://1000merken.com/wp-content/uploads/2020/04/Air-Jordan-Logo.png')",
@@ -32,16 +33,17 @@ const ProductCard = ({
     }
   } else if (brandName === 'Jordan') {
     backgroundStyles = {
-      background:
-        "url('https://1000merken.com/wp-content/uploads/2020/04/Air-Jordan-Logo.png')",
+      background: "url('/jordanlogo.svg.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
+      top: '0',
     }
   } else if (brandName === 'Puma') {
     backgroundStyles = {
       background: "url('/pumaLogo.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
+
       left: '-10%',
     }
   } else if (brandName === 'Converse') {
@@ -50,6 +52,14 @@ const ProductCard = ({
         "url('https://w7.pngwing.com/pngs/335/469/png-transparent-converse-chuck-taylor-all-stars-shoe-sneakers-logo-adidas-angle-text-triangle.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
+    }
+  } else if (brandName === 'Adidas') {
+    backgroundStyles = {
+      background: "url('/adidaslogo.png')",
+      backgroundSize: '80%',
+      left: '-10%',
+      backgroundRepeat: 'no-repeat',
+      top: '15%',
     }
   }
 

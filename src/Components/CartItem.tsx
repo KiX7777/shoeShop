@@ -42,7 +42,7 @@ const CartItem = ({ id }: { id: string }) => {
       <div className={classes.cardTxt}>
         <p className={classes.productTitle}>
           {productitem?.title}
-          <span className={classes.chosenSize}>{productitem?.id}</span>
+          <span className={classes.chosenSize}>{productitem?.size}</span>
         </p>
         <div className={classes.cartPrices}>
           <p className={classes.productCardPrice}>

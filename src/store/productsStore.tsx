@@ -1,10 +1,12 @@
 import { Dispatch, PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Product } from '../pages/Products'
-
+import { getImages } from '../helpers'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchData = createAsyncThunk('products/fetch', async () => {
-  const res = await fetch('https://fakestoreapi.com/products')
+  const res = await fetch(
+    'https://ecommerce-e8b82-default-rtdb.europe-west1.firebasedatabase.app/-NWbgXbKkZDQgUOSO1bL.json'
+  )
   if (!res.ok) {
     throw new Error('Getting data failed!')
   }
@@ -13,12 +15,17 @@ export const fetchData = createAsyncThunk('products/fetch', async () => {
 
   for (const prod in data) {
     let id = `${data[prod].id}`
+    // console.log(getImages(`${data[prod].url}`))
+    // let images = await getImages(`${data[prod].url}`)
+    let sortedImgs = [...data[prod].images].sort()
     let el = {
       ...data[prod],
       quantity: 1,
       total: data[prod].price,
       size: 1,
       id: id,
+      images: sortedImgs,
+      // images,
     } as Product
     products.push(el)
   }

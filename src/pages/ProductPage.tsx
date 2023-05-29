@@ -57,10 +57,8 @@ const ProductPage = () => {
   return (
     <ProductPageLayout>
       <main className={classes.mainContainer}>
-        <div className={classes.overlay}></div>
-
         <div className={classes.imageCont}>
-          {/* <Gallery image={product.image} /> */}
+          <Gallery image={product.image} images={product.images} />
           {/* <div className={classes.mainPic}>
             <span className={classes.left}>
               <img src='images/icon-previous.svg' alt='' />
@@ -70,43 +68,8 @@ const ProductPage = () => {
             </span>
             <img src={product.image} alt='' id='mainpic' />
           </div> */}
-          <div className={classes.gallery}>
-            <img
-              src='images/thumb_1.jpg'
-              className={classes.active}
-              data-id='1'
-              alt=''
-            />
-            <img src='images/thumb_2.jpg' className='' data-id='2' alt='' />
-            <img src='images/thumb_3.jpg' data-id='3' alt='' />
-            <img src='images/thumb_4.jpg' data-id='4' alt='' />
-          </div>
         </div>
-        <div className={`${classes.imageCont} ${classes.modal}`}>
-          <img
-            src='images/icons8-close-window-50.png'
-            alt=''
-            className={classes.closeIcon}
-          />
-          <div className={classes.mainPic}>
-            {/* <!-- <span className="left"
-        ><img src="images/icon-previous.svg" alt=""
-      /></span>
-      <span className="right"><img src="images/icon-next.svg" alt="" /></span> --> */}
-            <img src={product.image} alt='' id='mainpic' />
-          </div>
-          <div className={`${classes.gallery} ${classes.gallerymodal}`}>
-            <img
-              src='images/thumb_1.jpg'
-              className={classes.active}
-              data-id='1'
-              alt=''
-            />
-            <img src='images/thumb_2.jpg' className='' data-id='2' alt='' />
-            <img src='images/thumb_3.jpg' data-id='3' alt='' />
-            <img src='images/thumb_4.jpg' data-id='4' alt='' />
-          </div>
-        </div>
+
         <div className={classes.infoCont}>
           <div className={classes.titleCont}>
             <span className={classes.brand}>{product.title}</span>

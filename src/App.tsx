@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import { Suspense } from 'react'
 import Layout from './UI/Layout'
 import Product from './pages/Product'
+import Men from './pages/Men'
 import ProductPage from './pages/ProductPage'
 const Products = React.lazy(() => import('./pages/Products'))
 const About = React.lazy(() => import('./pages/About'))
@@ -22,7 +23,7 @@ function App() {
               <Route path=':product' element={<ProductPage />} />
             </Route>
             <Route path='/about' element={<About />} />
-            {/* <Route path='/men' element={<ProductPage />} /> */}
+            <Route path='/men' element={<Men />} />
             <Route path='*' element={<h1>Error 404 - Not Found</h1>} />
           </Routes>
         </Suspense>
