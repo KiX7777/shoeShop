@@ -85,3 +85,30 @@ export function sortPriceUp(a: Product, b: Product) {
   }
   return 0
 }
+export function sortPriceDown(a: Product, b: Product) {
+  if (a.price < b.price) {
+    return 1
+  }
+  if (a.price > b.price) {
+    return -1
+  }
+  return 0
+}
+export function sortNameAsc(a: Product, b: Product) {
+  if (a.title < b.title) {
+    return -1
+  }
+  if (a.title > b.title) {
+    return 1
+  }
+  return 0
+}
+export function sortNameDesc(a: Product, b: Product) {
+  if (a.title < b.title) {
+    return 1
+  }
+  if (a.title > b.title) {
+    return -1
+  }
+  return 0
+}

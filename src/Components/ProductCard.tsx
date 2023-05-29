@@ -1,21 +1,29 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import classes from './ProductCard.module.css'
+import { formatPrice } from '../helpers'
+
 const ProductCard = ({
   brand,
   name,
   image,
+  price,
+  id,
 }: {
   brand: string
   name: string
+  price: number
   image: string
+  id: string
 }) => {
+  const navigate = useNavigate()
   const brandName: string = brand
   let backgroundStyles = {}
   if (brandName === 'Nike') {
     backgroundStyles = {
       // background:
       //   "url('https://1000merken.com/wp-content/uploads/2020/04/Air-Jordan-Logo.png')",
-      background: "url('/nikeLogo.png')",
+      backgroundImage: "url('/nikeLogo.png')",
       backgroundRepeat: 'no-repeat',
       backgroundSize: '80%',
 
@@ -25,22 +33,21 @@ const ProductCard = ({
     backgroundStyles = {
       // background:
       //   "url('https://1000merken.com/wp-content/uploads/2020/04/Air-Jordan-Logo.png')",
-      background:
-        "url('https://banner2.cleanpng.com/20180611/hhk/kisspng-adidas-originals-logo-clip-art-logo-adidas-5b1e38b8654b39.2262587515287072564149.jpg')",
+      backgroundImage: "url('/adidasOriginals.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       top: '15%',
     }
   } else if (brandName === 'Jordan') {
     backgroundStyles = {
-      background: "url('/jordanlogo.svg.png')",
+      backgroundImage: "url('/jordanlogo.svg.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       top: '0',
     }
   } else if (brandName === 'Puma') {
     backgroundStyles = {
-      background: "url('/pumaLogo.png')",
+      backgroundImage: "url('/pumaLogo.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
 
@@ -48,14 +55,13 @@ const ProductCard = ({
     }
   } else if (brandName === 'Converse') {
     backgroundStyles = {
-      background:
-        "url('https://w7.pngwing.com/pngs/335/469/png-transparent-converse-chuck-taylor-all-stars-shoe-sneakers-logo-adidas-angle-text-triangle.png')",
+      backgroundImage: '/converse.png',
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
     }
   } else if (brandName === 'Adidas') {
     backgroundStyles = {
-      background: "url('/adidaslogo.png')",
+      backgroundImage: "url('/adidaslogo.png')",
       backgroundSize: '80%',
       left: '-10%',
       backgroundRepeat: 'no-repeat',
@@ -69,9 +75,16 @@ const ProductCard = ({
         <div className={classes.backText} style={backgroundStyles}>
           {}
         </div>
-        <div className={classes.imgBx}>
+        <div
+          className={classes.imgBx}
+          onClick={() => {
+            navigate(`/products/product-${id}`)
+            // console.log(first)
+          }}
+        >
           <img src={image} alt='' />
         </div>
+        <h3 className={classes.price}>{formatPrice(price)}</h3>
         <div className={classes.contentBx}>
           <h2>{name}</h2>
           <div className={classes.size}>

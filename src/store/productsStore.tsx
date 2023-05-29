@@ -68,7 +68,11 @@ const initialState: State = {
 export const productSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    sort(state, action: PayloadAction<Product[]>) {
+      state.products = action.payload
+    },
+  },
   extraReducers(builder) {
     builder.addCase(fetchData.pending, (state) => {
       state.status = 'loading'

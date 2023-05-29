@@ -58,4 +58,21 @@
 
 .cardsContainer:hover::-webkit-scrollbar-thumb {
   visibility: visible;
+}
+
+.sortContainer {
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.sortContainer select {
+  padding: 1rem;
+  font-size: 1.4rem;
+  border: 1px solid #ff7d1a;
+  border-radius: 1rem;
+}
+.sortContainer select:focus {
+  outline: 2px solid #ff7d1a;
 }/*# sourceMappingURL=Products.module.css.map */

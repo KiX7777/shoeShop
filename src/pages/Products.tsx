@@ -1,15 +1,21 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAppDispatch } from '../store/Store'
 import { fetchData } from '../store/productsStore'
 import { useAppSelector } from '../store/Store'
 import LinkLoader from '../UI/LinkLoader'
 import classes from './Products.module.css'
+import { productsActions } from '../store/productsStore'
 import Skeleton from 'react-loading-skeleton'
 import ProductCard from '../Components/ProductCard'
 import { pushImages } from '../helpers'
-import { sortPriceUp } from '../helpers'
+import {
+  sortPriceUp,
+  sortNameAsc,
+  sortNameDesc,
+  sortPriceDown,
+} from '../helpers'
 
 export interface Product {
   id: string
@@ -44,10 +50,37 @@ const Products = () => {
   const products = useAppSelector<Product[]>((state) => state.products.products)
   const status = useAppSelector((state) => state.products.status)
   const dispatch = useAppDispatch()
+  // const [sort, setsort] = useState<string>('priceDesc')
 
-  const sorted = [...products].sort(sortPriceUp)
+  let sort = 'priceDesc'
 
-  const productsList = sorted.map((prod, idx) => (
+  // let sorted = [...products]
+
+  function handleSort() {
+    let arr
+    switch (sort) {
+      case 'priceAsc':
+        arr = [...products].sort(sortPriceUp)
+        dispatch(productsActions.sort(arr))
+        break
+      case 'priceDesc':
+        arr = [...products].sort(sortPriceDown)
+        dispatch(productsActions.sort(arr))
+        break
+      case 'nameAsc':
+        arr = [...products].sort(sortNameAsc)
+        dispatch(productsActions.sort(arr))
+        break
+      case 'nameDesc':
+        arr = [...products].sort(sortNameDesc)
+        dispatch(productsActions.sort(arr))
+        break
+      default:
+        break
+    }
+  }
+
+  const productsList = products.map((prod, idx) => (
     <li key={`${prod.id}${prod.title}`}>
       <Link to={`product-${prod.id}`}>
         {status === 'loading' ? <Skeleton /> : prod.title}
@@ -64,8 +97,15 @@ const Products = () => {
     }
   }, [])
 
-  const productsCards = sorted.map((prod) => (
-    <ProductCard brand={prod.brand} name={prod.title} image={prod.images[0]} />
+  const productsCards = products.map((prod) => (
+    <ProductCard
+      key={`${prod.id}${prod.title}`}
+      brand={prod.brand}
+      name={prod.title}
+      image={prod.images[0]}
+      id={prod.id}
+      price={prod.price}
+    />
   ))
 
   return (
@@ -79,7 +119,28 @@ const Products = () => {
         SEND
       </button>
       <div className={classes.mainContainer}>
-        <div className={classes.sideBar}></div>
+        <div className={classes.sideBar}>
+          <div className={classes.sortContainer}>
+            <select
+              name='sort'
+              id='sort'
+              defaultValue={'empty'}
+              onChange={(e) => {
+                sort = e.target.value
+                console.log(e.target.value)
+                handleSort()
+              }}
+            >
+              <option disabled value='empty'>
+                Sort
+              </option>
+              <option value='priceAsc'>Price &uarr;</option>
+              <option value='priceDesc'>Price &darr; </option>
+              <option value='nameAsc'>A-Z</option>
+              <option value='nameDesc'>Z-A</option>
+            </select>
+          </div>
+        </div>
         <div className={classes.cardsContainer}>
           {/* <ProductCard
             brand='Adidas'
