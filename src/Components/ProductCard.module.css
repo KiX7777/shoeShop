@@ -12,7 +12,7 @@
   border-radius: 20px;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  animation: 1000ms appear ease forwards;
+  animation: 700ms appear ease forwards;
 }
 
 .container .card:before {

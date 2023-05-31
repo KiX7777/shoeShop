@@ -1,13 +1,15 @@
 .homeContainer {
   width: 100%;
-  height: calc(100dvh - 15rem);
-  padding: 0 4.8rem;
+  height: 100%;
+  padding: 3.2rem 4.8rem;
   position: relative;
 }
 .homeContainer section {
-  margin: 5rem 10rem 0 10rem;
+  margin: 5rem 10rem 10rem 10rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .homeContainer::before {
@@ -126,4 +128,109 @@
   p {
     font-size: 1.8cqi !important;
   }
+}
+.ctaContainer {
+  width: 100%;
+  container-type: inline-size;
+  container-name: cta;
+  max-width: 150rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  overflow: hidden;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.leftCta,
+.rightCta {
+  flex: 1;
+  padding: 2rem;
+}
+
+.leftCta img {
+  width: 100%;
+}
+
+.rightCta {
+  gap: 2rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+.rightCta h1 {
+  font-size: 4.5cqi;
+}
+.rightCta span {
+  color: #ff7d1a;
+}
+.rightCta p {
+  font-size: 1.6cqi;
+  line-height: 150%;
+  width: 80%;
+}
+
+.rightCta::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  right: -40%;
+  bottom: -20%;
+  z-index: -1;
+  position: absolute;
+  background-image: url("/public/shoes/air1-redblack.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+footer {
+  max-width: 150rem;
+  border-radius: 1rem;
+  padding: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  container-type: inline-size;
+  container-name: footer;
+  margin: 15rem 10rem 5rem 10rem;
+}
+footer div {
+  flex: 1;
+  padding: 1rem;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.socials svg {
+  width: 3cqi;
+  cursor: pointer;
+}
+.socials svg path {
+  transition: 300ms ease;
+}
+.socials svg path:hover {
+  fill: #ff7d1a;
+}
+
+.infoContainer {
+  border-left: 2px solid hsl(220, 14%, 75%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+}
+.infoContainer h3 {
+  font-size: 2.4cqi;
+}
+.infoContainer p {
+  font-size: 1.4cqi;
+  text-align: center;
 }/*# sourceMappingURL=Home.module.css.map */

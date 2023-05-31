@@ -65,7 +65,7 @@ const ProductPage = () => {
 
         <div className={classes.infoCont}>
           <div className={classes.titleCont}>
-            <span className={classes.brand}>{product.title}</span>
+            <span className={classes.brand}>{product.brand.toUpperCase()}</span>
             <h2>{product.title}</h2>
           </div>
           <div className={classes.description}>{product.description}</div>

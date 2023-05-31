@@ -21,15 +21,18 @@
   display: flex;
   flex-direction: column;
   z-index: 0;
+  @include flex(center, center);
   position: relative;
 }
 
 .mainContainer {
   flex: 1;
+  width: 100%;
   display: grid;
   grid-template-columns: minmax(20rem, 20%) 1fr;
   padding: 5rem 10rem;
   container-type: inline-size;
+  max-width: 170rem;
   gap: 5rem;
   height: 90%;
 }
@@ -150,7 +153,6 @@
     border: 1px solid black;
   }
 }
-
 .colorFilter input:checked,
 .brandFilter input:checked {
   background-color: $primaryOrange;

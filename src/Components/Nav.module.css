@@ -15,14 +15,14 @@ nav {
 nav .logo {
   justify-self: flex-start;
   margin-right: 8rem;
-  height: 100%;
+  width: 20rem;
 }
 nav .navLeft {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  gap: 2.4rem;
+  gap: 3.2rem;
 }
 nav .navRight {
   display: flex;

@@ -17,15 +17,20 @@
   display: flex;
   flex-direction: column;
   z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
 .mainContainer {
   flex: 1;
+  width: 100%;
   display: grid;
   grid-template-columns: minmax(20rem, 20%) 1fr;
   padding: 5rem 10rem;
   container-type: inline-size;
+  max-width: 170rem;
   gap: 5rem;
   height: 90%;
 }

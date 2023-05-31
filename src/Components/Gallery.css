@@ -34,3 +34,10 @@
 .swiper .swiper-pagination-bullet-active {
   background: orange;
 }
+
+@media screen and (width > 1800px) {
+  .swiper-slide img {
+    width: 80%;
+    object-fit: cover;
+  }
+}

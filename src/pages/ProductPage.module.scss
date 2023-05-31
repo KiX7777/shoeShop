@@ -2,7 +2,7 @@
 @use '../../styles/mixins' as *;
 
 .mainContainer {
-  max-width: 110rem;
+  max-width: 160rem;
   height: calc(100vh - 15rem);
   width: 100%;
   @include flex(center, center);
@@ -558,5 +558,49 @@
   .right {
     left: initial;
     right: 3rem;
+  }
+}
+
+@media screen and (width > 1800px) {
+  .swiper-slide img {
+    width: 80% !important;
+    object-fit: cover !important;
+  }
+
+  .titleCont {
+    h2 {
+      font-size: 4cqi;
+    }
+    .brand {
+      font-size: 2cqi;
+    }
+  }
+  .description {
+    font-size: 2cqi;
+  }
+
+  .current p {
+    font-size: 2.8cqi;
+  }
+  .oldPrice {
+    font-size: 1.4cqi;
+  }
+  .quantity {
+    height: 4cqi;
+  }
+
+  .quantity {
+    button {
+      width: 4cqi;
+      height: 4cqi;
+    }
+  }
+  .size {
+    font-size: 1.8cqi;
+    height: 4cqi;
+  }
+  .addtocart {
+    height: 4cqi;
+    font-size: 1.6cqi;
   }
 }

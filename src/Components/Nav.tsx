@@ -105,7 +105,7 @@ const Nav = () => {
             }}
           />
           <Link to='/'>
-            <img src='../logo.svg' alt='' className={classes.logo} />
+            <img src='/logo.png' alt='' className={classes.logo} />
           </Link>
 
           <li>
