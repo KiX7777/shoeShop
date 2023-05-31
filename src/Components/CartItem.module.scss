@@ -7,6 +7,8 @@
   gap: 1rem;
   justify-content: space-between;
   box-shadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
+  background-color: white;
+  border-radius: 1rem;
   animation: add 500ms ease forwards;
   img {
     width: 4rem;
@@ -106,4 +108,28 @@
 
 .remove {
   animation: remove 500ms ease forwards;
+}
+
+@container productCards (width > 300px) {
+  .productCard {
+    img {
+      width: 8cqi;
+    }
+
+    .cardTxt {
+      p {
+        font-size: 1.8cqi;
+      }
+    }
+    .buttons {
+      margin-right: 1rem;
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+    .plusBtn,
+    .minusBtn {
+      width: 2cqi;
+      height: 2cqi;
+    }
+  }
 }

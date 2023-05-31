@@ -8,6 +8,7 @@ nav {
   margin: 0 auto;
   padding: 3.2em;
   height: 10rem;
+  container-type: inline-size;
   justify-content: space-between;
   transition: 300ms;
   border-bottom: 3px solid $Lightgrayishblue;
@@ -78,6 +79,7 @@ nav {
     text-decoration: none;
     color: $Darkgrayishblue;
     font-size: 1.4rem;
+    font-size: 1.2cqi;
     transition: 300ms ease;
   }
   .hamburger {
@@ -246,5 +248,13 @@ nav {
   .navRight .cart {
     width: 3rem !important;
     height: 3rem !important;
+  }
+}
+
+@media screen and (width > 1800px) {
+  nav {
+    .link {
+      font-size: 1cqi;
+    }
   }
 }

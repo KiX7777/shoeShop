@@ -38,7 +38,7 @@ const CartItem = ({ id }: { id: string }) => {
   return (
     <div ref={cardRef} className={classes.productCard} data-testid='cartItem'>
       {' '}
-      <img src={productitem?.image} alt='product image' />
+      <img src={productitem?.images[0]} alt='product image' />
       <div className={classes.cardTxt}>
         <p className={classes.productTitle}>
           {productitem?.title}

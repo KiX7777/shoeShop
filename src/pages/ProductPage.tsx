@@ -29,11 +29,6 @@ const ProductPage = () => {
   }, [quantity])
 
   let products: Product[]
-
-  function setStorage() {
-    localStorage.setItem('products', JSON.stringify(products))
-  }
-
   products = useAppSelector<Product[]>((state) => state.products.products)
 
   if (products.length === 0) {
@@ -51,9 +46,7 @@ const ProductPage = () => {
     dispatch(cartActions.add(product))
     setquantity(1)
   }
-  function handleRemoveFromCart(id: string) {
-    dispatch(cartActions.remove(id))
-  }
+
   return (
     <ProductPageLayout>
       <main className={classes.mainContainer}>
@@ -78,7 +71,7 @@ const ProductPage = () => {
           <div className={classes.description}>{product.description}</div>
           <div className={classes.pricesCont}>
             <div className={classes.current}>
-              <p className={classes.currPrice}>€{product.price}</p>
+              <p className={classes.currPrice}>{formatPrice(product.price)}</p>
               <span className={classes.discount}>30%</span>
             </div>
             <p className={classes.oldPrice}>

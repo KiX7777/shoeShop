@@ -1,5 +1,6 @@
 import classes from './Cart.module.css'
 import { useAppSelector } from '../store/Store'
+import { Link } from 'react-router-dom'
 import CartItem from './CartItem'
 import { formatPrice } from '../helpers'
 import { uuid } from 'uuidv4'
@@ -75,8 +76,9 @@ const Cart = () => {
       </div>
       <div className={classes.checkout}>
         {total > 0 && <p className={classes.total}>{formatPrice(total)}</p>}
-        <button
-          type='button'
+        {/* <Link to='/checkout'></Link> */}
+        <Link
+          to='/checkout'
           id='checkout'
           onClick={() => {
             console.log(cart)
@@ -88,7 +90,7 @@ const Cart = () => {
           }
         >
           Checkout
-        </button>
+        </Link>
       </div>
     </div>
   )
