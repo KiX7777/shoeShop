@@ -12,7 +12,7 @@ const Cart = () => {
   const total = useAppSelector((state) => state.cart.total)
 
   const cartProducts = cart.map((prod) => (
-    <CartItem key={prod.id} id={prod.id} />
+    <CartItem key={prod.cartID} id={prod.id} cartID={prod.cartID} />
   ))
 
   return (
@@ -77,20 +77,23 @@ const Cart = () => {
       <div className={classes.checkout}>
         {total > 0 && <p className={classes.total}>{formatPrice(total)}</p>}
         {/* <Link to='/checkout'></Link> */}
-        <Link
-          to='/checkout'
-          id='checkout'
-          onClick={() => {
-            console.log(cart)
-          }}
-          className={
-            cart.length > 0
-              ? `${classes.show} ${classes.checkoutBtn}`
-              : `${classes.checkoutBtn}`
-          }
-        >
-          Checkout
-        </Link>
+
+        {
+          <Link
+            to='/checkout'
+            id='checkout'
+            onClick={() => {
+              console.log(cart)
+            }}
+            className={
+              cart.length > 0
+                ? `${classes.show} ${classes.checkoutBtn}`
+                : `${classes.checkoutBtn}`
+            }
+          >
+            Checkout
+          </Link>
+        }
       </div>
     </div>
   )

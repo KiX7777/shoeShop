@@ -1,0 +1,70 @@
+.login {
+  margin: 0 auto;
+  max-width: 50rem;
+  max-height: 50rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40rem;
+  flex-direction: column;
+  gap: 2rem;
+  align-self: baseline;
+  padding: 1rem;
+}
+.login label {
+  font-size: 1.8rem;
+}
+.login input {
+  font-size: 1.4rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ff7d1a;
+}
+.login input::-moz-placeholder {
+  color: hsl(220, 14%, 75%);
+}
+.login input::placeholder {
+  color: hsl(220, 14%, 75%);
+}
+.login input:focus:invalid {
+  outline: 1px solid red;
+}
+.login button {
+  font-size: 1.6rem;
+  padding: 1rem 1.4rem;
+  background-color: #ff7d1a;
+  color: hsl(223, 64%, 98%);
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  border-radius: 0.5rem;
+  margin-top: 1.4rem;
+  transition: 400ms ease;
+}
+.login button:hover {
+  background-color: #e47018;
+}
+.login button:active {
+  scale: 0.95;
+}
+
+.fieldContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.2rem;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+.fieldContainer .error {
+  font-size: 1.3rem;
+  color: red;
+  position: absolute;
+  bottom: -25%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+}/*# sourceMappingURL=Login.module.css.map */

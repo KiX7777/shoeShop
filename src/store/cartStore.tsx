@@ -1,14 +1,27 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Product } from '../pages/Products'
 import { act } from 'react-dom/test-utils'
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { OrderProduct } from '../Components/CheckoutForm'
 
-interface CartProduct extends Product {
+export interface CartProduct extends Product {
+  cartID: string
   quantity: number
   total: number
 }
 
+export interface Order {
+  firstName: string
+  lastName: string
+  phone: string
+  address: string
+  email: string
+  products: OrderProduct[]
+  total: number
+}
+
 type State = {
-  products: Product[]
+  products: CartProduct[]
   isOpen: boolean
   total: number
 }
@@ -27,9 +40,9 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    add(state, action: PayloadAction<Product>) {
+    add(state, action: PayloadAction<CartProduct>) {
       const exists = state.products.find(
-        (product) => product.id === action.payload.id
+        (product) => product.cartID === action.payload.cartID
       )
       if (exists) {
         exists.quantity = exists.quantity + action.payload.quantity
@@ -52,7 +65,7 @@ export const cartSlice = createSlice({
 
     remove(state, action: PayloadAction<string>) {
       const findEl = state.products.find(
-        (product) => product.id === action.payload
+        (product) => product.cartID === action.payload
       )
       if (findEl?.quantity === 1) {
         const filtered = state.products.filter((prod) => prod !== findEl)
@@ -66,12 +79,18 @@ export const cartSlice = createSlice({
 
     delete(state, action: PayloadAction<string>) {
       const findEl = state.products.find(
-        (product) => product.id === action.payload
+        (product) => product.cartID === action.payload
       )
       const filtered = state.products.filter((prod) => prod !== findEl)
       state.products = filtered
 
       state.total = calcTotal(state.products)
+    },
+
+    reset(state) {
+      state.products = []
+      state.total = 0
+      state.isOpen = false
     },
 
     toggleCart(state) {

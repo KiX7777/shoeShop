@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { getImages } from '../helpers'
-
+import CheckoutForm from '../Components/CheckoutForm'
 const Men = () => {
   const [images, setimages] = useState<string[]>([])
   // getImages('/shoes/superstar').then((res) => setimages(res))
@@ -8,6 +7,7 @@ const Men = () => {
   return (
     <div>
       <h1>Men</h1>
+      <CheckoutForm />
     </div>
   )
 }

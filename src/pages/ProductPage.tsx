@@ -6,6 +6,7 @@ import { cartActions } from '../store/cartStore'
 import { Product } from './Products'
 import ProductPageLayout from '../UI/ProductPageLayout'
 import Gallery from '../Components/Gallery'
+import { CartProduct } from '../store/cartStore'
 import { formatPrice } from '../helpers'
 
 const ProductPage = () => {
@@ -38,10 +39,10 @@ const ProductPage = () => {
 
   const product = products.find((prod) => prod.id === id) as Product
 
-  function handleAddToCart(prod: Product) {
-    const product = {
+  function handleAddToCart(prod: CartProduct) {
+    const product: CartProduct = {
       ...prod,
-      id: `${prod.id}${prod.size}${prod.title.slice(0, 10)}`,
+      // cartID: `${prod.id}${prod.size}${prod.title.slice(0, 10)}`,
     }
     dispatch(cartActions.add(product))
     setquantity(1)
@@ -123,7 +124,12 @@ const ProductPage = () => {
               <button
                 className={classes.addtocart}
                 onClick={() => {
-                  const prod = { ...product, quantity: quantity, size: size }
+                  const prod = {
+                    ...product,
+                    quantity: quantity,
+                    size: size,
+                    cartID: `${product.id}${size}${product.title.slice(0, 10)}`,
+                  }
                   console.log(products)
                   handleAddToCart(prod)
                 }}

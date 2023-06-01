@@ -11,6 +11,7 @@ import { useAppDispatch } from './store/Store'
 import { useEffect } from 'react'
 import { fetchData } from './store/productsStore'
 import Checkout from './pages/Checkout'
+import Login from './Components/Login'
 const Products = React.lazy(() => import('./pages/Products'))
 const About = React.lazy(() => import('./pages/About'))
 
@@ -35,7 +36,7 @@ function App() {
               <Route path=':product' element={<ProductPage />} />
             </Route>
             <Route path='/about' element={<About />} />
-            <Route path='/men' element={<Men />} />
+            <Route path='/men' element={<Login />} />
             <Route path='/checkout' element={<Checkout />} />
             <Route path='*' element={<h1>Error 404 - Not Found</h1>} />
           </Routes>

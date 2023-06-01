@@ -5,6 +5,7 @@ import { useAppDispatch } from '../store/Store'
 import { useState, useRef } from 'react'
 import { formatPrice } from '../helpers'
 import { cartActions } from '../store/cartStore'
+import { CartProduct } from '../store/cartStore'
 import { Product } from '../pages/Products'
 const ProductCard = ({ product, id }: { product: Product; id: number }) => {
   const navigate = useNavigate()
@@ -14,15 +15,14 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
   let backgroundStyles = {}
   const [size, setSize] = useState(0)
 
-  function handleAddToCart(prod: Product) {
-    const product = {
+  function handleAddToCart(prod: CartProduct) {
+    const product: CartProduct = {
       ...prod,
-      id: `${prod.id}${prod.size}${prod.title.slice(0, 10)}`,
     }
     if (size === 0) {
       return
     }
-    dispatch(cartActions.add(product))
+    dispatch(cartActions.add(prod))
     setSize(0)
   }
 
@@ -171,8 +171,14 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
           <a
             href='#'
             onClick={() => {
-              const prod = { ...product, quantity: 1, size: size }
+              const prod: CartProduct = {
+                ...product,
+                quantity: 1,
+                size: size,
+                cartID: `${product.id}${size}${product.title.slice(0, 10)}`,
+              }
               handleAddToCart(prod)
+              console.log(size)
             }}
           >
             Add to cart

@@ -4,11 +4,12 @@ import { useAppDispatch, useAppSelector } from '../store/Store'
 import { cartActions } from '../store/cartStore'
 import { Product } from '../pages/Products'
 import { formatPrice } from '../helpers'
+import { CartProduct } from '../store/cartStore'
 
-const CartItem = ({ id }: { id: string }) => {
+const CartItem = ({ id, cartID }: { id: string; cartID: string }) => {
   const cart = useAppSelector((state) => state.cart.products)
   const dispatch = useAppDispatch()
-  const productitem = cart.find((prod) => prod.id === id) as Product
+  const productitem = cart.find((prod) => prod.cartID === cartID) as Product
   const cardRef = useRef<HTMLDivElement>(null)
 
   function handleDelete(id: string) {
@@ -19,7 +20,7 @@ const CartItem = ({ id }: { id: string }) => {
     }, 500)
   }
 
-  function handleAdd(prod: Product) {
+  function handleAdd(prod: CartProduct) {
     dispatch(cartActions.add(prod))
   }
   function handleMinus(id: string) {
@@ -57,7 +58,13 @@ const CartItem = ({ id }: { id: string }) => {
         <button
           className={classes.plusBtn}
           onClick={() => {
-            const prod = { ...productitem, quantity: 1 }
+            const prod = {
+              ...productitem,
+              quantity: 1,
+              cartID: `${productitem.id}${
+                productitem.size
+              }${productitem.title.slice(0, 10)}`,
+            }
             handleAdd(prod)
           }}
         >
@@ -69,13 +76,13 @@ const CartItem = ({ id }: { id: string }) => {
           alt='trash can icon'
           data-testid='deleteBtn'
           onClick={() => {
-            handleDelete(id)
+            handleDelete(cartID)
           }}
         />
         <button
           className={classes.minusBtn}
           onClick={() => {
-            handleMinus(id)
+            handleMinus(cartID)
           }}
         >
           <img src='/icon-minus.svg' alt='' />

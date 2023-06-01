@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../store/Store'
 import { Product } from './Products'
 import { useNavigate } from 'react-router-dom'
-import { cartActions } from '../store/cartStore'
+import { CartProduct, cartActions } from '../store/cartStore'
 import classes from './Product.module.css'
 import { CSSTransition } from 'react-transition-group'
 
@@ -14,50 +14,54 @@ const ProductItem = () => {
   const cart = useAppSelector((state) => state.cart.products)
   const params = useParams()
   const id = params.product!.slice(8)
-  const product = products.find((prod) => prod.id === id) as Product
+  const product = products.find((prod) => prod.id === id)
 
-  function handleAddToCart(prod: Product) {
+  function handleAddToCart(prod: CartProduct) {
     dispatch(cartActions.add(prod))
   }
   function handleRemoveFromCart(id: string) {
     dispatch(cartActions.remove(id))
   }
-  return (
-    <div>
-      <button
-        onClick={() => {
-          navigate(-1)
-        }}
-      >
-        ◀️
-      </button>
-      <h1>{product?.title}</h1>
-      <h2>{`${product?.price}€`}</h2>
-      <p>{product?.description}</p>
-      <img src={product?.image} alt='' className={classes.productImg} />
-      <button
-        onClick={() => {
-          handleAddToCart(product)
-        }}
-      >
-        ADD TO CART
-      </button>
-      <button
-        onClick={() => {
-          handleRemoveFromCart(product.id)
-        }}
-      >
-        REMOVE FROM CART
-      </button>
-      <button
-        onClick={() => {
-          console.log(...cart)
-        }}
-      >
-        CART STATUS
-      </button>
-    </div>
-  )
+  return <></>
+  // <div>
+  //   <button
+  //     onClick={() => {
+  //       navigate(-1)
+  //     }}
+  //   >
+  //     ◀️
+  //   </button>
+  //   <h1>{product?.title}</h1>
+  //   <h2>{`${product?.price}€`}</h2>
+  //   <p>{product?.description}</p>
+  //   <img src={product?.image} alt='' className={classes.productImg} />
+  //   <button
+  //     onClick={() => {
+  //       const prod = {
+  //         ...product,
+  //         quantity: 1,
+  //         size: size,
+  //         cartID: `${product.id}${product.size}${product.title.slice(0, 10)}`,
+  //       }
+  //     }}
+  //   >
+  //     ADD TO CART
+  //   </button>
+  //   <button
+  //     onClick={() => {
+  //       handleRemoveFromCart(product.id)
+  //     }}
+  //   >
+  //     REMOVE FROM CART
+  //   </button>
+  //   <button
+  //     onClick={() => {
+  //       console.log(...cart)
+  //     }}
+  //   >
+  //     CART STATUS
+  //   </button>
+  // </div>
 }
 
 export default ProductItem

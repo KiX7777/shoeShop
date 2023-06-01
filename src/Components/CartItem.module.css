@@ -115,10 +115,10 @@
 
 @container productCards (width > 300px) {
   .productCard img {
-    width: 8cqi;
+    width: 6cqi;
   }
   .productCard .cardTxt p {
-    font-size: 1.8cqi;
+    font-size: 1.6cqi;
   }
   .productCard .buttons {
     margin-right: 1rem;

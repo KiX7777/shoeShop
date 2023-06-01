@@ -1,0 +1,74 @@
+@use '../../styles/colors' as *;
+@use '../../styles/mixins' as *;
+
+.form {
+  // background-color: lightcoral;
+  margin: 0 auto;
+  max-width: 50rem;
+  max-height: 50rem;
+  @include flex(center, center);
+  width: 50%;
+  flex-direction: column;
+  gap: 2rem;
+  align-self: baseline;
+  padding: 1rem;
+
+  label {
+    font-size: 1.8rem;
+  }
+
+  input {
+    font-size: 1.4rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid $primaryOrange;
+  }
+
+  input::placeholder {
+    color: $Grayishblue;
+  }
+
+  input:focus:invalid {
+    outline: 1px solid red;
+  }
+
+  button {
+    font-size: 1.6rem;
+    padding: 1rem 1.4rem;
+    background-color: $primaryOrange;
+    color: $Lightgrayishblue;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-top: 1.4rem;
+    transition: 400ms ease;
+  }
+
+  button:hover {
+    background-color: #e47018;
+  }
+  button:active {
+    scale: 0.95;
+  }
+}
+
+.fieldContainer {
+  @include flex(center, flex-start);
+  gap: 0.2rem;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  // max-width: 45rem;
+
+  .error {
+    font-size: 1.3rem;
+    color: red;
+    position: absolute;
+    bottom: -25%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+}
