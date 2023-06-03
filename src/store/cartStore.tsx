@@ -18,6 +18,7 @@ export interface Order {
   email: string
   products: OrderProduct[]
   total: number
+  date: string
 }
 
 type State = {

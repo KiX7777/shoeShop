@@ -13,32 +13,41 @@ const Orders = () => {
   // let list
   useEffect(() => {
     const or = orders[0]
-    let products: OrderProduct[] = []
+    let products: JSX.Element[] = []
     let arr: any = []
     if (or) {
       for (const key in or) {
         let el = or[key as keyof Order]
         arr.push(el) as Order
-        console.log(arr)
-        console.log(arr[0].products[1])
       }
 
-      arr.forEach((order: Order) => {
-        products.push(...order.products)
-        console.log(products)
+      arr.forEach((order: Order, idx: number) => {
+        console.log(order.firstName, order.products)
+        const elem = (
+          <div
+            style={{
+              marginBottom: '20px',
+              border: '1px solid black',
+              borderRadius: '10px',
+            }}
+            key={order.firstName + order.total + order.lastName + idx}
+          >
+            <h1>{order.date}</h1>
+            {order.products.map((ord, idx) => (
+              <div key={idx}>
+                <h2>
+                  {ord.name} <small>x</small> {ord.quantity}
+                </h2>
+                <h2>={formatPrice(ord.total)}</h2>
+              </div>
+            ))}
+            <h1>TOTAL: {formatPrice(order.total)}</h1>
+          </div>
+        )
+        products.push(elem)
       })
 
-      // products.map()
-
-      const lista = products.map((order) => (
-        <div key={order.id + order.size + order.total}>
-          <h1>{order.name}</h1>
-          <h3>{order.size}</h3>
-          <h2>{formatPrice(order.total)}</h2>
-        </div>
-      ))
-      setList(lista)
-      console.log(products)
+      setList(products)
     }
   }, [orders])
   return <div className={classes.ordersContainer}>{list}</div>

@@ -50,6 +50,7 @@ const CheckoutForm = () => {
     phone: '',
     email: '',
   }
+  const date = new Date().toLocaleString()
   const nameRegex = /^[\p{L} ]+$/gu
   const phoneRegex = /\+385[0-9]{8,9}$/
   const emailRegex =
@@ -79,6 +80,7 @@ const CheckoutForm = () => {
           phone: values.phone,
           products: orderedProducts,
           total: cartTotal,
+          date: date,
         }
         console.log(order)
         dispatch(sendOrder({ id, order }))
