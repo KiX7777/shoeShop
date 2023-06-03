@@ -1,6 +1,31 @@
 @use '../../styles/colors' as *;
 @use '../../styles/mixins' as *;
 
+@mixin btn {
+  font-size: 1.6rem;
+  padding: 1rem 1.4rem;
+  background-color: $primaryOrange;
+  color: $Lightgrayishblue;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  max-width: 40rem;
+  border-radius: 0.5rem;
+  margin-top: 1.4rem;
+  transition: 400ms ease;
+}
+
+.loginContainer {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  h1 {
+    text-align: center;
+  }
+}
+
 .login {
   // background-color: lightcoral;
   margin: 0 auto;
@@ -11,7 +36,6 @@
   flex-direction: column;
   gap: 2rem;
   align-self: baseline;
-  padding: 1rem;
 
   label {
     font-size: 1.8rem;
@@ -32,26 +56,20 @@
   input:focus:invalid {
     outline: 1px solid red;
   }
+}
 
-  button {
-    font-size: 1.6rem;
-    padding: 1rem 1.4rem;
-    background-color: $primaryOrange;
-    color: $Lightgrayishblue;
-    cursor: pointer;
-    border: none;
-    width: 100%;
-    border-radius: 0.5rem;
-    margin-top: 1.4rem;
-    transition: 400ms ease;
-  }
+.loginBtn,
+.loginBtns {
+  @include btn;
+}
 
-  button:hover {
-    background-color: #e47018;
-  }
-  button:active {
-    scale: 0.95;
-  }
+.loginBtn:hover,
+.loginBtns:hover {
+  background-color: #e47018;
+}
+.loginBtn:active,
+.loginBtns:active {
+  scale: 0.95;
 }
 
 .fieldContainer {

@@ -6,6 +6,7 @@ import { cartActions } from '../store/cartStore'
 import { sendOrder } from '../store/userStore'
 import * as Yup from 'yup'
 import { Order } from '../store/cartStore'
+import { pushOrder } from '../hooks/useFirebaseEmailPasswordAuth'
 
 interface FormValues {
   firstName: string
@@ -28,6 +29,8 @@ const CheckoutForm = () => {
   const cartProducts = useAppSelector((state) => state.cart.products)
   const isOrdering = useAppSelector((state) => state.user.isOrdering)
   const orderError = useAppSelector((state) => state.user.error)
+  const id = useAppSelector((state) => state.user.id)
+  console.log(id)
   let orderedProducts = cartProducts.map((prod) => {
     const product: OrderProduct = {
       name: prod.title,
@@ -78,7 +81,8 @@ const CheckoutForm = () => {
           total: cartTotal,
         }
         console.log(order)
-        dispatch(sendOrder(order))
+        dispatch(sendOrder({ id, order }))
+        // pushOrder(username, order)
         if (!isOrdering && !orderError) {
           dispatch(cartActions.reset())
         }

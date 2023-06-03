@@ -18,12 +18,10 @@
 }
 
 .cartProducts {
-  @include flex(center, center);
+  display: grid;
   gap: 1rem;
   width: 100%;
   transition: 300ms;
-  flex: 1;
-  flex-wrap: wrap;
   overflow-y: scroll;
   padding-right: 0.5rem;
 }
@@ -52,6 +50,8 @@
   transition: 300ms ease-in-out;
   // display: none;
   transform-origin: top;
+  container-type: inline-size;
+  container-name: cart;
 
   span {
     align-self: flex-start;
@@ -63,9 +63,11 @@
     font-size: 1.4rem;
     position: absolute;
     top: 50%;
+    left: 50%;
     display: none;
     color: $Darkgrayishblue;
     font-weight: bold;
+    transform: translate(-50%, -50%);
   }
 
   .checkoutBtn {
@@ -133,5 +135,26 @@
 
   .delete {
     width: 2rem;
+  }
+}
+
+@media screen and (width>1800px) {
+  .cartContainer {
+    width: 45rem;
+    height: 45rem;
+
+    .emptymsg {
+      font-size: 1.8rem;
+    }
+    span {
+      font-size: 1.6rem;
+    }
+
+    .checkoutBtn {
+      font-size: 1.6rem;
+    }
+  }
+  .total {
+    font-size: 1.6rem;
   }
 }

@@ -112,3 +112,10 @@ export function sortNameDesc(a: Product, b: Product) {
   }
   return 0
 }
+
+export function setLocalStorage(token: string) {
+  localStorage.setItem('token', token)
+}
+export function loadLocalStorage() {
+  localStorage.getItem('token')
+}

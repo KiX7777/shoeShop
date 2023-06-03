@@ -133,3 +133,14 @@
     }
   }
 }
+
+@media screen and (width>1800px) {
+  .productCard {
+    img {
+      width: 6rem;
+    }
+    .cardTxt p {
+      font-size: 1.6rem;
+    }
+  }
+}

@@ -256,5 +256,18 @@ nav {
     .link {
       font-size: 1cqi;
     }
+    .navRight {
+      .cartIcon {
+        width: 1.2cqi;
+        height: 1.2cqi;
+      }
+      .incart {
+        padding: 0.4rem 0.6rem;
+      }
+
+      img {
+        width: 4.5rem;
+      }
+    }
   }
 }

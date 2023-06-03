@@ -1,0 +1,8 @@
+.ordersContainer {
+  width: 100%;
+  max-width: 150rem;
+  container-type: inline-size;
+  background-color: red;
+  padding: 1rem;
+  height: 70vh;
+}/*# sourceMappingURL=Orders.module.css.map */

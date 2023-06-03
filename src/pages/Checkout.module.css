@@ -8,6 +8,7 @@
   flex-direction: column;
   padding: 2rem;
   max-width: 150rem;
+  margin: 0 auto;
 }
 
 .productCards {

@@ -190,4 +190,14 @@ nav .hamburger {
   nav .link {
     font-size: 1cqi;
   }
+  nav .navRight .cartIcon {
+    width: 1.2cqi;
+    height: 1.2cqi;
+  }
+  nav .navRight .incart {
+    padding: 0.4rem 0.6rem;
+  }
+  nav .navRight img {
+    width: 4.5rem;
+  }
 }/*# sourceMappingURL=Nav.module.css.map */

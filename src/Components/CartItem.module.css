@@ -130,4 +130,12 @@
     width: 2cqi;
     height: 2cqi;
   }
+}
+@media screen and (width > 1800px) {
+  .productCard img {
+    width: 6rem;
+  }
+  .productCard .cardTxt p {
+    font-size: 1.6rem;
+  }
 }/*# sourceMappingURL=CartItem.module.css.map */

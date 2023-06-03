@@ -1,3 +1,13 @@
+.loginContainer {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.loginContainer h1 {
+  text-align: center;
+}
+
 .login {
   margin: 0 auto;
   max-width: 50rem;
@@ -9,7 +19,6 @@
   flex-direction: column;
   gap: 2rem;
   align-self: baseline;
-  padding: 1rem;
 }
 .login label {
   font-size: 1.8rem;
@@ -30,7 +39,9 @@
 .login input:focus:invalid {
   outline: 1px solid red;
 }
-.login button {
+
+.loginBtn,
+.loginBtns {
   font-size: 1.6rem;
   padding: 1rem 1.4rem;
   background-color: #ff7d1a;
@@ -38,14 +49,19 @@
   cursor: pointer;
   border: none;
   width: 100%;
+  max-width: 40rem;
   border-radius: 0.5rem;
   margin-top: 1.4rem;
   transition: 400ms ease;
 }
-.login button:hover {
+
+.loginBtn:hover,
+.loginBtns:hover {
   background-color: #e47018;
 }
-.login button:active {
+
+.loginBtn:active,
+.loginBtns:active {
   scale: 0.95;
 }
 

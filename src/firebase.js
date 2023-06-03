@@ -8,6 +8,8 @@ export const firebaseConfig = {
   storageBucket: 'ecommerce-e8b82.appspot.com',
   messagingSenderId: '505044683608',
   appId: '1:505044683608:web:1c1d31cfcb76ef47a7b32d',
+  databaseURL:
+    'https://ecommerce-e8b82-default-rtdb.europe-west1.firebasedatabase.app/',
 }
 
 // Initialize Firebase
