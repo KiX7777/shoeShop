@@ -1,0 +1,48 @@
+.profileContainer {
+  height: calc(100dvh - 10rem);
+  position: relative;
+  padding: 4rem 2rem;
+}
+
+.passChange {
+  display: grid;
+  width: 30rem;
+}
+.passChange form {
+  display: grid;
+  gap: 2rem;
+}
+.passChange form button {
+  font-size: 1.6rem;
+  background-color: #ff7d1a;
+  color: hsl(223, 64%, 98%);
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  height: 4rem;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  max-width: 40rem;
+  border-radius: 0.5rem;
+  transition: 400ms ease;
+}
+.passChange .inputContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.passChange .inputContainer label {
+  font-size: 1.8rem;
+}
+.passChange .inputContainer input {
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ff7d1a;
+}
+.passChange .inputContainer p {
+  font-size: 1.2rem;
+  width: 100%;
+  color: red;
+  text-align: center;
+  position: absolute;
+  bottom: -35%;
+}/*# sourceMappingURL=Profile.module.css.map */

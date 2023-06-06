@@ -1,17 +1,17 @@
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '../firebase'
+import { getStorage, uploadBytes, uploadBytesResumable } from 'firebase/storage'
+
 import {
   getDatabase,
   ref,
   child,
-  get,
   set,
-  getReference,
   onValue,
-  push,
-  onChildChanged,
-  onChildAdded,
-  onChildRemoved,
+  get,
+  query,
+  orderByChild,
+  equalTo,
 } from 'firebase/database'
 
 import {
@@ -22,12 +22,17 @@ import {
   signOut,
   updateProfile,
   sendEmailVerification,
+  signInWithPopup,
+  fetchSignInMethodsForEmail,
+  GoogleAuthProvider,
+  updatePassword,
+  linkWithPopup,
 } from 'firebase/auth'
-import { userActions } from '../store/userStore'
 
 const firebaseApp = initializeApp(firebaseConfig)
 export const auth = getAuth(firebaseApp)
-
+auth.useDeviceLanguage()
+const provider = new GoogleAuthProvider()
 export const db = getDatabase(firebaseApp)
 export const user = auth.currentUser
 
@@ -66,7 +71,6 @@ export const writed = async (userData) => {
   const nodeRef = child(usersRef, `${userData.id}`)
   await set(nodeRef, userData)
 }
-console.log(new Date().toLocaleString())
 
 export const pushOrder = async (id, order) => {
   console.log(id)
@@ -74,6 +78,12 @@ export const pushOrder = async (id, order) => {
   const date = new Date()
   const nodeRef = child(userRef, `orders/${date}`)
   await set(nodeRef, order)
+}
+export const setPic = async (id, url) => {
+  console.log(id)
+  let userRef = ref(db, `users/${id}`)
+  const nodeRef = child(userRef, `profilepic`)
+  await set(nodeRef, url)
 }
 
 // writed()
@@ -108,14 +118,6 @@ const useFirebaseEmailPasswordAuth = () => {
 
 export default useFirebaseEmailPasswordAuth
 
-// onAuthStateChanged(auth, (user) => {
-//   if (user) {
-//     console.log(user)
-//   } else {
-//     console.log('there is no user')
-//   }
-// })
-
 export async function getUserData() {
   const currentUser = auth.currentUser
   console.log(currentUser)
@@ -124,7 +126,7 @@ export async function getUserData() {
 export async function logOut() {
   signOut(auth)
     .then(() => {
-      alert('Signed out.')
+      return 'Logged out!'
     })
     .catch((error) => {
       console.log(error.message)
@@ -135,8 +137,18 @@ export async function updateUsername(username) {
   updateProfile(auth.currentUser, {
     displayName: username,
   })
+    .then(() => {})
+    .catch((err) => {
+      console.log(err.message)
+    })
+}
+
+export async function updatePic(url) {
+  updateProfile(auth.currentUser, {
+    photoURL: url,
+  })
     .then(() => {
-      alert('Username updated!')
+      alert('Profile picture updated!')
     })
     .catch((err) => {
       console.log(err.message)
@@ -153,17 +165,93 @@ export async function verifyMail() {
     })
 }
 
-export async function updateCart() {
-  const currentUser = auth.currentUser
-}
-
-//TODO
-// UPDATE PREV ORDERS STATE ON ORDER
-
 export function listenchanges(id) {
   let orderRef = ref(db, `users/${id}/orders`)
 
   onValue(orderRef, (snapshot) => {
     console.log(snapshot.val())
   })
+}
+
+export const GoogleSign = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider)
+    const credential = GoogleAuthProvider.credentialFromResult(result)
+    const token = credential.accessToken
+
+    const user = result.user
+    console.log(result)
+    console.log(credential)
+    console.log(token)
+    console.log(user)
+    return {
+      user: user,
+      token: credential.accessToken,
+    }
+  } catch (error) {
+    const errorCode = error.code
+    const errorMsg = error.message
+    const email = error.customData.email
+    const credential = GoogleAuthProvider.credentialFromError(error)
+  }
+}
+
+export const linkUsers = async () => {
+  fetchSignInMethodsForEmail(auth, auth.currentUser.email).then((res) => {
+    console.log(res)
+
+    if (res.includes('password')) {
+      // const credential = EmailAuthProvider.credential(
+      //   auth.currentUser.email,
+      //   pass
+      // )
+
+      linkWithPopup(auth.currentUser, provider)
+        // .then((cred) => console.log(cred.user))
+        .then((res) => {
+          const credential = GoogleAuthProvider.credentialFromResult(res)
+          const user = res.user
+          console.log(credential, user)
+        })
+        .catch((err) => {
+          console.log(err.message)
+          if (
+            err.message === 'Firebase: Error (auth/provider-already-linked).'
+          ) {
+            console.log('linked')
+          }
+          return err
+        })
+    }
+  })
+}
+
+export async function checkUsername(username) {
+  const usersRef = query(
+    ref(db, 'users'),
+    ...[orderByChild('userName'), equalTo(username)]
+  )
+  const snapshot = await get(usersRef)
+  const data = snapshot.val()
+  return data
+}
+
+export async function updateCart(id, cart) {
+  let userRef = ref(db, `users/${id}`)
+  const nodeRef = child(userRef, `cart`)
+  await set(nodeRef, cart)
+}
+
+export async function changePass(password, id) {
+  try {
+    await updatePassword(auth.currentUser, password)
+
+    let userRef = ref(db, `users/${id}`)
+    const nodeRef = child(userRef, `password`)
+    await set(nodeRef, password)
+    console.log('pass changed')
+    logOut()
+  } catch (error) {
+    console.log(error)
+  }
 }

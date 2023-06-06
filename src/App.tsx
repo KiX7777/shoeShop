@@ -9,14 +9,14 @@ import Men from './pages/Men'
 import ProductPage from './pages/ProductPage'
 import { useAppDispatch, useAppSelector } from './store/Store'
 import { useEffect } from 'react'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, fetchSignInMethodsForEmail } from 'firebase/auth'
 import { ref, onValue } from 'firebase/database'
 import { setLocalStorage } from './helpers'
 import { fetchData } from './store/productsStore'
 import Checkout from './pages/Checkout'
-import Login from './Components/Login'
+import Profile from './pages/Profile'
 import { userActions } from './store/userStore'
-import { listenchanges } from './hooks/useFirebaseEmailPasswordAuth'
+import { listenchanges, updateCart } from './hooks/useFirebaseEmailPasswordAuth'
 import {
   auth,
   user,
@@ -31,17 +31,15 @@ const About = React.lazy(() => import('./pages/About'))
 function App() {
   let initial = true
   const dispatch = useAppDispatch()
-  const loggedIn = useAppSelector((state) => state.user.loggedIn)
+  const user = useAppSelector((state) => state.user)
+  const cart = useAppSelector((state) => state.cart)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log(user)
-        // getData()
-        user.getIdToken().then((res) => {
-          setLocalStorage(res)
-          updateToken(user.uid, res)
-        })
+        const providers = user.providerData
+        const currProv = user.providerId
 
         let userRef = ref(db, `users/${user.uid}`)
         onValue(userRef, (snapshot) => {
@@ -49,9 +47,18 @@ function App() {
           console.log(user)
           dispatch(userActions.updateStore(user))
         })
+
+        // getData()
+        user.getIdToken().then((res) => {
+          setLocalStorage(res)
+
+          updateToken(user.uid, res)
+        })
         listenchanges(user.uid)
       } else {
+        dispatch(userActions.resetState())
         console.log('there is no user')
+        return
       }
     })
 
@@ -59,16 +66,9 @@ function App() {
       dispatch(fetchData())
       initial = false
     }
+    console.log(auth.currentUser?.uid)
   }, [])
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token')
-
-  //   if (token) {
-  //     console.log(token)
-  //   }
-  //   return () => {}
-  // }, [])
   return (
     <>
       <Layout>
@@ -80,9 +80,13 @@ function App() {
               {/* <Route path=':product' element={<Product />} /> */}
               <Route path=':product' element={<ProductPage />} />
             </Route>
-            {loggedIn && <Route path='/about' element={<About />} />}{' '}
-            <Route path='/men' element={<Login />} />
-            <Route path='/women' element={<Orders />} />
+            {user.loggedIn && <Route path='/about' element={<About />} />}
+
+            <Route path='/profile'>
+              <Route index element={<Profile />} />
+              <Route path='orders' element={<Orders />} />
+            </Route>
+
             <Route path='/checkout' element={<Checkout />} />
             <Route path='*' element={<h1>Error 404 - Not Found</h1>} />
           </Routes>

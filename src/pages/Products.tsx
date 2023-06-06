@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import { useAppDispatch } from '../store/Store'
 import { fetchData } from '../store/productsStore'
 import { useAppSelector } from '../store/Store'
@@ -11,6 +11,7 @@ import Skeleton from 'react-loading-skeleton'
 import ProductCard from '../Components/ProductCard'
 import SidebarLoading from '../Components/SidebarLoading'
 import { pushImages } from '../helpers'
+import { useNavigate } from 'react-router-dom'
 import CardsLoading from '../Components/CardsLoadingSkeleton'
 import {
   sortPriceUp,
@@ -30,26 +31,16 @@ export interface Product {
   size: number
   title: string
   quantity: number
-  image: string
   images: string[]
   total: number
 }
 let initial = true
-// let proizvod = {
-//   category: "men's clothing",
-//   description:
-//     'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
-//   id: 1,
-//   image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-//   price: 109.95,
-//   favorite: false,
-//   rating: { rate: 3.9, count: 120 },
-//   title: 'Fjallraven - Foldsack No. 1 Backpack, Fits',
-// }
 
 const Products = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
   let products: Product[]
+  const navigate = useNavigate()
 
   products = useAppSelector<Product[]>((state) => state.products.products)
   const error = useAppSelector((state) => state.products.error)
@@ -78,32 +69,65 @@ const Products = () => {
     }
   }
 
+  useEffect(() => {
+    setSearchParams(searchParams)
+  }, [filteredColors, brandFilters, sort])
+
+  useEffect(() => {
+    let colorsQuery = searchParams.get('color')?.split(',')
+    let brandQuery = searchParams.get('brand')?.split(',')
+    let sortQuery = searchParams.get('sort')
+    if (colorsQuery) {
+      setFilteredColors(colorsQuery)
+    }
+    if (brandQuery) {
+      setBrandFilters(brandQuery)
+    }
+    if (sortQuery) {
+      setsort(sortQuery)
+    }
+  }, [])
+
   let filteredProducts: Product[]
   filteredProducts = products
     .filter((product) => {
       if (filteredColors.length === 0) {
+        searchParams.delete('color')
         return true
       } else {
+        searchParams.set('color', filteredColors.join(','))
         return filteredColors.includes(product.color)
       }
     })
     .filter((product) => {
       if (brandFilters.length === 0) {
+        searchParams.delete('brand')
         return true
       } else {
+        searchParams.set('brand', brandFilters.join(','))
+
         return brandFilters.includes(product.brand)
       }
     })
     .sort((a, b) => {
       if (sort === 'priceAsc') {
+        searchParams.set('sort', sort)
         return sortPriceUp(a, b)
       } else if (sort === 'priceDesc') {
+        searchParams.set('sort', sort)
+
         return sortPriceDown(a, b)
       } else if (sort === 'nameDesc') {
+        searchParams.set('sort', sort)
+
         return sortNameDesc(a, b)
       } else if (sort === 'nameAsc') {
+        searchParams.set('sort', sort)
+
         return sortNameAsc(a, b)
       } else {
+        searchParams.delete('sort')
+
         return 0
       }
     })
@@ -151,12 +175,19 @@ const Products = () => {
             </div>
             <div className={classes.filterContainer}>
               <div className={classes.colorFilterContainer}>
-                <h3>Color</h3>
+                <h3
+                  onClick={() => {
+                    console.log(filteredColors)
+                  }}
+                >
+                  Color
+                </h3>
                 <div className={classes.colorFilter}>
                   <label htmlFor='black'>Black</label>
                   <input
                     type='checkbox'
                     name='black'
+                    checked={filteredColors.includes('black')}
                     id='black'
                     onChange={() => {
                       handleColorFilter('black')
@@ -168,6 +199,7 @@ const Products = () => {
                   <input
                     type='checkbox'
                     name='Blue'
+                    checked={filteredColors.includes('blue')}
                     id='Blue'
                     onChange={() => {
                       handleColorFilter('blue')
@@ -178,6 +210,7 @@ const Products = () => {
                   <label htmlFor='Green'>Green</label>
                   <input
                     type='checkbox'
+                    checked={filteredColors.includes('green')}
                     name='Green'
                     id='Green'
                     onChange={() => {
@@ -190,6 +223,7 @@ const Products = () => {
                   <input
                     type='checkbox'
                     name='Grey'
+                    checked={filteredColors.includes('grey')}
                     id='Grey'
                     onChange={() => {
                       handleColorFilter('grey')
@@ -200,6 +234,7 @@ const Products = () => {
                   <label htmlFor='Red'>Red</label>
                   <input
                     type='checkbox'
+                    checked={filteredColors.includes('red')}
                     name='Red'
                     id='Red'
                     onChange={() => {
@@ -212,6 +247,7 @@ const Products = () => {
                   <input
                     type='checkbox'
                     name='White'
+                    checked={filteredColors.includes('white')}
                     id='White'
                     onChange={() => {
                       handleColorFilter('white')

@@ -1,7 +1,105 @@
+@use '../../styles/colors' as *;
+@use '../../styles/mixins' as *;
+
 .ordersContainer {
   width: 100%;
-  max-width: 150rem;
+  display: grid;
+  place-items: center;
+  height: calc(100dvh - 10rem);
   container-type: inline-size;
+}
+
+.ordersList {
+  width: 70%;
+  max-width: 150rem;
+  @include flex(initial, center);
+  flex-direction: column;
+  container-type: inline-size;
+  gap: 1rem;
+  height: 70%;
+  overflow-y: auto;
+}
+.ordersList::before {
+  content: 'Orders';
+  font-size: 2.4cqi;
+  font-weight: bold;
+}
+
+.order {
+  border: 1px solid $primaryOrange;
+  border-radius: 10px;
   padding: 1rem;
-  height: 70vh;
+  width: 100%;
+  h1 {
+    font-size: 2.4cqi;
+  }
+}
+
+.order h1:last-of-type {
+  font-size: 2.8cqi;
+}
+.orderedProduct {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  img {
+    width: 5cqi;
+  }
+}
+
+.orderInfo {
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 1.8cqi;
+  }
+}
+
+.order h1:last-of-type {
+  border-top: 2px solid black;
+}
+
+.ordersList::-webkit-scrollbar {
+  width: 10px;
+}
+.ordersList::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  border-right: 2px solid white;
+  border-top: 15px solid white;
+  border-left: 5px solid white;
+  border-bottom: 10px solid white;
+  background-color: $primaryOrange;
+  visibility: hidden;
+}
+.ordersList:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+@media screen and (width < 500px) {
+  .ordersList {
+    width: 90%;
+  }
+  .ordersList::-webkit-scrollbar-thumb {
+    visibility: visible;
+  }
+  .order {
+    h1 {
+      font-size: 4cqi;
+    }
+
+    img {
+      width: 8cqi;
+    }
+  }
+  .orderInfo {
+    h2 {
+      font-size: 3.2cqi;
+    }
+  }
+
+  .order h1:last-of-type {
+    font-size: 4.6cqi;
+  }
 }

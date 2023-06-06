@@ -1,0 +1,45 @@
+@use '../../styles/colors' as *;
+@use '../../styles/mixins' as *;
+
+.profileContainer {
+  height: calc(100dvh - 10rem);
+  position: relative;
+  padding: 4rem 2rem;
+}
+
+.passChange {
+  display: grid;
+  width: 30rem;
+
+  form {
+    display: grid;
+    gap: 2rem;
+    button {
+      @include btn();
+    }
+  }
+
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    label {
+      font-size: 1.8rem;
+    }
+
+    input {
+      font-size: 1.6rem;
+      border-radius: 0.5rem;
+      border: 1px solid $primaryOrange;
+    }
+    p {
+      font-size: 1.2rem;
+      width: 100%;
+      color: red;
+      text-align: center;
+      position: absolute;
+      bottom: -35%;
+    }
+  }
+}

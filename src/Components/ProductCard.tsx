@@ -2,15 +2,16 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import classes from './ProductCard.module.css'
 import { useAppDispatch } from '../store/Store'
-import { useState, useRef } from 'react'
 import { formatPrice } from '../helpers'
 import { cartActions } from '../store/cartStore'
+import { useEffect, useRef, useState } from 'react'
 import { CartProduct } from '../store/cartStore'
 import { Product } from '../pages/Products'
 const ProductCard = ({ product, id }: { product: Product; id: number }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const sizeRef = useRef<HTMLSpanElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
   const brandName: string = product.brand
   let backgroundStyles = {}
   const [size, setSize] = useState(0)
@@ -25,6 +26,19 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
     dispatch(cartActions.add(prod))
     setSize(0)
   }
+
+  useEffect(() => {
+    const allChild = cardRef.current?.children as HTMLCollectionOf<HTMLElement>
+    const els = Array.from(allChild)
+
+    cardRef.current?.addEventListener('animationend', () => {
+      els.forEach((el) => {
+        const all = el.querySelectorAll('*') as any
+        all.forEach((node: any) => (node.style.pointerEvents = 'auto'))
+      })
+    })
+    return () => {}
+  }, [])
 
   if (brandName === 'Nike') {
     backgroundStyles = {
@@ -80,6 +94,8 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
     <div className={classes.container}>
       <div
         className={classes.card}
+
+        ref={cardRef}
         style={{
           animationDelay: `${id * 200}ms`,
         }}
@@ -174,6 +190,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
               const prod: CartProduct = {
                 ...product,
                 quantity: 1,
+                thumb: product.images[0],
                 size: size,
                 cartID: `${product.id}${size}${product.title.slice(0, 10)}`,
               }

@@ -1,5 +1,21 @@
+@use '../styles/colors' as *;
+
 @mixin flex($justify, $align) {
   display: flex;
   justify-content: $justify;
   align-items: $align;
+}
+@mixin btn {
+  font-size: 1.6rem;
+  background-color: $primaryOrange;
+  color: $Lightgrayishblue;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  height: 4rem;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+
+  max-width: 40rem;
+  border-radius: 0.5rem;
+  transition: 400ms ease;
 }

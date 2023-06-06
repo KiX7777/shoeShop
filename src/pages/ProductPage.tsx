@@ -52,7 +52,7 @@ const ProductPage = () => {
     <ProductPageLayout>
       <main className={classes.mainContainer}>
         <div className={classes.imageCont}>
-          <Gallery image={product.image} images={product.images} />
+          <Gallery images={product.images} />
           {/* <div className={classes.mainPic}>
             <span className={classes.left}>
               <img src='images/icon-previous.svg' alt='' />
@@ -129,6 +129,7 @@ const ProductPage = () => {
                     quantity: quantity,
                     size: size,
                     cartID: `${product.id}${size}${product.title.slice(0, 10)}`,
+                    thumb: product.images[0],
                   }
                   console.log(products)
                   handleAddToCart(prod)

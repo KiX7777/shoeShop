@@ -10,7 +10,7 @@ import './Gallery.css'
 import { Pagination, Navigation, EffectCube } from 'swiper'
 import { useAppSelector } from '../store/Store'
 
-const Gallery = ({ image, images }: { image: string; images: string[] }) => {
+const Gallery = ({ images }: { images: string[] }) => {
   const sorted = [...images].sort()
   const slides = sorted.map((img, idx) => (
     <SwiperSlide key={idx}>

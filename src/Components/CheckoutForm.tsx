@@ -5,8 +5,9 @@ import { useAppDispatch, useAppSelector } from '../store/Store'
 import { cartActions } from '../store/cartStore'
 import { sendOrder } from '../store/userStore'
 import * as Yup from 'yup'
+import { useNavigate } from 'react-router-dom'
 import { Order } from '../store/cartStore'
-import { pushOrder } from '../hooks/useFirebaseEmailPasswordAuth'
+import { Navigate } from 'react-router-dom'
 
 interface FormValues {
   firstName: string
@@ -21,10 +22,12 @@ export interface OrderProduct {
   size: number
   total: number
   price: number
+  image: string
   id: string
 }
 
 const CheckoutForm = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const cartProducts = useAppSelector((state) => state.cart.products)
   const isOrdering = useAppSelector((state) => state.user.isOrdering)
@@ -38,6 +41,7 @@ const CheckoutForm = () => {
       size: prod.size,
       total: prod.total,
       id: prod.id,
+      image: prod.images[0],
       price: prod.price,
     }
     return product
@@ -57,6 +61,10 @@ const CheckoutForm = () => {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   const specialRegex = /^[\p{L}0-9 .]+$/gu
 
+  if (cartProducts.length === 0) {
+    return <Navigate to='/' />
+  }
+
   return (
     <Formik
       initialValues={initialValues}
@@ -71,7 +79,7 @@ const CheckoutForm = () => {
         phone: Yup.string().required('Required').matches(phoneRegex),
         email: Yup.string().required('Required').matches(emailRegex),
       })}
-      onSubmit={(values) => {
+      onSubmit={(values, { resetForm }) => {
         let order: Order = {
           firstName: values.firstName,
           lastName: values.lastName,
@@ -82,11 +90,12 @@ const CheckoutForm = () => {
           total: cartTotal,
           date: date,
         }
-        console.log(order)
         dispatch(sendOrder({ id, order }))
         // pushOrder(username, order)
         if (!isOrdering && !orderError) {
           dispatch(cartActions.reset())
+          resetForm()
+          navigate('/')
         }
       }}
     >
@@ -117,11 +126,11 @@ const CheckoutForm = () => {
             ) : null}
           </div>
           <div className={classes.fieldContainer}>
-            <label htmlFor='firstName'>Email</label>
+            <label htmlFor='emailcheck'>Email</label>
             <input
               type='email'
               placeholder='Email'
-              id='email'
+              id='emailcheck'
               {...formik.getFieldProps('email')}
             />
             {formik.errors.email && formik.touched.email ? (

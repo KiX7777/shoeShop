@@ -61,6 +61,7 @@ const CartItem = ({ id, cartID }: { id: string; cartID: string }) => {
             const prod = {
               ...productitem,
               quantity: 1,
+              thumb: productitem.images[0],
               cartID: `${productitem.id}${
                 productitem.size
               }${productitem.title.slice(0, 10)}`,

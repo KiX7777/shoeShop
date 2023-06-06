@@ -29,6 +29,9 @@ nav {
 
     img {
       width: 3.5rem;
+      height: 3.5rem;
+      object-fit: cover;
+      object-position: center;
       cursor: pointer;
     }
     .cart {
@@ -68,6 +71,7 @@ nav {
     height: 10rem;
     cursor: pointer;
     @include flex(center, center);
+    padding: 0 2rem;
   }
 
   li:hover {
@@ -98,6 +102,49 @@ nav {
   animation: shake-top 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
   filter: invert(42%) sepia(96%) saturate(649%) hue-rotate(350deg)
     brightness(97%) contrast(93%);
+}
+
+.profileTab {
+  position: relative;
+}
+.ordersTab {
+  position: absolute;
+  background-color: white;
+  top: 98%;
+  visibility: hidden;
+  opacity: 0;
+  transition: 300ms;
+  left: 0;
+  // border: 1px solid $Lightgrayishblue;
+  box-shadow: 0 3px 5px rgba(205, 216, 244, 0.535);
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+}
+.profileTab:hover {
+  box-shadow: none;
+  .ordersTab {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.ordersTab:hover {
+  // box-shadow: inset 0px -3px 0px $primaryOrange;
+  background-color: $primaryOrange;
+
+  a {
+    color: white;
+  }
+}
+
+.ordersTab:has(.linkActive) {
+  background-color: $primaryOrange;
+  .linkActive {
+    color: white !important;
+  }
 }
 
 @-webkit-keyframes shake-top {
@@ -167,7 +214,7 @@ nav {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px), (width<920px) and (orientation: landscape) {
   body {
     width: 100vw;
     margin: 0;
@@ -205,6 +252,37 @@ nav {
     width: 100%;
     justify-content: end;
   }
+  .mobileProfileLinks {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .mobileOrdersTab {
+    margin-right: 0.5rem;
+  }
+
+  .backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background-color: rgba(0, 0, 0, 0.368);
+    left: 0;
+    z-index: 50;
+    top: 0;
+    visibility: hidden;
+    height: 100%;
+    opacity: 0;
+    backdrop-filter: blur(2px);
+    transition: 300ms ease;
+  }
+
+  .mobileLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+  }
 
   .menu {
     width: 50%;
@@ -221,6 +299,7 @@ nav {
     align-items: center;
     padding: 2rem 0;
     z-index: 50;
+    box-shadow: 0 3px 10px rgba($color: #000000, $alpha: 0.1);
     // justify-content: space-evenly;
     // justify-content: center;
     gap: 5rem;
@@ -234,6 +313,7 @@ nav {
       color: black;
     }
   }
+
   .openMenu {
     transform: translateX(0);
   }
@@ -269,5 +349,39 @@ nav {
         width: 4.5rem;
       }
     }
+  }
+}
+@media screen and (width <920px) and (orientation: landscape) {
+  .menu {
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+
+    a {
+      font-size: 2.8rem;
+    }
+  }
+
+  nav .navLeft {
+    justify-content: start;
+  }
+  .closemenu {
+    width: 5%;
+  }
+
+  .mobileProfileLinks {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .mobilleProfileTab {
+    position: relative;
+  }
+
+  .mobileLinks {
+    margin-left: 1rem;
+    justify-content: space-around;
+    width: 100%;
+    flex-direction: row;
   }
 }

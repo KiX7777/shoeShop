@@ -5,10 +5,12 @@ import { Order } from '../store/cartStore'
 import { ObjectType } from 'typescript'
 import { OrderProduct } from './CheckoutForm'
 import { formatPrice } from '../helpers'
+import OrdersSkeleton from './OrdersSkeleton'
 
 const Orders = () => {
   const orders = useAppSelector((state) => state.user.previousOrders)
   const [list, setList] = useState<JSX.Element[]>([])
+  const productsList = useAppSelector((state) => state.products.products)
 
   // let list
   useEffect(() => {
@@ -22,23 +24,21 @@ const Orders = () => {
       }
 
       arr.forEach((order: Order, idx: number) => {
-        console.log(order.firstName, order.products)
         const elem = (
           <div
-            style={{
-              marginBottom: '20px',
-              border: '1px solid black',
-              borderRadius: '10px',
-            }}
+            className={classes.order}
             key={order.firstName + order.total + order.lastName + idx}
           >
             <h1>{order.date}</h1>
             {order.products.map((ord, idx) => (
-              <div key={idx}>
-                <h2>
-                  {ord.name} <small>x</small> {ord.quantity}
-                </h2>
-                <h2>={formatPrice(ord.total)}</h2>
+              <div className={classes.orderedProduct} key={idx}>
+                <div className={classes.orderInfo}>
+                  <h2>
+                    {ord.name} <small>x</small> {ord.quantity}
+                  </h2>
+                  <h2>={formatPrice(ord.total)}</h2>
+                </div>
+                <img src={ord.image} alt='product image' />
               </div>
             ))}
             <h1>TOTAL: {formatPrice(order.total)}</h1>
@@ -50,7 +50,12 @@ const Orders = () => {
       setList(products)
     }
   }, [orders])
-  return <div className={classes.ordersContainer}>{list}</div>
+  return (
+    <div className={classes.ordersContainer}>
+      {list.length === 0 && <OrdersSkeleton />}
+      <div className={classes.ordersList}>{list}</div>
+    </div>
+  )
 }
 
 export default Orders

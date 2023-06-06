@@ -5,13 +5,18 @@ import { useAppDispatch } from '../store/Store'
 import { cartActions } from '../store/cartStore'
 import { useAppSelector } from '../store/Store'
 import Cart from './Cart'
+import LoginMenu from './LoginMenu'
 
 const Nav = () => {
   const isOpen = useAppSelector((state) => state.cart.isOpen)
   const cartRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
   const cart = useAppSelector((state) => state.cart.products)
+  const [loginMenu, setLoginMenu] = useState(false)
+  const loggedIn = useAppSelector((state) => state.user.loggedIn)
+  const prevOrders = useAppSelector((state) => state.user.previousOrders)
   const [mobileMenu, setmobileMenu] = useState(false)
+  const profilepic = useAppSelector((state) => state.user.profilePic)
   const productsCount = cart.reduce((acc, curr) => acc + curr.quantity, 0)
 
   function handleOpenCart() {
@@ -34,7 +39,13 @@ const Nav = () => {
 
   return (
     <>
-      {' '}
+      <div
+        className={classes.backdrop}
+        style={{
+          visibility: `${mobileMenu ? 'visible' : 'hidden'}`,
+          opacity: `${mobileMenu ? '1' : '0'}`,
+        }}
+      ></div>
       <div
         className={
           mobileMenu ? `${classes.menu} ${classes.openMenu}` : `${classes.menu}`
@@ -48,51 +59,79 @@ const Nav = () => {
             setmobileMenu((prev) => !prev)
           }}
         />
-        <Link
-          to='/products'
-          className={classes.link}
-          onClick={() => {
-            setmobileMenu(false)
-          }}
-        >
-          Products
-        </Link>
-        <Link
-          to='/men'
-          className={classes.link}
-          onClick={() => {
-            setmobileMenu(false)
-          }}
-        >
-          Men
-        </Link>
-        <Link
-          to='/women'
-          className={classes.link}
-          onClick={() => {
-            setmobileMenu(false)
-          }}
-        >
-          Women
-        </Link>
-        <Link
-          to='/about'
-          className={classes.link}
-          onClick={() => {
-            setmobileMenu(false)
-          }}
-        >
-          About
-        </Link>
-        <Link
-          to='/contact'
-          className={classes.link}
-          onClick={() => {
-            setmobileMenu(false)
-          }}
-        >
-          Contact
-        </Link>
+        <div className={classes.mobileLinks}>
+          <NavLink
+            to='/products'
+            className={(navData) =>
+              navData.isActive
+                ? `${classes.link} ${classes.linkActive}`
+                : `${classes.link}`
+            }
+            onClick={() => {
+              setmobileMenu(false)
+            }}
+          >
+            Products
+          </NavLink>
+          {loggedIn && (
+            <div className={classes.mobileProfileLinks}>
+              <NavLink
+                to='/profile'
+                className={(navData) =>
+                  navData.isActive
+                    ? `${classes.link} ${classes.linkActive}  ${classes.mobilleProfileTab}`
+                    : `${classes.link}  ${classes.mobilleProfileTab}`
+                }
+                onClick={() => {
+                  setmobileMenu(false)
+                }}
+              >
+                {loggedIn ? 'Profile' : 'Login'}
+              </NavLink>
+              {prevOrders.length > 0 && (
+                <NavLink
+                  to='/profile/orders'
+                  className={(navData) =>
+                    navData.isActive
+                      ? `${classes.link} ${classes.linkActive}  ${classes.mobileOrdersTab}`
+                      : `${classes.link}  ${classes.mobileOrdersTab}`
+                  }
+                  onClick={() => {
+                    setmobileMenu(false)
+                  }}
+                >
+                  Orders
+                </NavLink>
+              )}
+            </div>
+          )}
+          <NavLink
+            to='/about'
+            className={(navData) =>
+              navData.isActive
+                ? `${classes.link} ${classes.linkActive}`
+                : `${classes.link}`
+            }
+            onClick={() => {
+              setmobileMenu(false)
+            }}
+          >
+            About
+          </NavLink>
+          <NavLink
+            to='/contact'
+            className={(navData) =>
+              navData.isActive
+                ? `${classes.link} ${classes.linkActive}`
+                : `${classes.link}`
+            }
+            onClick={() => {
+              setmobileMenu(false)
+            }}
+          >
+            Contact
+          </NavLink>
+        </div>
       </div>
       <nav>
         <ul className={classes.navLeft}>
@@ -120,30 +159,50 @@ const Nav = () => {
               Products
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to='/men'
-              className={(navData) =>
-                navData.isActive
-                  ? `${classes.link} ${classes.linkActive}`
-                  : `${classes.link}`
-              }
-            >
-              Men
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to='/women'
-              className={(navData) =>
-                navData.isActive
-                  ? `${classes.link} ${classes.linkActive}`
-                  : `${classes.link}`
-              }
-            >
-              Women
-            </NavLink>
-          </li>
+
+          {loggedIn && (
+            <li className={classes.profileTab}>
+              <NavLink
+                to='/profile'
+                className={(navData) =>
+                  navData.isActive
+                    ? `${classes.link} ${classes.linkActive}`
+                    : `${classes.link}`
+                }
+              >
+                Profile
+              </NavLink>
+              {prevOrders.length > 0 && (
+                <div className={classes.ordersTab}>
+                  <NavLink
+                    to='/profile/orders'
+                    className={(navData) =>
+                      navData.isActive
+                        ? `${classes.link} ${classes.linkActive}`
+                        : `${classes.link}`
+                    }
+                  >
+                    Orders
+                  </NavLink>
+                </div>
+              )}
+            </li>
+          )}
+
+          {/* {loggedIn && (
+            <li>
+              <NavLink
+                to='/profile/orders'
+                className={(navData) =>
+                  navData.isActive
+                    ? `${classes.link} ${classes.linkActive}`
+                    : `${classes.link}`
+                }
+              >
+                Orders
+              </NavLink>
+            </li>
+          )} */}
           <li>
             <NavLink
               to='/about'
@@ -182,15 +241,19 @@ const Nav = () => {
             )}
           </div>
           <img
-            src='/avatar.webp'
+            // src='/avatar.webp'
+            src={profilepic !== '' ? profilepic : '/avatar.webp'}
+            referrerPolicy='no-referrer'
             alt='profile picture'
             onClick={() => {
               console.log(isOpen)
+              setLoginMenu((prev) => !prev)
             }}
             className={classes.profilepic}
           />
         </ul>
         <Cart />
+        <LoginMenu open={loginMenu} />
       </nav>
     </>
   )

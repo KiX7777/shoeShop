@@ -2,8 +2,14 @@ import { firebaseConfig } from './firebase'
 import { initializeApp } from 'firebase/app'
 import { useState, useCallback } from 'react'
 import { Product } from './pages/Products'
-
-import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage'
+import { setPic, updatePic } from './hooks/useFirebaseEmailPasswordAuth'
+import {
+  getStorage,
+  uploadBytesResumable,
+  ref,
+  getDownloadURL,
+  listAll,
+} from 'firebase/storage'
 
 const app = initializeApp(firebaseConfig)
 const storage = getStorage()
@@ -118,4 +124,34 @@ export function setLocalStorage(token: string) {
 }
 export function loadLocalStorage() {
   localStorage.getItem('token')
+}
+
+export async function updateImg(id: string, file: any) {
+  const metadata = {
+    contentType: 'image/jpeg',
+  }
+  const storage = getStorage()
+  var storageRef = ref(storage, id + '/profilePicture/' + 'profilepic')
+
+  try {
+    const uploadTask = uploadBytesResumable(storageRef, file, metadata)
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        console.log('Image uplaoded!')
+      },
+      (error: any) => {
+        console.log(error)
+      },
+      async () => {
+        const url = await getDownloadURL(uploadTask.snapshot.ref)
+        console.log(url)
+        setPic(id, url)
+        updatePic(url)
+      }
+    )
+  } catch (error) {
+    console.log(error)
+  }
 }

@@ -5,8 +5,8 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Order } from '../store/cartStore'
 import { firebaseConfig } from '../firebase'
-
 import { CartProduct } from '../store/cartStore'
+import { GoogleLogin } from '../store/userStore'
 
 import {
   getUserData,
@@ -41,7 +41,20 @@ const Login = () => {
 
   return (
     <div className={classes.loginContainer}>
-      {!userStore.loggedIn ? (
+      {!userStore.loggedIn && (
+        <div className={classes.loginSwitch}>
+          <label htmlFor='switch'>Login</label>
+          <input
+            type='checkbox'
+            id='switch'
+            onChange={(e) => {
+              setloginMode(!e.target.checked)
+            }}
+          />
+          <label htmlFor='switch'>Sign Up</label>
+        </div>
+      )}
+      {!userStore.loggedIn && (
         <Formik
           initialValues={initialValues}
           validationSchema={Yup.object({
@@ -94,7 +107,6 @@ const Login = () => {
                 <div className={classes.fieldContainer}>
                   <label
                     htmlFor='username'
-                    id='username'
                     placeholder='Your username'
                     defaultValue={loginMode ? 'login' : ''}
                   >
@@ -111,12 +123,12 @@ const Login = () => {
                 </div>
               )}
               <div className={classes.fieldContainer}>
-                <label htmlFor='email' id='email' placeholder='Your email'>
+                <label htmlFor='emailLogin' placeholder='Your email'>
                   Email
                 </label>
                 <input
                   type='email'
-                  id='email'
+                  id='emailLogin'
                   {...formik.getFieldProps('email')}
                 />
                 {formik.errors.email && formik.touched.email ? (
@@ -124,32 +136,46 @@ const Login = () => {
                 ) : null}
               </div>
               <div className={classes.fieldContainer}>
-                <label
-                  htmlFor='password'
-                  id='password'
-                  placeholder='Your password'
-                >
+                <label htmlFor='passwordcheck' placeholder='Your password'>
                   Password
                 </label>
                 <input
                   type='password'
-                  id='password'
+                  id='passwordcheck'
                   {...formik.getFieldProps('password')}
                 />
                 {formik.errors.password && formik.touched.password ? (
                   <p className={classes.error}>{formik.errors.password}</p>
                 ) : null}
               </div>
-              {!userStore.loggedIn && (
+
+              <div className={classes.btns}>
                 <button className={classes.loginBtn} type='submit'>
                   {!loginMode ? 'SIGN UP' : 'LOGIN'}
                 </button>
-              )}
+
+                <button
+                  className={classes.googleBtn}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    dispatch(GoogleLogin(userStore.password))
+                  }}
+                >
+                  <div className={classes.googlebtn}>
+                    <div className={classes.google_icon_wrapper}>
+                      <img className={classes.google_icon} src='/google.png' />
+                    </div>
+                    <p className={classes.btn_text}>
+                      {!loginMode
+                        ? 'Sign up with Google'
+                        : 'Sign in with Google'}
+                    </p>
+                  </div>
+                </button>
+              </div>
             </form>
           )}
         </Formik>
-      ) : (
-        <h1>Hello, {userStore.userName}</h1>
       )}
       {userStore.loggedIn && (
         <button
@@ -162,17 +188,6 @@ const Login = () => {
           LOG OUT
         </button>
       )}
-      <button
-        className={classes.loginBtns}
-        type='button'
-        onClick={() => {
-          getUserData()
-          // getData()
-          console.log(userStore)
-        }}
-      >
-        GET USER INFO
-      </button>
     </div>
   )
 }

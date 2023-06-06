@@ -8,6 +8,7 @@ export interface CartProduct extends Product {
   cartID: string
   quantity: number
   total: number
+  thumb: string
 }
 
 export interface Order {
@@ -96,6 +97,10 @@ export const cartSlice = createSlice({
 
     toggleCart(state) {
       state.isOpen = !state.isOpen
+    },
+
+    updateLocal(state, action) {
+      state.products = action.payload
     },
   },
 })

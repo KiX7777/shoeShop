@@ -14,6 +14,9 @@
   overflow: hidden;
   animation: 700ms appear ease forwards;
 }
+.container .card * {
+  pointer-events: none;
+}
 
 .container .card:before {
   content: "";

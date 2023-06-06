@@ -182,3 +182,49 @@
     // }
   }
 }
+
+@media screen and (width <500px) {
+  .productsContainer {
+    height: calc(100dvh - 8rem);
+  }
+  .mainContainer {
+    padding: 1rem 1.4rem;
+    grid-template-columns: none;
+    height: 100%;
+    grid-template-rows: 40% 1fr;
+    gap: 0;
+
+    select,
+    label {
+      font-size: 4.4cqi;
+    }
+    h3 {
+      font-size: 4.6cqi;
+    }
+    input {
+      width: 4.8cqi;
+      height: 4.8cqi;
+    }
+    .sideBar {
+      height: 100%;
+    }
+
+    .filterContainer {
+      justify-content: initial;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+}
+
+@media screen and (width <920px) and (orientation: landscape) {
+  .mainContainer {
+    padding: 1rem;
+  }
+
+  .sideBar {
+    overflow-y: scroll;
+    height: auto;
+  }
+}

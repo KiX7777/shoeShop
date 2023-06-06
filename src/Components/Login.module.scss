@@ -1,26 +1,13 @@
 @use '../../styles/colors' as *;
 @use '../../styles/mixins' as *;
 
-@mixin btn {
-  font-size: 1.6rem;
-  padding: 1rem 1.4rem;
-  background-color: $primaryOrange;
-  color: $Lightgrayishblue;
-  cursor: pointer;
-  border: none;
-  width: 100%;
-  max-width: 40rem;
-  border-radius: 0.5rem;
-  margin-top: 1.4rem;
-  transition: 400ms ease;
-}
-
 .loginContainer {
   display: grid;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-
+  padding: 0;
+  justify-content: initial;
+  width: 100%;
   h1 {
     text-align: center;
   }
@@ -28,23 +15,24 @@
 
 .login {
   // background-color: lightcoral;
-  margin: 0 auto;
-  max-width: 50rem;
-  max-height: 50rem;
+
   @include flex(center, center);
-  width: 40rem;
+  width: 100%;
   flex-direction: column;
   gap: 2rem;
   align-self: baseline;
 
   label {
     font-size: 1.8rem;
+    animation: appear 400ms ease forwards;
   }
 
   input {
     font-size: 1.4rem;
     border-radius: 0.5rem;
     width: 100%;
+    animation: appear 400ms ease forwards;
+
     padding: 0.8rem 1rem;
     border: 1px solid $primaryOrange;
   }
@@ -55,6 +43,16 @@
 
   input:focus:invalid {
     outline: 1px solid red;
+  }
+}
+
+.btns {
+  @include flex(center, center);
+  width: 100%;
+  gap: 2rem;
+
+  button {
+    flex: 1;
   }
 }
 
@@ -89,5 +87,155 @@
     transform: translateX(-50%);
     text-align: center;
     width: 100%;
+  }
+}
+$white: #fff;
+$google-blue: #4285f4;
+$button-active-blue: #1669f2;
+
+.googleBtn {
+  width: 50%;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  height: 4rem;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  justify-self: center;
+}
+
+.googlebtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  background-color: $google-blue;
+  border-radius: 2px;
+  transition: 300ms;
+  .google_icon_wrapper {
+    width: 4rem;
+    height: 100%;
+    border-radius: 2px;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .google_icon {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+  .btn_text {
+    color: $white;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    font-family: 'Roboto';
+    flex: 1;
+    @include flex(center, center);
+  }
+  &:hover {
+    box-shadow: 0 0 6px $google-blue;
+  }
+  &:active {
+    background: $button-active-blue;
+  }
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+
+.loginSwitch {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: grid;
+  // gap: 2rem;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  grid-template-rows: none;
+  align-items: center;
+
+  label {
+    font-size: 2rem;
+    justify-self: end;
+  }
+
+  label:last-of-type {
+    justify-self: baseline;
+  }
+
+  input {
+    appearance: none;
+    width: 5rem;
+    position: relative;
+    justify-self: center;
+    height: 2.5rem;
+    padding: 0.6rem 1rem;
+
+    cursor: pointer;
+    flex: 0.5;
+  }
+}
+
+.loginSwitch input::before {
+  width: 4.8rem;
+  content: '';
+  border: 1px solid #ff7d1a99;
+  border-radius: 1rem;
+  height: 2.5rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  gap: 1rem;
+
+  transition: 400ms ease;
+}
+
+.loginSwitch input::after {
+  content: '';
+  position: absolute;
+  width: 2.2rem;
+  height: 2.2rem;
+  left: 2.5px;
+  top: 2.5px;
+  border-radius: 50%;
+  background-color: $primaryOrange;
+  transition: 400ms ease;
+}
+
+.loginSwitch input:checked::before {
+  background-color: $primaryOrange;
+}
+.loginSwitch input:checked::after {
+  background-color: white;
+  left: 50%;
+}
+
+@keyframes appear {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.messageBox {
+}
+
+@media screen and (width <500px) {
+  .loginContainer {
+    justify-content: initial;
+    width: 100%;
+  }
+  .login {
+    width: 100%;
+
+    .btns {
+      flex-direction: column;
+    }
+    .googleBtn {
+      width: 100%;
+      height: 4rem;
+      flex: initial;
+    }
   }
 }

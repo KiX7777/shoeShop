@@ -1,0 +1,29 @@
+.error {
+  background-color: #cc0000;
+  height: 4rem;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  position: absolute;
+  bottom: -4rem;
+  border-radius: 1rem;
+  color: white;
+  left: 0;
+  animation: appear 500ms ease forwards;
+}
+
+@keyframes appear {
+  from {
+    width: 0;
+    opacity: 0;
+    font-size: 0.4;
+  }
+  50% {
+    width: 100%;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+    font-size: 1.8rem;
+  }
+}/*# sourceMappingURL=Error.module.css.map */
