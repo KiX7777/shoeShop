@@ -3,17 +3,9 @@ import classes from './Login.module.css'
 import { useState } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { Order } from '../store/cartStore'
-import { firebaseConfig } from '../firebase'
-import { CartProduct } from '../store/cartStore'
-import { GoogleLogin } from '../store/userStore'
 
-import {
-  getUserData,
-  updateUsername,
-  // getData,
-} from '../hooks/useFirebaseEmailPasswordAuth'
-import useFirebaseEmailPasswordAuth from '../hooks/useFirebaseEmailPasswordAuth'
+import { GoogleLogin, userActions } from '../store/userStore'
+
 import { useAppDispatch, useAppSelector } from '../store/Store'
 import { signUp, logIn, logout } from '../store/userStore'
 
@@ -34,7 +26,6 @@ const Login = () => {
   const cart = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
   const [loginMode, setloginMode] = useState(true)
-  const [emailSignUp, emailLogin] = useFirebaseEmailPasswordAuth()
   const specialRegex = /^[\p{L}0-9 .]+$/gu
   const emailRegex =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -98,6 +89,7 @@ const Login = () => {
 
                 return
               }
+              dispatch(userActions.closeLoginMenu())
             }
           }}
         >
@@ -163,7 +155,11 @@ const Login = () => {
                 >
                   <div className={classes.googlebtn}>
                     <div className={classes.google_icon_wrapper}>
-                      <img className={classes.google_icon} src='/google.png' />
+                      <img
+                        className={classes.google_icon}
+                        src='/google.png'
+                        alt='Google icon'
+                      />
                     </div>
                     <p className={classes.btn_text}>
                       {!loginMode

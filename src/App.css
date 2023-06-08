@@ -15,6 +15,17 @@ body {
   transition: 500ms ease;
 }
 
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #ff7d1a;
+  border-radius: 1rem;
+  -webkit-transition: all 500ms;
+  transition: all 500ms;
+}
+
 :root {
   --backgroundColor: #fefefe;
   --font-color: #232323;

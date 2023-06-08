@@ -8,10 +8,11 @@ import { useNavigate } from 'react-router-dom'
 const LoginMenu = ({ open }: { open: boolean }) => {
   const navigate = useNavigate()
   const user = useAppSelector((state) => state.user)
+  const isOpen = user.loginMenu
   return (
     <div
       className={
-        open
+        isOpen
           ? `${classes.loginContainer} ${classes.openLogin}`
           : `${classes.loginContainer}`
       }

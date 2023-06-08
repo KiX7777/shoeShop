@@ -11,7 +11,6 @@ const Cart = () => {
   const cart = useAppSelector((state) => state.cart.products)
   const total = useAppSelector((state) => state.cart.total)
   const dispatch = useAppDispatch()
-  const id = useAppSelector((state) => state.user.id)
 
   const cartProducts = cart.map((prod) => (
     <CartItem key={prod.cartID} id={prod.id} cartID={prod.cartID} />

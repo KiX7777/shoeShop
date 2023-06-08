@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app'
 import { firebaseConfig } from '../firebase'
-import { getStorage, uploadBytes, uploadBytesResumable } from 'firebase/storage'
 
 import {
   getDatabase,
@@ -16,7 +15,6 @@ import {
 
 import {
   getAuth,
-  onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
@@ -147,9 +145,7 @@ export async function updatePic(url) {
   updateProfile(auth.currentUser, {
     photoURL: url,
   })
-    .then(() => {
-      alert('Profile picture updated!')
-    })
+    .then(() => {})
     .catch((err) => {
       console.log(err.message)
     })
@@ -189,10 +185,9 @@ export const GoogleSign = async () => {
       token: credential.accessToken,
     }
   } catch (error) {
-    const errorCode = error.code
     const errorMsg = error.message
-    const email = error.customData.email
-    const credential = GoogleAuthProvider.credentialFromError(error)
+    // const credential = GoogleAuthProvider.credentialFromError(error)
+    return errorMsg
   }
 }
 
@@ -250,8 +245,10 @@ export async function changePass(password, id) {
     const nodeRef = child(userRef, `password`)
     await set(nodeRef, password)
     console.log('pass changed')
+    alert('Password changed!')
     logOut()
   } catch (error) {
     console.log(error)
+    return error.message
   }
 }

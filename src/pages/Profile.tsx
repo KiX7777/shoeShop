@@ -1,27 +1,16 @@
 import React from 'react'
 import classes from './Profile.module.css'
-import Login from '../Components/Login'
 import { useAppSelector } from '../store/Store'
 import { useAppDispatch } from '../store/Store'
 import { logout } from '../store/userStore'
-import Error from '../UI/Error'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useState, useRef } from 'react'
-import { updateImg } from '../helpers'
 import { updateProfilePicture } from '../store/userStore'
 import {
-  setPic,
-  updatePic,
+
   getUserData,
   changePass,
 } from '../hooks/useFirebaseEmailPasswordAuth'
-import {
-  getStorage,
-  uploadBytes,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from 'firebase/storage'
 
 const Profile = () => {
   const loggedIn = useAppSelector((state) => state.user.loggedIn)
@@ -78,6 +67,7 @@ const Profile = () => {
       {user.userName && (
         <div className={classes.nameBar}>Hello, {user.userName}</div>
       )}
+      {user.message && <div className={classes.profileMsg}>{user.message}</div>}{' '}
       {loggedIn && (
         <div className={classes.userInfo}>
           <h2>{user.email}</h2>
@@ -131,7 +121,6 @@ const Profile = () => {
           )}
         </div>
       )}
-
       {changePic && (
         <div className={classes.profileChange}>
           <h2>Change Profile Picture</h2>
@@ -146,7 +135,6 @@ const Profile = () => {
           </button>
         </div>
       )}
-
       {changePassword && (
         <div className={classes.passChange}>
           <form

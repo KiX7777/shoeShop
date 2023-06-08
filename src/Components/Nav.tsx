@@ -3,6 +3,7 @@ import classes from './Nav.module.css'
 import { useEffect, useState, useRef } from 'react'
 import { useAppDispatch } from '../store/Store'
 import { cartActions } from '../store/cartStore'
+import { userActions } from '../store/userStore'
 import { useAppSelector } from '../store/Store'
 import Cart from './Cart'
 import LoginMenu from './LoginMenu'
@@ -15,7 +16,6 @@ type NavProps = {
 const Nav = (props: NavProps) => {
   const cartRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
-  console.log(props.darkMode)
 
   const cart = useAppSelector((state) => state.cart.products)
   const [loginMenu, setLoginMenu] = useState(false)
@@ -27,9 +27,11 @@ const Nav = (props: NavProps) => {
   const productsCount = cart.reduce((acc, curr) => acc + curr.quantity, 0)
   function handleOpenCart() {
     dispatch(cartActions.toggleCart())
+    dispatch(userActions.closeLoginMenu())
   }
 
   const darkRef = useRef<HTMLInputElement>(null)
+  const mobDarkRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (cart.length > 0) {
@@ -47,6 +49,7 @@ const Nav = (props: NavProps) => {
 
   useEffect(() => {
     darkRef.current!.checked = props.darkMode
+    mobDarkRef.current!.checked = props.darkMode
   }, [props.darkMode])
 
   return (
@@ -89,6 +92,19 @@ const Nav = (props: NavProps) => {
           </g>
         </svg>
         <div className={classes.mobileLinks}>
+          <NavLink
+            to='/'
+            className={(navData) =>
+              navData.isActive
+                ? `${classes.link} ${classes.linkActive}`
+                : `${classes.link}`
+            }
+            onClick={() => {
+              setmobileMenu(false)
+            }}
+          >
+            Home
+          </NavLink>
           <NavLink
             to='/products'
             className={(navData) =>
@@ -134,35 +150,17 @@ const Nav = (props: NavProps) => {
               )}
             </div>
           )}
-          <NavLink
-            to='/about'
-            className={(navData) =>
-              navData.isActive
-                ? `${classes.link} ${classes.linkActive}`
-                : `${classes.link}`
-            }
-            onClick={() => {
-              setmobileMenu(false)
-            }}
-          >
-            About
-          </NavLink>
-          <NavLink
-            to='/contact'
-            className={(navData) =>
-              navData.isActive
-                ? `${classes.link} ${classes.linkActive}`
-                : `${classes.link}`
-            }
-            onClick={() => {
-              setmobileMenu(false)
-            }}
-          >
-            Contact
-          </NavLink>
         </div>
         <div className={classes.darkModeBtnMobile}>
-          <input type='checkbox' name='darkmode' id='darkmode' />
+          <input
+            type='checkbox'
+            name='darkmode'
+            ref={mobDarkRef}
+            id='darkmode'
+            onChange={() => {
+              props.setDark((prev) => !prev)
+            }}
+          />
         </div>
       </div>
       <nav>
@@ -255,45 +253,6 @@ const Nav = (props: NavProps) => {
               )}
             </li>
           )}
-
-          {/* {loggedIn && (
-            <li>
-              <NavLink
-                to='/profile/orders'
-                className={(navData) =>
-                  navData.isActive
-                    ? `${classes.link} ${classes.linkActive}`
-                    : `${classes.link}`
-                }
-              >
-                Orders
-              </NavLink>
-            </li>
-          )} */}
-          <li>
-            <NavLink
-              to='/about'
-              className={(navData) =>
-                navData.isActive
-                  ? `${classes.link} ${classes.linkActive}`
-                  : `${classes.link}`
-              }
-            >
-              About
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to='/contact'
-              className={(navData) =>
-                navData.isActive
-                  ? `${classes.link} ${classes.linkActive}`
-                  : `${classes.link}`
-              }
-            >
-              Contact
-            </NavLink>
-          </li>
         </ul>
         <ul className={classes.navRight}>
           <div className={classes.cart} ref={cartRef} onClick={handleOpenCart}>
@@ -314,6 +273,8 @@ const Nav = (props: NavProps) => {
             alt='User'
             onClick={() => {
               setLoginMenu((prev) => !prev)
+              dispatch(userActions.toggleLoginMenu())
+              dispatch(cartActions.closeCart())
             }}
             className={classes.profilepic}
           />

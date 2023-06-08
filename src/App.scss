@@ -16,6 +16,15 @@ body {
   transition: 500ms ease;
 }
 
+body::-webkit-scrollbar {
+  width: 8px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: $primaryOrange;
+  border-radius: 1rem;
+  transition: all 500ms;
+}
+
 :root {
   --backgroundColor: #fefefe;
   --font-color: #232323;
@@ -23,6 +32,7 @@ body {
   --secondaryColor: #232323;
   --accentgray: hsl(223, 64%, 98%);
   --accentdark: hsl(220, 13%, 13%);
+
   --shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   --logofilter: opacity(0.2);
   --placeholdercolor: #aaa;

@@ -34,7 +34,6 @@ let initial = true
 function App() {
   const dispatch = useAppDispatch()
   const user = useAppSelector((state) => state.user)
-  console.log(defaultDark)
   const [darkMode, setDarkMode] = useState(defaultDark)
 
   useEffect(() => {

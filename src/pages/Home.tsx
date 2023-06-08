@@ -1,9 +1,31 @@
 import classes from './Home.module.css'
 import { Link } from 'react-router-dom'
+import { useRef, useEffect } from 'react'
+import { useAppSelector } from '../store/Store'
 
 const Home = () => {
+  const userMessage = useAppSelector((state) => state.user.message)
+  const msgRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    console.log(userMessage)
+    const removeEl = () => {
+      msgRef.current?.remove()
+    }
+    window.addEventListener('animationend', () => removeEl)
+
+    return () => {
+      window.removeEventListener('animationend', removeEl)
+    }
+  }, [userMessage])
+
   return (
     <div className={classes.homeContainer}>
+      {userMessage && (
+        <div ref={msgRef} className={classes.userMsg}>
+          {userMessage}
+        </div>
+      )}{' '}
       <section className={classes.hero}>
         <div className={classes.heroContainer}>
           <div className={classes.left}>

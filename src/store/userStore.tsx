@@ -5,24 +5,16 @@ import { Order } from './cartStore'
 import { setLocalStorage } from '../helpers'
 import { updateImg } from '../helpers'
 import {
-  verifyMail,
   logOut,
-  updateToken,
+  writed,
+  GoogleSign,
+  updateUsername,
+  setPic,
   pushOrder,
-  linkUsers,
   checkUsername,
   changePass,
 } from '../hooks/useFirebaseEmailPasswordAuth'
 import useFirebaseEmailPasswordAuth from '../hooks/useFirebaseEmailPasswordAuth'
-import { User } from '../Components/Login'
-import {
-  writed,
-  GoogleSign,
-  updatePic,
-  updateUsername,
-  setPic,
-} from '../hooks/useFirebaseEmailPasswordAuth'
-import { useAppSelector } from './Store'
 
 let initialToken: string = ''
 
@@ -43,6 +35,7 @@ interface State {
   isOrdering: boolean
   profilePic: string
   message: string
+  loginMenu: boolean
   error: string
   loggingIn: boolean
 }
@@ -193,7 +186,7 @@ export const updatePass = createAsyncThunk(
       await changePass(pass, id)
       return pass
     } catch (error) {
-      return thunkAPI.rejectWithValue('Problem changing password!')
+      return thunkAPI.rejectWithValue(error)
     }
   }
 )
@@ -206,6 +199,7 @@ const initialState: State = {
   previousOrders: [],
   isOrdering: false,
   email: '',
+  loginMenu: false,
   error: '',
   loggingIn: false,
   message: '',
@@ -226,6 +220,7 @@ export const userSlice = createSlice({
       state.email = action.payload.email
       state.error = ''
       state.message = ``
+      state.loginMenu = false
       state.profilePic = action.payload.profilepic
       state.previousOrders = [action.payload.orders]
     },
@@ -239,11 +234,19 @@ export const userSlice = createSlice({
       state.token = ''
       state.password = ''
       state.userName = ''
+      state.loginMenu = false
       state.id = ''
       state.email = ''
       state.profilePic = ''
       state.previousOrders = []
       state.message = ''
+    },
+
+    closeLoginMenu(state) {
+      state.loginMenu = false
+    },
+    toggleLoginMenu(state) {
+      state.loginMenu = !state.loginMenu
     },
   },
   extraReducers(builder) {
@@ -299,9 +302,15 @@ export const userSlice = createSlice({
       state.email = action.payload!.email as string
       state.loggedIn = true
       state.error = ''
+      state.message = ''
+
       state.profilePic = action.payload!.profilepic as string
     })
     builder.addCase(logIn.rejected, (state, action) => {
+      state.loggingIn = false
+      state.error = action.payload as string
+    })
+    builder.addCase(GoogleLogin.rejected, (state, action) => {
       state.loggingIn = false
       state.error = action.payload as string
     })
@@ -316,7 +325,7 @@ export const userSlice = createSlice({
       state.userName = ''
       state.id = ''
       state.email = ''
-      state.message = action.payload! as string
+      state.message = ''
       state.previousOrders = []
     })
     builder.addCase(logout.rejected, (state, action) => {
@@ -331,6 +340,7 @@ export const userSlice = createSlice({
     builder.addCase(updateProfilePicture.fulfilled, (state) => {
       state.loggingIn = false
       state.error = ''
+      state.message = 'Profile picture changed!'
     })
     builder.addCase(updateProfilePicture.rejected, (state, action) => {
       state.loggingIn = false

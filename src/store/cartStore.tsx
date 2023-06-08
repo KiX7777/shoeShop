@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Product } from '../pages/Products'
-import { act } from 'react-dom/test-utils'
-import { createAsyncThunk } from '@reduxjs/toolkit'
 import { OrderProduct } from '../Components/CheckoutForm'
 
 export interface CartProduct extends Product {
@@ -97,6 +95,9 @@ export const cartSlice = createSlice({
 
     toggleCart(state) {
       state.isOpen = !state.isOpen
+    },
+    closeCart(state) {
+      state.isOpen = false
     },
 
     updateLocal(state, action) {

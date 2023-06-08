@@ -75,7 +75,7 @@
     color: var(--font-color);
   }
   span {
-    color: var(--font-color);
+    color: white;
   }
 
   p {
@@ -182,6 +182,39 @@
 .leftCta {
   img {
     width: 100%;
+  }
+}
+
+.userMsg {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  padding: 2rem;
+  font-size: 1.8rem;
+  background-color: rgb(1, 95, 203);
+  border-radius: 1rem;
+  color: white;
+  animation: appear 500ms ease forwards, disappear 500ms ease forwards 4500ms;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes disappear {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0;
   }
 }
 
