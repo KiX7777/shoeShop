@@ -51,7 +51,7 @@
 
   h2 {
     font-size: 3cqi;
-    color: $Verydarkblue;
+    color: var(--font-color);
   }
 
   .brand {
@@ -76,6 +76,8 @@
 
 .currPrice {
   color: $Verydarkblue;
+  color: var(--font-color);
+
   font-size: 2.4rem;
   font-weight: bold;
 }
@@ -204,10 +206,11 @@
 .size {
   padding: 1rem;
   border: none;
-  background-color: $Lightgrayishblue;
+  background-color: var(--accentgray);
   border-radius: 1rem;
   height: 4rem;
   font-weight: bold;
+  color: var(--font-color);
 }
 
 .overlay {
@@ -342,8 +345,9 @@
 
 .quantity {
   height: 4rem;
-  background-color: $Lightgrayishblue;
   border-radius: 1rem;
+  background-color: var(--accentgray);
+
   button {
     height: 4rem;
     width: 4rem;
@@ -352,6 +356,7 @@
     cursor: pointer;
     border: none;
     background-color: transparent;
+    background-color: var(--accentgray);
   }
   #plus {
     margin-top: 5px;
@@ -364,6 +369,7 @@
     width: 5rem;
     @include flex(center, center);
     justify-content: center;
+    color: var(--font-color);
     // background-color: white;
   }
 }
@@ -392,7 +398,7 @@
   cursor: pointer;
   justify-content: center;
   border: none;
-  color: white;
+  color: #fff;
   font-weight: bold;
   img {
     max-width: 1.4rem;

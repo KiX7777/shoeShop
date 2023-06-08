@@ -41,7 +41,7 @@
 }
 .infoCont h2 {
   font-size: 3cqi;
-  color: hsl(220, 13%, 13%);
+  color: var(--font-color);
 }
 .infoCont .brand {
   color: #ff7d1a;
@@ -67,6 +67,7 @@
 
 .currPrice {
   color: hsl(220, 13%, 13%);
+  color: var(--font-color);
   font-size: 2.4rem;
   font-weight: bold;
 }
@@ -166,10 +167,11 @@
 .size {
   padding: 1rem;
   border: none;
-  background-color: hsl(223, 64%, 98%);
+  background-color: var(--accentgray);
   border-radius: 1rem;
   height: 4rem;
   font-weight: bold;
+  color: var(--font-color);
 }
 
 .overlay {
@@ -315,8 +317,8 @@
 
 .quantity {
   height: 4rem;
-  background-color: hsl(223, 64%, 98%);
   border-radius: 1rem;
+  background-color: var(--accentgray);
 }
 .quantity button {
   height: 4rem;
@@ -326,6 +328,7 @@
   cursor: pointer;
   border: none;
   background-color: transparent;
+  background-color: var(--accentgray);
 }
 .quantity #plus {
   margin-top: 5px;
@@ -340,6 +343,7 @@
   justify-content: center;
   align-items: center;
   justify-content: center;
+  color: var(--font-color);
 }
 
 .productTitle {
@@ -370,7 +374,7 @@
   cursor: pointer;
   justify-content: center;
   border: none;
-  color: white;
+  color: #fff;
   font-weight: bold;
 }
 .addtocart img {

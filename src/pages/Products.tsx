@@ -13,6 +13,7 @@ import SidebarLoading from '../Components/SidebarLoading'
 import { pushImages } from '../helpers'
 import { useNavigate } from 'react-router-dom'
 import CardsLoading from '../Components/CardsLoadingSkeleton'
+import { memo } from 'react'
 import {
   sortPriceUp,
   sortNameAsc,
@@ -36,7 +37,7 @@ export interface Product {
 }
 let initial = true
 
-const Products = () => {
+const Products = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
   let products: Product[]
@@ -71,7 +72,7 @@ const Products = () => {
 
   useEffect(() => {
     setSearchParams(searchParams)
-  }, [filteredColors, brandFilters, sort])
+  }, [filteredColors, brandFilters, sort, searchParams, setSearchParams])
 
   useEffect(() => {
     let colorsQuery = searchParams.get('color')?.split(',')
@@ -86,7 +87,7 @@ const Products = () => {
     if (sortQuery) {
       setsort(sortQuery)
     }
-  }, [])
+  }, [searchParams])
 
   let filteredProducts: Product[]
   filteredProducts = products
@@ -340,6 +341,6 @@ const Products = () => {
       </div>
     </div>
   )
-}
+})
 
 export default Products

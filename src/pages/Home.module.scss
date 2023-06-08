@@ -72,9 +72,10 @@
     font-size: 10.2rem;
     font-size: 10.3cqi;
     z-index: 5;
+    color: var(--font-color);
   }
   span {
-    color: white;
+    color: var(--font-color);
   }
 
   p {
@@ -82,6 +83,7 @@
     font-size: 1.4cqi;
     line-height: 150%;
     width: 60%;
+    color: var(--font-color);
   }
 }
 
@@ -96,6 +98,7 @@
     transition: 400ms ease;
     text-decoration: none;
     position: relative;
+    color: var(--font-color);
   }
   a:last-of-type:after {
     content: '';
@@ -167,6 +170,7 @@
   padding: 3rem;
   @include flex(center, center);
   box-shadow: 0 3px 10px rgba($color: #000000, $alpha: 0.1);
+  box-shadow: var(--shadow);
 }
 
 .leftCta,
@@ -188,6 +192,7 @@
   flex-direction: column;
   h1 {
     font-size: 4.5cqi;
+    color: var(--font-color);
   }
 
   span {
@@ -196,6 +201,8 @@
 
   p {
     font-size: 1.4cqi;
+    color: var(--font-color);
+
     line-height: 150%;
     width: 80%;
   }
@@ -239,6 +246,10 @@ footer {
     width: 3cqi;
     cursor: pointer;
   }
+
+  svg path {
+    fill: var(--font-color);
+  }
   svg path {
     transition: 300ms ease;
   }
@@ -254,10 +265,116 @@ footer {
   flex-direction: column;
   h3 {
     font-size: 2.4cqi;
+    color: var(--font-color);
   }
 
   p {
     font-size: 1.4cqi;
+    color: var(--font-color);
+
     text-align: center;
+  }
+}
+
+@media screen and (width<500px) {
+  .homeContainer {
+    padding: 0;
+
+    section {
+      margin: 5rem 2rem;
+    }
+
+    footer {
+      margin: 3.2rem 2rem;
+      padding: 0 2rem;
+
+      .infoContainer {
+        h3 {
+          font-size: 4.4cqi;
+        }
+        p {
+          font-size: 2.4cqi;
+        }
+      }
+    }
+
+    .heroContainer {
+      background: url('/public/danilo-capece-NoVnXXmDNi0-unsplash.webp');
+      background-size: cover;
+      height: 60dvh;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+
+      a {
+        font-size: 2.8cqi;
+        color: white;
+      }
+
+      .left {
+        width: 100%;
+
+        h1,
+        span {
+          color: white;
+        }
+
+        p {
+          font-size: 2.8cqi !important;
+          color: white;
+        }
+      }
+
+      .linkPlus {
+        width: 7cqi;
+        height: 7cqi;
+      }
+    }
+    .heroContainer::after {
+      // content: none;
+      background: rgba($color: #000000, $alpha: 0.6);
+      z-index: -1;
+      left: 0;
+      width: 100%;
+    }
+  }
+
+  .ctaContainer {
+    padding: 0;
+    flex-direction: column;
+  }
+  .leftCta {
+    padding: 1rem;
+    @include flex(center, center);
+    img {
+      width: 60%;
+    }
+  }
+  .rightCta {
+    padding: 1rem;
+    h1 {
+      font-size: 5.6cqi;
+    }
+
+    p {
+      font-size: 2.8cqi;
+    }
+  }
+
+  .rightCta::after {
+    background-size: 70%;
+  }
+
+  .heroBtnContainer {
+    .linkPlus {
+      width: 5cqi;
+      height: 5cqi;
+    }
+    a {
+      font-size: 2.8cqi;
+    }
+  }
+  .socials svg {
+    width: 5cqi;
   }
 }

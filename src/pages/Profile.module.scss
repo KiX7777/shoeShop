@@ -4,13 +4,69 @@
 .profileContainer {
   height: calc(100dvh - 10rem);
   position: relative;
-  padding: 4rem 2rem;
+  // padding: 4rem 2rem;
+  display: grid;
+  // grid-template-rows: 1fr 1fr;
+  padding-top: 3rem;
+  grid-template-columns: 1fr 1fr;
+  color: var(--font-color);
+
+  align-items: start;
+  button {
+    @include btn();
+  }
+  button:hover {
+    background-color: #eb7419;
+  }
+
+  input[type='file']::file-selector-button {
+    @include btn();
+    width: 50%;
+  }
+  input[type='file']::file-selector-button:hover {
+    background-color: #eb7419;
+  }
+}
+
+@keyframes bar {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: 3rem;
+    opacity: 1;
+  }
+}
+
+.userInfo {
+  @include flex(flex-start, center);
+  // height: 80%;
+  flex-direction: column;
+  align-self: baseline;
+  gap: 2rem;
+  color: var(--font-color);
+}
+
+.profileChange {
+  // display: flex;
+  // gap: 2rem;
+  justify-self: center;
+  margin-top: 10rem;
+  // flex-direction: column;
+  animation: appear 400ms ease forwards;
+
+  input {
+    margin-bottom: 1rem;
+  }
 }
 
 .passChange {
   display: grid;
   width: 30rem;
-
+  animation: appear 400ms ease forwards;
+  justify-self: center;
+  margin-top: 10rem;
   form {
     display: grid;
     gap: 2rem;
@@ -26,11 +82,14 @@
 
     label {
       font-size: 1.8rem;
+      color: var(--font-color);
     }
 
     input {
       font-size: 1.6rem;
+      padding: 0.5rem;
       border-radius: 0.5rem;
+      background-color: var(--inputcolor);
       border: 1px solid $primaryOrange;
     }
     p {
@@ -41,5 +100,62 @@
       position: absolute;
       bottom: -35%;
     }
+  }
+}
+
+.nameBar {
+  height: 3rem;
+  width: 100%;
+  background-color: #eb7419;
+  position: absolute;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  @include flex(center, center);
+  top: 0;
+  animation: bar 500ms ease forwards;
+}
+
+.profilePhoto {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  border: 3px solid $primaryOrange;
+  box-shadow: 0 4px 10px rgba($color: #000000, $alpha: 0.3);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (width<500px) {
+  .profileContainer {
+    height: calc(100dvh - 8rem);
+    @include flex(flex-start, center);
+    flex-direction: column;
+  }
+
+  .userInfo {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+
+  .passChange {
+    margin-top: 2rem;
   }
 }

@@ -8,10 +8,12 @@
   height: 350px;
   background: #232323;
   background: white;
+  background: var(--backgroundColor);
   opacity: 0;
   border-radius: 20px;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   overflow: hidden;
+  transition: background 500ms ease;
   animation: 700ms appear ease forwards;
 }
 .container .card * {
@@ -43,7 +45,7 @@
   left: -20%;
   font-size: 8em;
   background-size: contain;
-  filter: opacity(0.2);
+  filter: var(--logofilter);
   width: 200px;
   height: 200px;
   background-repeat: no-repeat;
@@ -102,8 +104,7 @@
   font-weight: 600;
   letter-spacing: 1px;
   font-size: 16px;
-  color: #fff;
-  color: black;
+  color: var(--font-color);
   margin: 0;
 }
 
@@ -135,8 +136,7 @@
 
 .container .card .contentBx .size h3,
 .container .card .contentBx .color h3 {
-  color: #fff;
-  color: black;
+  color: var(--font-color);
   font-weight: 700;
   font-size: 14px;
   text-transform: uppercase;
@@ -150,13 +150,10 @@
   line-height: 26px;
   font-size: 14px;
   display: inline-block;
-  color: #111;
-  background: #fff;
-  background: #333;
+  color: var(--secondaryFontColor);
+  background: var(--secondaryColor);
   margin: 0 5px;
   transition: 0.5s;
-  color: #111;
-  color: white;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -191,13 +188,13 @@
   padding: 5px 10px;
   background: #fff;
   background: #333;
+  background: var(--secondaryColor);
   border-radius: 4px;
   margin-top: 10px;
   text-decoration: none;
   font-weight: 600;
   font-size: 12px;
-  color: #111;
-  color: white;
+  color: var(--secondaryFontColor);
   align-self: center;
   width: 40%;
   opacity: 0;
@@ -222,6 +219,7 @@
   position: absolute;
   font-size: 1.6rem;
   top: 1rem;
+  color: var(--font-color);
   left: 1rem;
   transform-origin: top;
 }

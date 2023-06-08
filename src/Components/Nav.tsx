@@ -7,21 +7,29 @@ import { useAppSelector } from '../store/Store'
 import Cart from './Cart'
 import LoginMenu from './LoginMenu'
 
-const Nav = () => {
-  const isOpen = useAppSelector((state) => state.cart.isOpen)
+type NavProps = {
+  setDark: React.Dispatch<React.SetStateAction<boolean>>
+  darkMode: boolean
+}
+
+const Nav = (props: NavProps) => {
   const cartRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
+  console.log(props.darkMode)
+
   const cart = useAppSelector((state) => state.cart.products)
   const [loginMenu, setLoginMenu] = useState(false)
   const loggedIn = useAppSelector((state) => state.user.loggedIn)
   const prevOrders = useAppSelector((state) => state.user.previousOrders)
+
   const [mobileMenu, setmobileMenu] = useState(false)
   const profilepic = useAppSelector((state) => state.user.profilePic)
   const productsCount = cart.reduce((acc, curr) => acc + curr.quantity, 0)
-
   function handleOpenCart() {
     dispatch(cartActions.toggleCart())
   }
+
+  const darkRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (cart.length > 0) {
@@ -37,6 +45,10 @@ const Nav = () => {
     }
   }, [cart])
 
+  useEffect(() => {
+    darkRef.current!.checked = props.darkMode
+  }, [props.darkMode])
+
   return (
     <>
       <div
@@ -45,20 +57,37 @@ const Nav = () => {
           visibility: `${mobileMenu ? 'visible' : 'hidden'}`,
           opacity: `${mobileMenu ? '1' : '0'}`,
         }}
+        onClick={() => {
+          setmobileMenu(false)
+        }}
       ></div>
       <div
         className={
           mobileMenu ? `${classes.menu} ${classes.openMenu}` : `${classes.menu}`
         }
       >
-        <img
-          src='/icons8-close-50.png'
-          alt=''
-          className={classes.closemenu}
+        <svg
+          width='800px'
           onClick={() => {
             setmobileMenu((prev) => !prev)
           }}
-        />
+          className={classes.closemenu}
+          height='800px'
+          viewBox='0 0 24 24'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'
+        >
+          <g id='Menu / Close_MD'>
+            <path
+              id='Vector'
+              d='M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18'
+              stroke='#000000'
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+            />
+          </g>
+        </svg>
         <div className={classes.mobileLinks}>
           <NavLink
             to='/products'
@@ -73,7 +102,7 @@ const Nav = () => {
           >
             Products
           </NavLink>
-          {loggedIn && (
+          {typeof prevOrders[0] !== 'undefined' && (
             <div className={classes.mobileProfileLinks}>
               <NavLink
                 to='/profile'
@@ -132,17 +161,55 @@ const Nav = () => {
             Contact
           </NavLink>
         </div>
+        <div className={classes.darkModeBtnMobile}>
+          <input type='checkbox' name='darkmode' id='darkmode' />
+        </div>
       </div>
       <nav>
         <ul className={classes.navLeft}>
-          <img
-            src='/icons8-menu-rounded-30.png'
-            alt=''
+          <svg
             className={classes.hamburger}
             onClick={() => {
               setmobileMenu((prev) => !prev)
             }}
-          />
+            width='800px'
+            height='800px'
+            viewBox='0 0 24 24'
+            fill='none'
+            xmlns='http://www.w3.org/2000/svg'
+          >
+            <path
+              d='M4 18L20 18'
+              stroke='#000000'
+              strokeWidth='2'
+              strokeLinecap='round'
+            />
+            <path
+              d='M4 12L20 12'
+              stroke='#000000'
+              strokeWidth='2'
+              strokeLinecap='round'
+            />
+            <path
+              d='M4 6L20 6'
+              stroke='#000000'
+              strokeWidth='2'
+              strokeLinecap='round'
+            />
+          </svg>
+
+          <div className={classes.darkModeBtn}>
+            <input
+              type='checkbox'
+              name='darkmode'
+              ref={darkRef}
+              id='darkmode'
+              onChange={() => {
+                props.setDark((prev) => !prev)
+              }}
+            />
+          </div>
+
           <Link to='/'>
             <img src='/logo.png' alt='' className={classes.logo} />
           </Link>
@@ -172,7 +239,7 @@ const Nav = () => {
               >
                 Profile
               </NavLink>
-              {prevOrders.length > 0 && (
+              {typeof prevOrders[0] !== 'undefined' && (
                 <div className={classes.ordersTab}>
                   <NavLink
                     to='/profile/orders'
@@ -244,9 +311,8 @@ const Nav = () => {
             // src='/avatar.webp'
             src={profilepic !== '' ? profilepic : '/avatar.webp'}
             referrerPolicy='no-referrer'
-            alt='profile picture'
+            alt='User'
             onClick={() => {
-              console.log(isOpen)
               setLoginMenu((prev) => !prev)
             }}
             className={classes.profilepic}

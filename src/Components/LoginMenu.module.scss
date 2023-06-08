@@ -11,7 +11,7 @@
   right: 0;
   gap: 2rem;
   z-index: 2;
-  background-color: white; // transition: 300ms ease;
+  background-color: var(--backgroundColor); // transition: 300ms ease;
   @include flex(flex-start, center);
   box-shadow: 0px 30px 35px 2px rgb(0 0 0 / 10%);
   padding: 1rem 2rem;
@@ -19,6 +19,7 @@
   border-radius: 1rem;
   height: 35rem;
   opacity: 0.2;
+  color: var(--font-color);
   transition: 300ms ease-in-out;
   // display: none;
   transform-origin: top;
@@ -35,6 +36,7 @@
 .img {
   width: 10rem;
   height: 10rem;
+  cursor: pointer;
   border-radius: 50%;
   border: 2px solid $primaryOrange;
   align-items: center;
@@ -51,7 +53,7 @@
 @media screen and (width < 500px) {
   .loginContainer {
     width: calc(100% - 1rem);
-    background-color: white;
+    box-shadow: var(--shadow);
     top: calc(100% + 0.4rem);
     right: 5px;
     border-radius: 1rem;

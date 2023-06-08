@@ -6,7 +6,7 @@
   right: 0;
   gap: 2rem;
   z-index: 2;
-  background-color: white;
+  background-color: var(--backgroundColor);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -16,6 +16,7 @@
   border-radius: 1rem;
   height: 35rem;
   opacity: 0.2;
+  color: var(--font-color);
   transition: 300ms ease-in-out;
   transform-origin: top;
   container-type: inline-size;
@@ -31,6 +32,7 @@
 .img {
   width: 10rem;
   height: 10rem;
+  cursor: pointer;
   border-radius: 50%;
   border: 2px solid #ff7d1a;
   align-items: center;
@@ -48,7 +50,7 @@
 @media screen and (width < 500px) {
   .loginContainer {
     width: calc(100% - 1rem);
-    background-color: white;
+    box-shadow: var(--shadow);
     top: calc(100% + 0.4rem);
     right: 5px;
     border-radius: 1rem;

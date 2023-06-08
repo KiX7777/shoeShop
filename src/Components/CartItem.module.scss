@@ -6,9 +6,10 @@
   width: 100%;
   gap: 1rem;
   justify-content: space-between;
-  box-shadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
-  background-color: white;
+  box-shadow: var(--cartitemshadow);
+  background-color: var(--backgroundColor);
   border-radius: 1rem;
+  padding: 0.3px;
   animation: add 500ms ease forwards;
   img {
     width: 4rem;
@@ -31,7 +32,8 @@
   flex-direction: column;
   p {
     font-size: 1.4rem;
-    color: $Darkgrayishblue;
+
+    color: var(--cartitemfont);
   }
 }
 

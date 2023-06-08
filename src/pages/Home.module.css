@@ -64,15 +64,17 @@
   font-size: 10.2rem;
   font-size: 10.3cqi;
   z-index: 5;
+  color: var(--font-color);
 }
 .left span {
-  color: white;
+  color: var(--font-color);
 }
 .left p {
   font-size: 1.4rem;
   font-size: 1.4cqi;
   line-height: 150%;
   width: 60%;
+  color: var(--font-color);
 }
 
 .heroBtnContainer {
@@ -86,6 +88,7 @@
   transition: 400ms ease;
   text-decoration: none;
   position: relative;
+  color: var(--font-color);
 }
 .heroBtnContainer a:last-of-type:after {
   content: "";
@@ -143,6 +146,7 @@
   justify-content: center;
   align-items: center;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 }
 
 .leftCta,
@@ -163,12 +167,14 @@
 }
 .rightCta h1 {
   font-size: 4.5cqi;
+  color: var(--font-color);
 }
 .rightCta span {
   color: #ff7d1a;
 }
 .rightCta p {
   font-size: 1.4cqi;
+  color: var(--font-color);
   line-height: 150%;
   width: 80%;
 }
@@ -215,6 +221,9 @@ footer div {
   cursor: pointer;
 }
 .socials svg path {
+  fill: var(--font-color);
+}
+.socials svg path {
   transition: 300ms ease;
 }
 .socials svg path:hover {
@@ -231,8 +240,97 @@ footer div {
 }
 .infoContainer h3 {
   font-size: 2.4cqi;
+  color: var(--font-color);
 }
 .infoContainer p {
   font-size: 1.4cqi;
+  color: var(--font-color);
   text-align: center;
+}
+
+@media screen and (width < 500px) {
+  .homeContainer {
+    padding: 0;
+  }
+  .homeContainer section {
+    margin: 5rem 2rem;
+  }
+  .homeContainer footer {
+    margin: 3.2rem 2rem;
+    padding: 0 2rem;
+  }
+  .homeContainer footer .infoContainer h3 {
+    font-size: 4.4cqi;
+  }
+  .homeContainer footer .infoContainer p {
+    font-size: 2.4cqi;
+  }
+  .homeContainer .heroContainer {
+    background: url("/public/danilo-capece-NoVnXXmDNi0-unsplash.webp");
+    background-size: cover;
+    height: 60dvh;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .homeContainer .heroContainer a {
+    font-size: 2.8cqi;
+    color: white;
+  }
+  .homeContainer .heroContainer .left {
+    width: 100%;
+  }
+  .homeContainer .heroContainer .left h1,
+  .homeContainer .heroContainer .left span {
+    color: white;
+  }
+  .homeContainer .heroContainer .left p {
+    font-size: 2.8cqi !important;
+    color: white;
+  }
+  .homeContainer .heroContainer .linkPlus {
+    width: 7cqi;
+    height: 7cqi;
+  }
+  .homeContainer .heroContainer::after {
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+    left: 0;
+    width: 100%;
+  }
+  .ctaContainer {
+    padding: 0;
+    flex-direction: column;
+  }
+  .leftCta {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .leftCta img {
+    width: 60%;
+  }
+  .rightCta {
+    padding: 1rem;
+  }
+  .rightCta h1 {
+    font-size: 5.6cqi;
+  }
+  .rightCta p {
+    font-size: 2.8cqi;
+  }
+  .rightCta::after {
+    background-size: 70%;
+  }
+  .heroBtnContainer .linkPlus {
+    width: 5cqi;
+    height: 5cqi;
+  }
+  .heroBtnContainer a {
+    font-size: 2.8cqi;
+  }
+  .socials svg {
+    width: 5cqi;
+  }
 }/*# sourceMappingURL=Home.module.css.map */

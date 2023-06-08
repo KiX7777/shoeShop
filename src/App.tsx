@@ -1,45 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
 import { Suspense } from 'react'
 import Layout from './UI/Layout'
-import Product from './pages/Product'
-import Men from './pages/Men'
+
 import ProductPage from './pages/ProductPage'
 import { useAppDispatch, useAppSelector } from './store/Store'
 import { useEffect } from 'react'
-import { onAuthStateChanged, fetchSignInMethodsForEmail } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 import { ref, onValue } from 'firebase/database'
 import { setLocalStorage } from './helpers'
 import { fetchData } from './store/productsStore'
 import Checkout from './pages/Checkout'
 import Profile from './pages/Profile'
 import { userActions } from './store/userStore'
-import { listenchanges, updateCart } from './hooks/useFirebaseEmailPasswordAuth'
-import {
-  auth,
-  user,
-  db,
-  updateToken,
-} from './hooks/useFirebaseEmailPasswordAuth'
+import { listenchanges } from './hooks/useFirebaseEmailPasswordAuth'
+import { auth, db, updateToken } from './hooks/useFirebaseEmailPasswordAuth'
 import Orders from './Components/Orders'
 
 const Products = React.lazy(() => import('./pages/Products'))
 const About = React.lazy(() => import('./pages/About'))
 
+let defaultDark: boolean
+
+if (localStorage.getItem('dark')) {
+  defaultDark = JSON.parse(localStorage.getItem('dark')!)
+} else {
+  defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+let initial = true
 function App() {
-  let initial = true
   const dispatch = useAppDispatch()
   const user = useAppSelector((state) => state.user)
-  const cart = useAppSelector((state) => state.cart)
+  console.log(defaultDark)
+  const [darkMode, setDarkMode] = useState(defaultDark)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log(user)
-        const providers = user.providerData
-        const currProv = user.providerId
+        // const providers = user.providerData
+        // const currProv = user.providerId
 
         let userRef = ref(db, `users/${user.uid}`)
         onValue(userRef, (snapshot) => {
@@ -51,7 +54,6 @@ function App() {
         // getData()
         user.getIdToken().then((res) => {
           setLocalStorage(res)
-
           updateToken(user.uid, res)
         })
         listenchanges(user.uid)
@@ -62,16 +64,40 @@ function App() {
       }
     })
 
+    console.log(auth.currentUser?.uid)
+  }, [dispatch])
+
+  useEffect(() => {
     if (initial) {
       dispatch(fetchData())
       initial = false
     }
-    console.log(auth.currentUser?.uid)
+  }, [dispatch])
+
+  useEffect(() => {
+    defaultDark
+      ? document.body.setAttribute('data-theme', 'dark')
+      : document.body.setAttribute('data-theme', 'light')
   }, [])
+
+  useEffect(() => {
+    const darkLocal = localStorage.getItem('dark')
+    if (darkLocal) {
+      console.log(JSON.parse(darkLocal))
+      setDarkMode(JSON.parse(darkLocal))
+    }
+  }, [])
+
+  useEffect(() => {
+    darkMode
+      ? document.body.setAttribute('data-theme', 'dark')
+      : document.body.setAttribute('data-theme', 'light')
+    localStorage.setItem('dark', JSON.stringify(darkMode))
+  }, [darkMode])
 
   return (
     <>
-      <Layout>
+      <Layout setDark={setDarkMode} darkMode={darkMode}>
         <Suspense fallback={<h1>Loading...</h1>}>
           <Routes>
             <Route path='/' element={<Home />} />

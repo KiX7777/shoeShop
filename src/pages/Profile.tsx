@@ -28,9 +28,9 @@ const Profile = () => {
   const user = useAppSelector((state) => state.user)
   const [incorrectOld, setIncorrectOld] = useState(false)
   const [longEnough, setLongEnough] = useState(true)
-  const [slika, setslika] = useState('')
+  const [changePassword, setChangePassword] = useState(false)
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const [changePic, setchangePic] = useState(false)
   let image: any
   const currentPass = user.password
   const oldPassRef = useRef<HTMLInputElement>(null)
@@ -62,8 +62,6 @@ const Profile = () => {
   }
 
   async function handleUpload() {
-    // console.log(URL.createObjectURL())
-    // await updateImg(user.id, image)
     if (!image) {
       return
     }
@@ -73,68 +71,56 @@ const Profile = () => {
     image = e.target.files![0]
   }
 
-  // async function updateImg(file: any) {
-  //   const metadata = {
-  //     contentType: 'image/jpeg',
-  //   }
-  //   const storage = getStorage()
-  //   var storageRef = ref(storage, user.id + '/profilePicture/' + 'profilepic')
-
-  //   try {
-  //     const uploadTask = uploadBytesResumable(storageRef, file, metadata)
-  //     uploadTask.on(
-  //       'state_changed',
-  //       (snapshot) => {
-  //         const progress =
-  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //         console.log('Image uplaoded!')
-  //       },
-  //       (error: any) => {
-  //         console.log(error)
-  //       },
-  //       async () => {
-  //         const url = await getDownloadURL(uploadTask.snapshot.ref)
-  //         console.log(url)
-  //         setslika(url)
-  //         setPic(user.id, url)
-  //         updatePic(url)
-  //       }
-  //     )
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
   return (
     <div className={classes.profileContainer}>
       {!user.loggedIn && <Navigate to='/' />}
       {/* {!loggedIn && <Login />} */}
+      {user.userName && (
+        <div className={classes.nameBar}>Hello, {user.userName}</div>
+      )}
       {loggedIn && (
         <div className={classes.userInfo}>
-          <h1>Hello, {user.userName}</h1>
-          <h2>Email: {user.email}</h2>
-          <h2>Change Profile Picture</h2>
+          <h2>{user.email}</h2>
+          <div className={classes.profilePhoto}>
+            <img src={user.profilePic} alt={`${user.userName}`} />
+          </div>
+
+          {/* <img src={URL.createObjectURL(image)} alt='' /> */}
+
           <button
+            className={classes.loginBtns}
+            type='button'
             onClick={() => {
-              console.log(slika)
+              getUserData()
+              // getData()
+              console.log(user)
             }}
           >
-            STATE
+            GET USER INFO
           </button>
-          <input
-            type='file'
-            onChange={(e) => {
-              handleonChange(e)
+          <button
+            onClick={() => {
+              setChangePassword((prev) => !prev)
+              if (changePic) {
+                setchangePic(false)
+              }
             }}
-          />
-          <button type='button' onClick={handleUpload}>
-            Upload
+          >
+            Change Password
           </button>
-          <img src={slika} alt='' />
-          {/* <img src={URL.createObjectURL(image)} alt='' /> */}
+          <button
+            onClick={() => {
+              setchangePic((prev) => !prev)
+              if (changePassword) {
+                setChangePassword(false)
+              }
+            }}
+          >
+            Change Profile Picture
+          </button>
           {loggedIn && (
             <button
-              className={classes.loginBtns}
+              className={classes.logoutBtn}
               type='button'
               onClick={() => {
                 dispatch(logout())
@@ -145,56 +131,60 @@ const Profile = () => {
           )}
         </div>
       )}
-      <button
-        className={classes.loginBtns}
-        type='button'
-        onClick={() => {
-          getUserData()
-          // getData()
-          console.log(user)
-        }}
-      >
-        GET USER INFO
-      </button>
 
-      <h3>{user.password}</h3>
+      {changePic && (
+        <div className={classes.profileChange}>
+          <h2>Change Profile Picture</h2>
+          <input
+            type='file'
+            onChange={(e) => {
+              handleonChange(e)
+            }}
+          />
+          <button type='button' onClick={handleUpload}>
+            Upload
+          </button>
+        </div>
+      )}
 
-      <div className={classes.passChange}>
-        <form
-          onSubmit={(e) => {
-            handleSubmit(e)
-          }}
-        >
-          <div className={classes.inputContainer}>
-            <label htmlFor='oldPassword'>Old Password</label>
-            <input
-              ref={oldPassRef}
-              type='password'
-              onChange={() => {
-                oldPassRef.current?.value !== currentPass
-                  ? setIncorrectOld(true)
-                  : setIncorrectOld(false)
-              }}
-            />
-            {incorrectOld && <p>Incorrect old password.</p>}{' '}
-          </div>
-          <div className={classes.inputContainer}>
-            <label htmlFor='newPassword'>New Password</label>
-            <input
-              ref={newPassRef}
-              type='password'
-              onChange={() => {
-                newPassRef.current!.value.length < 5
-                  ? setLongEnough(false)
-                  : setLongEnough(true)
-              }}
-            />
-            {!longEnough && <p>Passwords be longer than 5 characters.</p>}{' '}
-          </div>
+      {changePassword && (
+        <div className={classes.passChange}>
+          <form
+            onSubmit={(e) => {
+              handleSubmit(e)
+            }}
+          >
+            <div className={classes.inputContainer}>
+              <label htmlFor='oldPassword'>Old Password</label>
+              <input
+                ref={oldPassRef}
+                type='password'
+                onChange={() => {
+                  oldPassRef.current?.value !== currentPass
+                    ? setIncorrectOld(true)
+                    : setIncorrectOld(false)
+                }}
+              />
+              {incorrectOld && <p>Incorrect old password.</p>}{' '}
+            </div>
+            <div className={classes.inputContainer}>
+              <label htmlFor='newPassword'>New Password</label>
+              <input
+                ref={newPassRef}
+                type='password'
+                onChange={() => {
+                  newPassRef.current!.value.length < 5
+                    ? setLongEnough(false)
+                    : setLongEnough(true)
+                }}
+              />
+              {!longEnough && <p>Passwords be longer than 5 characters.</p>}{' '}
+            </div>
 
-          <button type='submit'>Change Password</button>
-        </form>
-      </div>
+            <button type='submit'>Change Password</button>
+          </form>
+        </div>
+      )}
     </div>
   )
 }

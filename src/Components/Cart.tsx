@@ -22,7 +22,7 @@ const Cart = () => {
     if (localCart) {
       dispatch(cartActions.updateLocal(localCart))
     }
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))

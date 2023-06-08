@@ -15,6 +15,8 @@
   @include flex(initial, center);
   flex-direction: column;
   container-type: inline-size;
+
+  background-color: var(--backgroundColor);
   gap: 1rem;
   height: 70%;
   overflow-y: auto;
@@ -23,6 +25,7 @@
   content: 'Orders';
   font-size: 2.4cqi;
   font-weight: bold;
+  color: var(--font-color);
 }
 
 .order {
@@ -30,8 +33,10 @@
   border-radius: 10px;
   padding: 1rem;
   width: 100%;
+  animation: appear 500ms forwards ease;
   h1 {
     font-size: 2.4cqi;
+    color: var(--font-color);
   }
 }
 
@@ -42,9 +47,12 @@
   width: 100%;
   display: flex;
   align-items: center;
+  position: relative;
   justify-content: space-between;
   img {
     width: 5cqi;
+
+    right: 0;
   }
 }
 
@@ -54,11 +62,12 @@
 
   h2 {
     font-size: 1.8cqi;
+    color: var(--font-color);
   }
 }
 
 .order h1:last-of-type {
-  border-top: 2px solid black;
+  border-top: 2px solid var(--font-color);
 }
 
 .ordersList::-webkit-scrollbar {
@@ -84,6 +93,10 @@
   .ordersList::-webkit-scrollbar-thumb {
     visibility: visible;
   }
+  .ordersList::before {
+    font-size: 6cqi;
+  }
+
   .order {
     h1 {
       font-size: 4cqi;
@@ -95,11 +108,22 @@
   }
   .orderInfo {
     h2 {
-      font-size: 3.2cqi;
+      font-size: 3.6cqi;
     }
   }
 
   .order h1:last-of-type {
     font-size: 4.6cqi;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
   }
 }

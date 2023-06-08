@@ -3,8 +3,10 @@ import classes from './LoginMenu.module.css'
 import Login from './Login'
 import Error from '../UI/Error'
 import { useAppSelector } from '../store/Store'
+import { useNavigate } from 'react-router-dom'
 
 const LoginMenu = ({ open }: { open: boolean }) => {
+  const navigate = useNavigate()
   const user = useAppSelector((state) => state.user)
   return (
     <div
@@ -17,7 +19,13 @@ const LoginMenu = ({ open }: { open: boolean }) => {
       {user.loggedIn && (
         <>
           <div className={classes.img}>
-            <img src={user.profilePic} alt='profile picture' />
+            <img
+              src={user.profilePic}
+              alt={user.userName}
+              onClick={() => {
+                navigate('/profile')
+              }}
+            />
           </div>
           <h1>{user.userName}</h1>
         </>

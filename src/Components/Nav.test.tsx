@@ -29,6 +29,6 @@ describe('cart testing', () => {
     const cartCont = await screen.findByTestId('cartContainer')
     expect(cartCont).toHaveClass('openCart')
     const cartProducts = await screen.findByTestId('cartContainer')
-    expect(cartProducts).toha
+    // expect(cartProducts).toha
   })
 })
