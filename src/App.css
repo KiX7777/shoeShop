@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100;400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100;400;700&display=swap');
 :root {
   --backgroundColor: #fefefe;
   --font-color: #232323;
@@ -16,7 +16,7 @@
   --cartitemshadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
 }
 
-[data-theme=dark] {
+[data-theme='dark'] {
   --backgroundColor: #232323;
   --font-color: #fefefe;
   --cartitemfont: hsl(220, 14%, 75%);
@@ -32,7 +32,7 @@
 }
 
 * {
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -45,6 +45,7 @@ html {
 body {
   background-color: var(--backgroundColor);
   transition: 500ms ease;
+  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -60,12 +61,12 @@ body::-webkit-scrollbar-thumb {
 
 .notFound {
   height: calc(100dvh - 10rem);
-  background: url("/public/404.png");
+  background: url('/public/404.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-body[data-theme=dark] .notFound {
+body[data-theme='dark'] .notFound {
   filter: invert(1);
-}/*# sourceMappingURL=App.css.map */
+} /*# sourceMappingURL=App.css.map */
