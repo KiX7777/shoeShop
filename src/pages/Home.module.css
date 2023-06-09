@@ -229,6 +229,7 @@
 footer {
   max-width: 150rem;
   justify-self: center;
+  position: relative;
   width: 100%;
   padding: 4rem;
   display: flex;
@@ -241,6 +242,13 @@ footer {
 footer div {
   flex: 1;
   padding: 1rem;
+}
+footer .copyright {
+  position: absolute;
+  bottom: -10%;
+  text-align: center;
+  font-size: 0.8cqi;
+  color: var(--font-color);
 }
 
 .socials {
@@ -318,8 +326,9 @@ footer div {
     color: white;
   }
   .homeContainer .heroContainer .left p {
-    font-size: 2.8cqi !important;
+    font-size: 3.2cqi !important;
     color: white;
+    width: 80%;
   }
   .homeContainer .heroContainer .linkPlus {
     width: 7cqi;
@@ -330,6 +339,10 @@ footer div {
     z-index: -1;
     left: 0;
     width: 100%;
+  }
+  footer .copyright {
+    bottom: -35%;
+    font-size: 1.6cqi;
   }
   .ctaContainer {
     padding: 0;

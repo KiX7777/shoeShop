@@ -67,10 +67,17 @@
   .error {
     font-size: 1.3rem;
     color: red;
+    width: 100%;
     position: absolute;
     bottom: -25%;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+  }
+}
+
+@media screen and (width<500px) {
+  .form {
+    width: 100%;
   }
 }

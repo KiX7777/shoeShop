@@ -393,9 +393,10 @@
 
 @media (max-width: 480px) {
   .mainContainer {
-    height: calc(100dvh - 11rem);
+    height: calc(100dvh - 10rem);
     padding: 0;
     max-height: 100vh;
+    overflow-y: auto;
     display: flex;
     gap: 0;
     z-index: 0;
@@ -421,6 +422,9 @@
     justify-content: space-between;
     padding: 3rem;
     container-type: inline-size;
+  }
+  .infoCont .brand {
+    font-size: 4.2cqi;
   }
   .titleCont::-webkit-scrollbar {
     width: 1rem;
@@ -477,12 +481,9 @@
   .addtocart img {
     max-width: 1.8rem;
   }
-  .infoCont:last-child {
-    gap: 2.4rem;
-  }
   .quantity {
-    height: 5rem;
-    width: 5rem;
+    height: 4rem;
+    width: 4rem;
     width: 100%;
     gap: 2rem;
     justify-content: space-between;
@@ -500,10 +501,11 @@
     width: 100%;
   }
   .add button {
+    font-size: 5cqi;
     height: 5rem;
   }
   .add .size {
-    font-size: 2rem;
+    font-size: 5cqi;
   }
   .left,
   .right {
@@ -520,6 +522,16 @@
   .right {
     left: initial;
     right: 3rem;
+  }
+}
+@media screen and (width < 400px) {
+  .infoCont {
+    gap: 1.8rem;
+    padding: 2rem 3rem;
+  }
+  .quantity,
+  .add {
+    height: 4rem;
   }
 }
 @media screen and (width > 1800px) {

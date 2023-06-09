@@ -10,6 +10,7 @@ nav {
   height: 10rem;
   container-type: inline-size;
   justify-content: space-between;
+  width: 100%;
   transition: 300ms;
   border-bottom: 3px solid var(--accentgray);
 
@@ -130,6 +131,7 @@ nav {
 .linkActive {
   color: $primaryOrange !important;
 }
+
 .menu {
   display: none;
 }
@@ -259,7 +261,7 @@ nav {
 
   nav {
     // flex-direction: column;
-    height: 8rem;
+    height: 7rem;
     padding: 1.2rem;
     // display: none;
   }
@@ -309,6 +311,7 @@ nav {
   nav .hamburger {
     display: block;
     width: 4rem;
+    height: 4rem;
   }
   nav .hamburger path {
     stroke: var(--font-color);

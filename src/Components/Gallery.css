@@ -41,3 +41,14 @@
     object-fit: cover;
   }
 }
+
+@media screen and (width<500px) {
+  .swiper-slide img {
+    height: 130%;
+  }
+}
+@media screen and (width<400px) {
+  .swiper-slide img {
+    height: 150%;
+  }
+}

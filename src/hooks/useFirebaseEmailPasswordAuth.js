@@ -71,7 +71,6 @@ export const writed = async (userData) => {
 }
 
 export const pushOrder = async (id, order) => {
-  console.log(id)
   let userRef = ref(db, `users/${id}`)
   const date = new Date()
   const nodeRef = child(userRef, `orders/${date}`)

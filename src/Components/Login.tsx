@@ -2,6 +2,7 @@ import React from 'react'
 import classes from './Login.module.css'
 import { useState } from 'react'
 import { Formik } from 'formik'
+import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 import { GoogleLogin, userActions } from '../store/userStore'
@@ -25,6 +26,7 @@ const Login = () => {
   const userStore = useAppSelector((state) => state.user)
   const cart = useAppSelector((state) => state.cart)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [loginMode, setloginMode] = useState(true)
   const specialRegex = /^[\p{L}0-9 .]+$/gu
   const emailRegex =
@@ -179,6 +181,7 @@ const Login = () => {
           type='button'
           onClick={() => {
             dispatch(logout())
+            navigate('/')
           }}
         >
           LOG OUT

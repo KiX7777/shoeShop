@@ -6,26 +6,32 @@ import { formatPrice } from '../helpers'
 import { useEffect } from 'react'
 import { cartActions } from '../store/cartStore'
 
+const localCart = JSON.parse(localStorage.getItem('cart')!)
+
 const Cart = () => {
   const isOpen = useAppSelector((state) => state.cart.isOpen)
-  const cart = useAppSelector((state) => state.cart.products)
-  const total = useAppSelector((state) => state.cart.total)
+  const cartProducts = useAppSelector((state) => state.cart.products)
+  const cart = useAppSelector((state) => state.cart)
+  let total = useAppSelector((state) => state.cart.total)
+  // const totalAmount = cartProducts.reduce((acc, curr) => acc + curr.price, 0)
+  // console.log(totalAmount)
+
   const dispatch = useAppDispatch()
 
-  const cartProducts = cart.map((prod) => (
+  const cartProductsItems = cartProducts.map((prod) => (
     <CartItem key={prod.cartID} id={prod.id} cartID={prod.cartID} />
   ))
 
   useEffect(() => {
-    const localCart = JSON.parse(localStorage.getItem('cart')!)
     if (localCart) {
       dispatch(cartActions.updateLocal(localCart))
     }
   }, [dispatch])
 
   useEffect(() => {
+    localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
     localStorage.setItem('cart', JSON.stringify(cart))
-  }, [cart])
+  }, [cartProducts, cart])
 
   return (
     <div
@@ -40,14 +46,14 @@ const Cart = () => {
       <div className={classes.cartProducts} data-testid='cartProducts'>
         <p
           className={
-            cart.length > 0
+            cartProducts.length > 0
               ? ` ${classes.emptymsg}`
               : `${classes.emptymsg} ${classes.show}`
           }
         >
           Your cart is empty
         </p>
-        {cartProducts}
+        {cartProductsItems}
 
         {/* <CartItem /> */}
 
@@ -94,8 +100,11 @@ const Cart = () => {
           <Link
             to='/checkout'
             id='checkout'
+            onClick={() => {
+              dispatch(cartActions.closeCart())
+            }}
             className={
-              cart.length > 0
+              cartProducts.length > 0
                 ? `${classes.show} ${classes.checkoutBtn}`
                 : `${classes.checkoutBtn}`
             }

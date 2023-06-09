@@ -1,6 +1,38 @@
 @use '../styles/colors' as *;
 @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100;400;700&display=swap');
 
+:root {
+  --backgroundColor: #fefefe;
+  --font-color: #232323;
+  --secondaryFontColor: #fefefe;
+  --secondaryColor: #232323;
+  --accentgray: hsl(223, 64%, 98%);
+  --accentdark: hsl(220, 13%, 13%);
+  --shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  --logofilter: opacity(0.2);
+  --placeholdercolor: #aaa;
+  --grayishblue: hsl(220, 14%, 75%);
+  --navfontcolor: #68707d;
+  --inputcolor: #fefefe;
+  --cartitemfont: hsla(240, 3%, 6%, 0.558);
+  --cartitemshadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
+}
+
+[data-theme='dark'] {
+  --backgroundColor: #232323;
+  --font-color: #fefefe;
+  --cartitemfont: hsl(220, 14%, 75%);
+  --inputcolor: #333;
+  --placeholdercolor: #555;
+  --navfontcolor: #a8b4c9;
+  --secondaryFontColor: #232323;
+  --accentgray: hsla(217, 9%, 45%, 0.701);
+  --logofilter: opacity(0.2) invert(1);
+  --secondaryColor: #fefefe;
+  --shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
+  --cartitemshadow: 0 3px 3px rgba(255, 255, 255, 0.09);
+}
+
 * {
   font-family: 'Kumbh Sans', sans-serif;
   margin: 0;
@@ -25,35 +57,16 @@ body::-webkit-scrollbar-thumb {
   transition: all 500ms;
 }
 
-:root {
-  --backgroundColor: #fefefe;
-  --font-color: #232323;
-  --secondaryFontColor: #fefefe;
-  --secondaryColor: #232323;
-  --accentgray: hsl(223, 64%, 98%);
-  --accentdark: hsl(220, 13%, 13%);
-
-  --shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  --logofilter: opacity(0.2);
-  --placeholdercolor: #aaa;
-  --grayishblue: hsl(220, 14%, 75%);
-  --navfontcolor: #68707d;
-  --inputcolor: #fefefe;
-  --cartitemfont: hsla(240, 3%, 6%, 0.558);
-  --cartitemshadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
+.notFound {
+  height: calc(100dvh - 10rem);
+  background: url('/public/404.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-[data-theme='dark'] {
-  --backgroundColor: #232323;
-  --font-color: #fefefe;
-  --cartitemfont: hsl(220, 14%, 75%);
-  --inputcolor: #333;
-  --placeholdercolor: #555;
-  --navfontcolor: #a8b4c9;
-  --secondaryFontColor: #232323;
-  --accentgray: hsla(217, 9%, 45%, 0.701);
-  --logofilter: opacity(0.2) invert(1);
-  --secondaryColor: #fefefe;
-  --shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
-  --cartitemshadow: 0 3px 3px rgba(255, 255, 255, 0.09);
+body[data-theme='dark'] {
+  .notFound {
+    filter: invert(1);
+  }
 }

@@ -259,6 +259,7 @@ footer {
   // width: 100%;
   max-width: 150rem;
   justify-self: center;
+  position: relative;
   width: 100%;
   padding: 4rem;
   @include flex(center, center);
@@ -270,7 +271,16 @@ footer {
     flex: 1;
     padding: 1rem;
   }
+
+  .copyright {
+    position: absolute;
+    bottom: -10%;
+    text-align: center;
+    font-size: 0.8cqi;
+    color: var(--font-color);
+  }
 }
+
 .socials {
   @include flex(center, center);
   gap: 2rem;
@@ -353,8 +363,9 @@ footer {
         }
 
         p {
-          font-size: 2.8cqi !important;
+          font-size: 3.2cqi !important;
           color: white;
+          width: 80%;
         }
       }
 
@@ -370,6 +381,10 @@ footer {
       left: 0;
       width: 100%;
     }
+  }
+  footer .copyright {
+    bottom: -35%;
+    font-size: 1.6cqi;
   }
 
   .ctaContainer {

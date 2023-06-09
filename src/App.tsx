@@ -20,7 +20,7 @@ import { auth, db, updateToken } from './hooks/useFirebaseEmailPasswordAuth'
 import Orders from './Components/Orders'
 
 const Products = React.lazy(() => import('./pages/Products'))
-const About = React.lazy(() => import('./pages/About'))
+const NotFound = React.lazy(() => import('./pages/NotFound'))
 
 let defaultDark: boolean
 
@@ -105,15 +105,16 @@ function App() {
               {/* <Route path=':product' element={<Product />} /> */}
               <Route path=':product' element={<ProductPage />} />
             </Route>
-            {user.loggedIn && <Route path='/about' element={<About />} />}
 
             <Route path='/profile'>
               <Route index element={<Profile />} />
-              <Route path='orders' element={<Orders />} />
+              {user.loggedIn && (
+                <Route path='orders' element={<Orders />} />
+              )}{' '}
             </Route>
 
             <Route path='/checkout' element={<Checkout />} />
-            <Route path='*' element={<h1>Error 404 - Not Found</h1>} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </Suspense>
       </Layout>

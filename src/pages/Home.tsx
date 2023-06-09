@@ -124,6 +124,12 @@ const Home = () => {
             adipisci, omnis vero magnam cupiditate accusamus.
           </p>
         </div>
+        <div className={classes.copyright}>
+          <p>
+            Created by Kristian Božić <sup>©</sup>
+          </p>
+          <p>{new Date().getFullYear()}.</p>
+        </div>
       </footer>
     </div>
   )

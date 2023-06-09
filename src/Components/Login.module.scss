@@ -100,7 +100,7 @@ $button-active-blue: #1669f2;
   border: none;
   overflow: hidden;
   height: 4rem;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow);
   justify-self: center;
 }
 
@@ -228,14 +228,5 @@ $button-active-blue: #1669f2;
   }
   .login {
     width: 100%;
-
-    .btns {
-      flex-direction: column;
-    }
-    .googleBtn {
-      width: 100%;
-      height: 4rem;
-      flex: initial;
-    }
   }
 }

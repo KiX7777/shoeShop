@@ -63,7 +63,7 @@
   border: none;
   width: 100%;
   height: 4rem;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow);
   max-width: 40rem;
   border-radius: 0.5rem;
   transition: 400ms ease;
@@ -106,7 +106,7 @@
   border: none;
   overflow: hidden;
   height: 4rem;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow);
   justify-self: center;
 }
 
@@ -227,13 +227,5 @@
   }
   .login {
     width: 100%;
-  }
-  .login .btns {
-    flex-direction: column;
-  }
-  .login .googleBtn {
-    width: 100%;
-    height: 4rem;
-    flex: initial;
   }
 }/*# sourceMappingURL=Login.module.css.map */

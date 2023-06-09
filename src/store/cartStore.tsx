@@ -101,7 +101,8 @@ export const cartSlice = createSlice({
     },
 
     updateLocal(state, action) {
-      state.products = action.payload
+      state.products = action.payload.products
+      state.total = action.payload.total
     },
   },
 })

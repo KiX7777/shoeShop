@@ -33,7 +33,6 @@ const CheckoutForm = () => {
   const isOrdering = useAppSelector((state) => state.user.isOrdering)
   const orderError = useAppSelector((state) => state.user.error)
   const id = useAppSelector((state) => state.user.id)
-  console.log(id)
   let orderedProducts = cartProducts.map((prod) => {
     const product: OrderProduct = {
       name: prod.title,
@@ -76,7 +75,12 @@ const CheckoutForm = () => {
           .required('Required')
           .matches(nameRegex, 'Must only contain letters.'),
         address: Yup.string().required('Required').matches(specialRegex),
-        phone: Yup.string().required('Required').matches(phoneRegex),
+        phone: Yup.string()
+          .required('Required')
+          .matches(
+            phoneRegex,
+            'Phone number must be in format: +385XXXXXXXX(X)'
+          ),
         email: Yup.string().required('Required').matches(emailRegex),
       })}
       onSubmit={(values, { resetForm }) => {
@@ -95,7 +99,9 @@ const CheckoutForm = () => {
         if (!isOrdering && !orderError) {
           dispatch(cartActions.reset())
           resetForm()
-          navigate('/')
+          if (id) {
+            navigate('/profile/orders')
+          }
         }
       }}
     >
