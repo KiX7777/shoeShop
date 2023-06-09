@@ -8,7 +8,6 @@ const Home = () => {
   const msgRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    console.log(userMessage)
     const removeEl = () => {
       msgRef.current?.remove()
     }

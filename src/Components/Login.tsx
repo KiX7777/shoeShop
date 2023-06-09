@@ -10,6 +10,9 @@ import { GoogleLogin, userActions } from '../store/userStore'
 import { useAppDispatch, useAppSelector } from '../store/Store'
 import { signUp, logIn, logout } from '../store/userStore'
 
+let isMobile = window.matchMedia('(max-width: 500px)')
+console.log(isMobile.matches)
+
 export interface User {
   username: string
   password: string
@@ -152,7 +155,11 @@ const Login = () => {
                   className={classes.googleBtn}
                   onClick={(e) => {
                     e.preventDefault()
-                    dispatch(GoogleLogin(userStore.password))
+                    if (isMobile.matches) {
+                    } else {
+                    }
+
+                    dispatch(GoogleLogin())
                   }}
                 >
                   <div className={classes.googlebtn}>

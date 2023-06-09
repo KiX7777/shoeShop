@@ -221,6 +221,22 @@
       overflow-y: auto;
       overflow-x: hidden;
     }
+    .filterContainer {
+      overflow-y: scroll;
+      height: auto;
+      border-radius: 1rem;
+    }
+
+    .filterContainer::-webkit-scrollbar {
+      width: 10px;
+    }
+    .filterContainer::-webkit-scrollbar-thumb {
+      border-radius: 2rem;
+      border-right: 5px solid var(--backgroundColor);
+      border-top: 6px solid var(--backgroundColor);
+      border-bottom: 10px solid var(--backgroundColor);
+      background-color: $primaryOrange;
+    }
   }
 }
 
@@ -232,5 +248,17 @@
   .sideBar {
     overflow-y: scroll;
     height: auto;
+    border-radius: 1rem;
+  }
+
+  .sideBar::-webkit-scrollbar {
+    width: 10px;
+  }
+  .sideBar::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    border-right: 8px solid var(--backgroundColor);
+    border-top: 6px solid var(--backgroundColor);
+    border-bottom: 10px solid var(--backgroundColor);
+    background-color: $primaryOrange;
   }
 }

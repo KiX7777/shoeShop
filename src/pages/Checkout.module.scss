@@ -52,6 +52,12 @@
 }
 
 @media screen and (width<500px) {
+  .checkoutContainer {
+    height: calc(100dvh - 7rem);
+    grid-template-rows: 20rem 1fr;
+    gap: 2.2rem;
+  }
+
   .totalCheckout {
     font-size: 7cqi;
   }

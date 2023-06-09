@@ -8,12 +8,13 @@ import Layout from './UI/Layout'
 import ProductPage from './pages/ProductPage'
 import { useAppDispatch, useAppSelector } from './store/Store'
 import { useEffect } from 'react'
-import { onAuthStateChanged } from 'firebase/auth'
+import { UserCredential, onAuthStateChanged } from 'firebase/auth'
 import { ref, onValue } from 'firebase/database'
 import { setLocalStorage } from './helpers'
 import { fetchData } from './store/productsStore'
 import Checkout from './pages/Checkout'
 import Profile from './pages/Profile'
+import { GoogleAuthProvider, getRedirectResult } from 'firebase/auth'
 import { userActions } from './store/userStore'
 import { listenchanges } from './hooks/useFirebaseEmailPasswordAuth'
 import { auth, db, updateToken } from './hooks/useFirebaseEmailPasswordAuth'
@@ -37,13 +38,19 @@ function App() {
   const [darkMode, setDarkMode] = useState(defaultDark)
 
   useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(userActions.setLogin())
+    }
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        dispatch(userActions.setLogin())
+
         console.log(user)
+
         // const providers = user.providerData
         // const currProv = user.providerId
+        const userRef = ref(db, `users/${user.uid}`)
 
-        let userRef = ref(db, `users/${user.uid}`)
         onValue(userRef, (snapshot) => {
           let user = snapshot.val()
           console.log(user)
@@ -108,9 +115,7 @@ function App() {
 
             <Route path='/profile'>
               <Route index element={<Profile />} />
-              {user.loggedIn && (
-                <Route path='orders' element={<Orders />} />
-              )}{' '}
+              {user.loggedIn && <Route path='orders' element={<Orders />} />}
             </Route>
 
             <Route path='/checkout' element={<Checkout />} />

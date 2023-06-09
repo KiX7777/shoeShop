@@ -2,12 +2,14 @@ import React from 'react'
 import classes from './LoginMenu.module.css'
 import Login from './Login'
 import Error from '../UI/Error'
-import { useAppSelector } from '../store/Store'
+import { useAppSelector, useAppDispatch } from '../store/Store'
 import { useNavigate } from 'react-router-dom'
+import { userActions } from '../store/userStore'
 
 const LoginMenu = ({ open }: { open: boolean }) => {
   const navigate = useNavigate()
   const user = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch()
   const isOpen = user.loginMenu
   return (
     <div
@@ -25,6 +27,7 @@ const LoginMenu = ({ open }: { open: boolean }) => {
               alt={user.userName}
               onClick={() => {
                 navigate('/profile')
+                dispatch(userActions.closeLoginMenu())
               }}
             />
           </div>

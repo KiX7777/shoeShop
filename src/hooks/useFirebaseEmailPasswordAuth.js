@@ -17,20 +17,27 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  getRedirectResult,
   signOut,
   updateProfile,
   sendEmailVerification,
   signInWithPopup,
   fetchSignInMethodsForEmail,
+  signInWithRedirect,
   GoogleAuthProvider,
   updatePassword,
   linkWithPopup,
 } from 'firebase/auth'
 
+let isMobile = window.matchMedia('(max-width: 500px)')
+
 const firebaseApp = initializeApp(firebaseConfig)
 export const auth = getAuth(firebaseApp)
 auth.useDeviceLanguage()
 const provider = new GoogleAuthProvider()
+provider.setCustomParameters({
+  prompt: 'select_account',
+})
 export const db = getDatabase(firebaseApp)
 export const user = auth.currentUser
 
@@ -170,15 +177,30 @@ export function listenchanges(id) {
 
 export const GoogleSign = async () => {
   try {
-    const result = await signInWithPopup(auth, provider)
-    const credential = GoogleAuthProvider.credentialFromResult(result)
-    const token = credential.accessToken
+    let result
+    let credential
+    let token
+
+    if (isMobile.matches) {
+      await signInWithRedirect(auth, provider)
+      result = getRedirectResult(auth)
+
+      credential = GoogleAuthProvider.credentialFromResult(result)
+      // console.log(credential)
+
+      token = credential.accessToken
+    } else {
+      result = await signInWithPopup(auth, provider)
+      credential = GoogleAuthProvider.credentialFromResult(result)
+      token = credential.accessToken
+    }
 
     const user = result.user
-    console.log(result)
-    console.log(credential)
-    console.log(token)
     console.log(user)
+    // console.log(result)
+    // console.log(credential)
+    // console.log(token)
+    // console.log(user)
     return {
       user: user,
       token: credential.accessToken,

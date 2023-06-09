@@ -140,26 +140,27 @@ export const logIn = createAsyncThunk(
   }
 )
 
-export const GoogleLogin = createAsyncThunk(
-  'gLog',
-  async (password: string, thunkAPI) => {
-    try {
-      const data = await GoogleSign()
-      // linkUsers()
+export const GoogleLogin = createAsyncThunk('gLog', async (_, thunkAPI) => {
+  try {
+    const data = await GoogleSign()
 
-      setPic(data?.user.uid, data?.user.photoURL)
-      return {
-        token: data?.token,
-        email: data?.user.email,
-        profilepic: data?.user.photoURL,
-        id: data?.user.uid,
-        userName: data?.user.displayName,
-      }
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+    // linkUsers()
+
+    setPic(data?.user.uid, data?.user.photoURL)
+
+    thunkAPI.dispatch(userActions.setLogin())
+
+    return {
+      token: data?.token,
+      email: data?.user.email,
+      profilepic: data?.user.photoURL,
+      id: data?.user.uid,
+      userName: data?.user.displayName,
     }
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error)
   }
-)
+})
 
 export const logout = createAsyncThunk('logOut', async (_, thunkAPI) => {
   try {
@@ -212,6 +213,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     updateStore(state, action) {
+      console.log('updating...')
       state.loggingIn = false
       state.token = action.payload.token
       state.id = action.payload.id
@@ -223,6 +225,10 @@ export const userSlice = createSlice({
       state.loginMenu = false
       state.profilePic = action.payload.profilepic
       state.previousOrders = [action.payload.orders]
+    },
+
+    setLogin(state) {
+      state.loggedIn = true
     },
 
     updateOrders(state, action) {
