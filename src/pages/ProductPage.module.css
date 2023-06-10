@@ -8,6 +8,7 @@
   gap: 4rem;
   container-type: inline-size;
   margin: 0 auto;
+  overflow-x: hidden;
   position: relative;
 }
 

@@ -4,12 +4,17 @@
   max-height: 50rem;
 }
 
+.swiper-wrapper {
+  transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(-270deg);
+}
+
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: var(--backgroundColor);
-  transition: background 500ms ease;
+  /* background: var(--backgroundColor); */
+  /* transition: background 500ms ease; */
   /* Center slide text vertically */
+  background-color: transparent;
   justify-content: center;
   align-items: center;
   display: flex !important;
@@ -44,11 +49,11 @@
 
 @media screen and (width<500px) {
   .swiper-slide img {
-    height: 130%;
+    /* height: 130%; */
   }
 }
 @media screen and (width<400px) {
   .swiper-slide img {
-    height: 150%;
+    /* height: 150%; */
   }
 }

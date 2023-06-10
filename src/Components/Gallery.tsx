@@ -24,7 +24,6 @@ const Gallery = ({ images }: { images: string[] }) => {
         slidesPerView={1}
         effect={'cube'}
         spaceBetween={30}
-        loop={true}
         cubeEffect={{
           shadow: false,
         }}
