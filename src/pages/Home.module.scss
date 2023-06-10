@@ -328,7 +328,7 @@ footer {
     }
 
     footer {
-      margin: 3.2rem 5rem;
+      margin: 5rem;
       padding: 0 3rem;
 
       .infoContainer {
@@ -424,5 +424,11 @@ footer {
   }
   .socials svg {
     width: 5cqi;
+  }
+}
+
+@media (max-width: 480px), (width<920px) and (orientation: landscape) {
+  footer {
+    margin: 0;
   }
 }

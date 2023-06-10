@@ -43,7 +43,11 @@ const Home = () => {
             {/* Photo by <a href="https://unsplash.com/@caapece?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Danilo Capece</a> on <a href="https://unsplash.com/photos/NoVnXXmDNi0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> */}
 
             <div className={classes.heroBtnContainer}>
-              <Link className={classes.linkPlus} to='/products'></Link>
+              <Link
+                aria-label='Link to products page'
+                className={classes.linkPlus}
+                to='/products'
+              ></Link>
               <Link to='/products'>Explore More</Link>
             </div>
           </div>
@@ -67,7 +71,11 @@ const Home = () => {
               step into the world of fashionable footwear today!
             </p>
             <div className={classes.heroBtnContainer}>
-              <Link className={classes.linkPlus} to='/products'></Link>
+              <Link
+                aria-label='Link to products page'
+                className={classes.linkPlus}
+                to='/products'
+              ></Link>
               <Link to='/products'>Explore More</Link>
             </div>
           </div>

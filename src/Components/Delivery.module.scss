@@ -24,3 +24,8 @@
     }
   }
 }
+@media (max-width: 480px), (width<920px) and (orientation: landscape) {
+  .delivery {
+    height: 3rem;
+  }
+}

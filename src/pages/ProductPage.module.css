@@ -571,4 +571,15 @@
     height: 4cqi;
     font-size: 1.6cqi;
   }
+}
+@media (max-width: 480px), (width < 920px) and (orientation: landscape) {
+  .mainContainer {
+    width: 100dvw;
+    height: calc(100dvh - 10rem);
+  }
+  .infoCont {
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
+  }
 }/*# sourceMappingURL=ProductPage.module.css.map */

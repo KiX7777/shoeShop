@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100;400;700&display=swap");
 :root {
   --backgroundColor: #fefefe;
   --font-color: #232323;
@@ -11,18 +11,20 @@
   --placeholdercolor: #aaa;
   --grayishblue: hsl(220, 14%, 75%);
   --navfontcolor: #68707d;
+  --splash: #efefef;
   --inputcolor: #fefefe;
   --cartitemfont: hsla(240, 3%, 6%, 0.558);
   --cartitemshadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
 }
 
-[data-theme='dark'] {
+[data-theme=dark] {
   --backgroundColor: #232323;
   --font-color: #fefefe;
   --cartitemfont: hsl(220, 14%, 75%);
   --inputcolor: #333;
   --placeholdercolor: #555;
   --navfontcolor: #a8b4c9;
+  --splash: rgba(0, 0, 0, 0.85);
   --secondaryFontColor: #232323;
   --accentgray: hsla(217, 9%, 45%, 0.701);
   --logofilter: opacity(0.2) invert(1);
@@ -32,7 +34,7 @@
 }
 
 * {
-  font-family: 'Kumbh Sans', sans-serif;
+  font-family: "Kumbh Sans", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -45,7 +47,6 @@ html {
 body {
   background-color: var(--backgroundColor);
   transition: 500ms ease;
-  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -61,12 +62,39 @@ body::-webkit-scrollbar-thumb {
 
 .notFound {
   height: calc(100dvh - 10rem);
-  background: url('/public/404.png');
+  background: url("/public/404.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-body[data-theme='dark'] .notFound {
+.splashscreen {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  background-color: black;
+  z-index: 100;
+  animation: disappear 1500ms ease-out forwards;
+}
+
+.splashscreen.hidden {
+  display: none;
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+    display: block;
+  }
+  to {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+  }
+}
+body[data-theme=dark] .notFound {
   filter: invert(1);
-} /*# sourceMappingURL=App.css.map */
+}/*# sourceMappingURL=App.css.map */

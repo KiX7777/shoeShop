@@ -1,5 +1,6 @@
 import React from 'react'
 import Nav from '../Components/Nav'
+import SplashScreen from '../Components/splashScreen'
 
 const Layout = (props: {
   children: React.ReactNode
@@ -10,6 +11,8 @@ const Layout = (props: {
 }) => {
   return (
     <>
+      <SplashScreen />
+
       <Nav setDark={props.setDark} darkMode={props.darkMode} />
       {props.children}
     </>

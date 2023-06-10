@@ -297,7 +297,7 @@ footer .copyright {
     margin: 5rem 2rem;
   }
   .homeContainer footer {
-    margin: 3.2rem 5rem;
+    margin: 5rem;
     padding: 0 3rem;
   }
   .homeContainer footer .infoContainer h3 {
@@ -378,5 +378,10 @@ footer .copyright {
   }
   .socials svg {
     width: 5cqi;
+  }
+}
+@media (max-width: 480px), (width < 920px) and (orientation: landscape) {
+  footer {
+    margin: 0;
   }
 }/*# sourceMappingURL=Home.module.css.map */

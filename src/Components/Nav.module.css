@@ -65,6 +65,9 @@ nav .navRight {
   align-items: center;
   gap: 2rem;
 }
+nav .navRight li {
+  padding: 0;
+}
 nav .navRight img {
   width: 3.5rem;
   height: 3.5rem;
@@ -210,6 +213,10 @@ nav .hamburger {
   }
   .darkModeBtn {
     display: none;
+  }
+  .darkModeBtnMobile {
+    width: 100%;
+    text-align: center;
   }
   .darkModeBtnMobile input {
     -webkit-appearance: none;

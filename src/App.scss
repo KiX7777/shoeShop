@@ -13,6 +13,7 @@
   --placeholdercolor: #aaa;
   --grayishblue: hsl(220, 14%, 75%);
   --navfontcolor: #68707d;
+  --splash: #efefef;
   --inputcolor: #fefefe;
   --cartitemfont: hsla(240, 3%, 6%, 0.558);
   --cartitemshadow: -3px 2px 5px rgba(0, 0, 0, 0.070392);
@@ -25,6 +26,7 @@
   --inputcolor: #333;
   --placeholdercolor: #555;
   --navfontcolor: #a8b4c9;
+  --splash: rgba(0, 0, 0, 0.85);
   --secondaryFontColor: #232323;
   --accentgray: hsla(217, 9%, 45%, 0.701);
   --logofilter: opacity(0.2) invert(1);
@@ -63,6 +65,36 @@ body::-webkit-scrollbar-thumb {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.splashscreen {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  background-color: black;
+  // background-color: var(--splash);
+  z-index: 100;
+  animation: disappear 1500ms ease-out forwards;
+}
+
+.splashscreen.hidden {
+  display: none;
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+    display: block;
+  }
+
+  to {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+  }
 }
 
 body[data-theme='dark'] {

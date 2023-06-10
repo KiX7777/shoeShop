@@ -76,6 +76,7 @@ const Nav = (props: NavProps) => {
           }}
           className={classes.closemenu}
           height='800px'
+          aria-label='mobile menu toggle'
           viewBox='0 0 24 24'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
@@ -152,11 +153,15 @@ const Nav = (props: NavProps) => {
           )}
         </div>
         <div className={classes.darkModeBtnMobile}>
+          <label htmlFor='darkmode' hidden>
+            Dark mode toggle
+          </label>
           <input
             type='checkbox'
             name='darkmode'
             ref={mobDarkRef}
-            id='darkmode'
+            aria-label='dark mode switch'
+            id='darkmodeMobile'
             onChange={() => {
               props.setDark((prev) => !prev)
             }}
@@ -172,6 +177,7 @@ const Nav = (props: NavProps) => {
             }}
             width='800px'
             height='800px'
+            aria-label='mobile menu toggle'
             viewBox='0 0 24 24'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
@@ -201,6 +207,7 @@ const Nav = (props: NavProps) => {
               type='checkbox'
               name='darkmode'
               ref={darkRef}
+              aria-label='dark mode switch'
               id='darkmode'
               onChange={() => {
                 props.setDark((prev) => !prev)
@@ -208,8 +215,8 @@ const Nav = (props: NavProps) => {
             />
           </div>
 
-          <Link to='/'>
-            <img src='/logo.png' alt='' className={classes.logo} />
+          <Link to='/' aria-label='Navigate to home page'>
+            <img src='/logo.png' alt='Kicks logo' className={classes.logo} />
           </Link>
 
           <li>
