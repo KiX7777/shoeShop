@@ -47,6 +47,11 @@
   gap: 2rem;
 }
 
+.filterMobileBtn,
+.closeFilterMobile {
+  display: none;
+}
+
 .cardsContainer {
   height: 100%;
   margin: 2.4rem;
@@ -197,7 +202,7 @@
     padding: 1rem 1.4rem;
     grid-template-columns: none;
     height: 100%;
-    grid-template-rows: 35% 1fr;
+    grid-template-rows: 20% 1fr;
     gap: 0;
 
     select,
@@ -213,18 +218,39 @@
     }
     .sideBar {
       height: 100%;
+      gap: 1rem;
+      border: none;
     }
 
     .filterContainer {
       justify-content: initial;
-      height: 100%;
+      opacity: 0;
+      // transform: scale(0);
       overflow-y: auto;
       overflow-x: hidden;
-    }
-    .filterContainer {
-      overflow-y: scroll;
-      height: auto;
+      padding: 1rem;
+      position: fixed;
+      background-color: $primaryOrange;
+      z-index: 50;
+      width: 90%;
+      opacity: 1;
+      left: 50%;
+      top: 15%;
+      height: 80%;
+      transform: translateX(-50%) scale(0);
+      transform-origin: top;
       border-radius: 1rem;
+      transition: 500ms ease;
+      border: 1px solid var(--secondaryColor);
+    }
+    // .filterContainer {
+    //   overflow-y: scroll;
+    //   height: auto;
+    //   border-radius: 1rem;
+    // }
+
+    .sortContainer {
+      height: auto;
     }
 
     .filterContainer::-webkit-scrollbar {
@@ -232,17 +258,60 @@
     }
     .filterContainer::-webkit-scrollbar-thumb {
       border-radius: 2rem;
-      border-right: 5px solid var(--backgroundColor);
-      border-top: 6px solid var(--backgroundColor);
-      border-bottom: 10px solid var(--backgroundColor);
-      background-color: $primaryOrange;
+      border-right: 5px solid $primaryOrange;
+      border-top: 6px solid $primaryOrange;
+      border-bottom: 10px solid $primaryOrange;
+      background-color: white;
     }
+    .filterMobileBtn {
+      display: block;
+      font-size: 4.4cqi;
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid $primaryOrange;
+      background-color: var(--backgroundColor);
+    }
+
+    .filterContainerMobile {
+      transform: translateX(-50%) scale(1);
+      transform-origin: top;
+      transition: 500ms ease;
+    }
+    .brandFilter input:checked,
+    .colorFilter input:checked {
+      background-color: var(--backgroundColor);
+      color: white;
+      accent-color: black;
+    }
+    .colorFilter input:checked::before,
+    .brandFilter input:checked::before {
+      content: '\2713';
+      @include flex(center, center);
+      text-align: center;
+      color: var(--font-color);
+    }
+    .closeFilterMobile {
+      display: block;
+      position: absolute;
+      right: 1rem;
+      font-size: 2rem;
+    }
+
+    // .openFilterMobile {
+    //   opacity: 1;
+    //   transform: scale(1);
+    //   transform-origin: top;
+    // }
   }
 }
 
 @media screen and (width <920px) and (orientation: landscape) {
   .mainContainer {
     padding: 1rem;
+  }
+  .filterMobileBtn,
+  .closeFilterMobile {
+    display: none;
   }
 
   .sideBar {

@@ -103,7 +103,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
             // console.log(first)
           }}
         >
-          <img src={product.images[0]} alt='' />
+          <img loading='lazy' src={product.images[0]} alt={product.title} />
         </div>
         <h3 className={classes.price}>{formatPrice(product.price)}</h3>
         <div className={classes.contentBx}>

@@ -46,7 +46,7 @@ const Products = memo(() => {
   products = useAppSelector<Product[]>((state) => state.products.products)
   const error = useAppSelector((state) => state.products.error)
   const status = useAppSelector((state) => state.products.status)
-
+  const [filterMobile, setfilterMobile] = useState(false)
   const [sort, setsort] = useState('')
 
   const [filteredColors, setFilteredColors] = useState<string[]>([])
@@ -174,7 +174,29 @@ const Products = memo(() => {
                 <option value='nameDesc'>Z-A</option>
               </select>
             </div>
-            <div className={classes.filterContainer}>
+            <button
+              className={classes.filterMobileBtn}
+              onClick={() => {
+                setfilterMobile((prev) => !prev)
+              }}
+            >
+              Filter
+            </button>
+            <div
+              className={
+                filterMobile
+                  ? `${classes.filterContainer} ${classes.filterContainerMobile}`
+                  : `${classes.filterContainer}`
+              }
+            >
+              <div
+                className={classes.closeFilterMobile}
+                onClick={() => {
+                  setfilterMobile(false)
+                }}
+              >
+                X
+              </div>
               <div className={classes.colorFilterContainer}>
                 <h3
                   onClick={() => {

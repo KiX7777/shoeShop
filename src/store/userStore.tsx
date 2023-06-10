@@ -11,6 +11,7 @@ import {
   updateUsername,
   setPic,
   pushOrder,
+  verifyMail,
   checkUsername,
   changePass,
 } from '../hooks/useFirebaseEmailPasswordAuth'
@@ -86,8 +87,9 @@ export const signUp = createAsyncThunk(
       }
       //setting the username
       await updateUsername(credentials.username)
+
       //sending the verification email
-      // await verifyMail()
+      await verifyMail()
 
       const userData = {
         token: data.accessToken,
@@ -100,6 +102,8 @@ export const signUp = createAsyncThunk(
         cart: '',
       }
       writed(userData)
+      thunkAPI.dispatch(userActions.closeLoginMenu())
+
       setLocalStorage(data.accessToken)
       return userData
     } catch (error: any) {
@@ -115,6 +119,8 @@ export const logIn = createAsyncThunk(
       const emailLogIn = useFirebaseEmailPasswordAuth()[1]
       const userData = await emailLogIn(credentials[0], credentials[1])
 
+      //if we don't receive user data it means that there was an error
+      //throw error so reducer can catch it
       if (typeof userData === 'string') {
         throw new Error(userData)
       }
@@ -126,11 +132,9 @@ export const logIn = createAsyncThunk(
         id: userData.uid,
       }
 
-      //if we don't receive user data it means that there was an error
-      //throw error so reducer can catch it
-      // setLocalStorage(userData.accessToken)
-      // updateToken(userData.displayName, userData.accessToken)
       console.log(user)
+      thunkAPI.dispatch(userActions.closeLoginMenu())
+
       return user
     } catch (error: any) {
       console.log(error)

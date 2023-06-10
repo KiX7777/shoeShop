@@ -5,7 +5,7 @@ import { Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { GoogleLogin, userActions } from '../store/userStore'
+import { GoogleLogin } from '../store/userStore'
 
 import { useAppDispatch, useAppSelector } from '../store/Store'
 import { signUp, logIn, logout } from '../store/userStore'
@@ -83,18 +83,13 @@ const Login = () => {
               return
             } else {
               if (!loginMode) {
-                // emailSignUp(values.email, values.password).then((res) =>
-                //   console.log(res)
-                // )
                 dispatch(signUp(user))
-
                 resetForm()
               } else {
                 dispatch(logIn([user.email, user.password]))
 
                 return
               }
-              dispatch(userActions.closeLoginMenu())
             }
           }}
         >
