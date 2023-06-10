@@ -191,13 +191,13 @@
 
 @media screen and (width <500px) {
   .productsContainer {
-    height: calc(100dvh - 8rem);
+    height: calc(100dvh - 7rem);
   }
   .mainContainer {
     padding: 1rem 1.4rem;
     grid-template-columns: none;
     height: 100%;
-    grid-template-rows: 40% 1fr;
+    grid-template-rows: 35% 1fr;
     gap: 0;
 
     select,

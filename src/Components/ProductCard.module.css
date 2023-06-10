@@ -41,17 +41,18 @@
 
 .backText {
   position: absolute;
-  top: 10%;
-  left: -20%;
+  top: 15%;
+  left: 0%;
   font-size: 8em;
   background-size: contain;
   filter: var(--logofilter);
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   background-repeat: no-repeat;
   font-weight: 800;
   mix-blend-mode: hard-light;
-  z-index: 1;
+  z-index: -1;
+  overflow: hidden;
   font-style: italic;
   color: rgba(255, 255, 25, 0.05);
 }

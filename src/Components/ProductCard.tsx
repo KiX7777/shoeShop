@@ -47,8 +47,6 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
       backgroundImage: "url('/nikeLogo.png')",
       backgroundRepeat: 'no-repeat',
       backgroundSize: '80%',
-
-      left: '0%',
     }
   } else if (brandName === 'Adidas Originals') {
     backgroundStyles = {
@@ -57,36 +55,32 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
       backgroundImage: "url('/adidasOriginals.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
-      top: '15%',
+      left: '-5%',
     }
   } else if (brandName === 'Jordan') {
     backgroundStyles = {
       backgroundImage: "url('/jordanlogo.svg.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
-      top: '0',
     }
   } else if (brandName === 'Puma') {
     backgroundStyles = {
       backgroundImage: "url('/pumaLogo.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
-
-      left: '-10%',
     }
   } else if (brandName === 'Converse') {
     backgroundStyles = {
       backgroundImage: "url('/converse.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
+      overflow: 'hidden',
     }
   } else if (brandName === 'Adidas') {
     backgroundStyles = {
       backgroundImage: "url('/adidaslogo.png')",
       backgroundSize: '80%',
-      left: '-10%',
       backgroundRepeat: 'no-repeat',
-      top: '15%',
     }
   }
 
@@ -94,7 +88,6 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
     <div className={classes.container}>
       <div
         className={classes.card}
-
         ref={cardRef}
         style={{
           animationDelay: `${id * 200}ms`,
