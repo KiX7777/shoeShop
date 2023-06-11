@@ -1,19 +1,14 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import { useLocation, useSearchParams } from 'react-router-dom'
-import { useAppDispatch } from '../store/Store'
-import { fetchData } from '../store/productsStore'
 import { useAppSelector } from '../store/Store'
-import LinkLoader from '../UI/LinkLoader'
 import classes from './Products.module.css'
-import { productsActions } from '../store/productsStore'
 import Skeleton from 'react-loading-skeleton'
 import ProductCard from '../Components/ProductCard'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import SidebarLoading from '../Components/SidebarLoading'
-import { pushImages } from '../helpers'
 import { useNavigate } from 'react-router-dom'
 import CardsLoading from '../Components/CardsLoadingSkeleton'
-import { memo } from 'react'
 import {
   sortPriceUp,
   sortNameAsc,

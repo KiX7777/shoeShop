@@ -66,7 +66,6 @@
   width: 100%;
   height: 220px;
   transition: 0.55s;
-  background: url("/public/placeholder.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 100%;
@@ -243,6 +242,7 @@
 
 .container .card .contentBx .sizes span.activeSize {
   background-color: #ff7d1a;
+  border: 1px solid white;
   color: white;
 }
 
@@ -254,5 +254,17 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+@media screen and (width < 920px) and (orientation: landscape) {
+  .container {
+    margin: 0;
+  }
+  .container .card {
+    height: 300px;
+  }
+  .container .card .imgBx img {
+    width: 20rem;
+    top: 35%;
   }
 }/*# sourceMappingURL=ProductCard.module.css.map */

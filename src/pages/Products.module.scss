@@ -270,6 +270,7 @@
       border-radius: 1rem;
       border: 1px solid $primaryOrange;
       background-color: var(--backgroundColor);
+      color: var(--font-color);
     }
 
     .filterContainerMobile {
@@ -306,6 +307,13 @@
 }
 
 @media screen and (width <920px) and (orientation: landscape) {
+  .productsContainer {
+    height: calc(100dvh - 6rem);
+  }
+
+  .cardsContainer {
+    margin: 0;
+  }
   .mainContainer {
     padding: 1rem;
   }
@@ -329,5 +337,15 @@
     border-top: 6px solid var(--backgroundColor);
     border-bottom: 10px solid var(--backgroundColor);
     background-color: $primaryOrange;
+  }
+  .sortContainer select {
+    font-size: 1.8cqi;
+  }
+
+  .colorFilter,
+  .brandFilter {
+    label {
+      font-size: 1.8cqi;
+    }
   }
 }

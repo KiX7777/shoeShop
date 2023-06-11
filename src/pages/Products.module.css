@@ -261,6 +261,7 @@
     border-radius: 1rem;
     border: 1px solid #ff7d1a;
     background-color: var(--backgroundColor);
+    color: var(--font-color);
   }
   .mainContainer .filterContainerMobile {
     transform: translateX(-50%) scale(1);
@@ -290,6 +291,12 @@
   }
 }
 @media screen and (width < 920px) and (orientation: landscape) {
+  .productsContainer {
+    height: calc(100dvh - 6rem);
+  }
+  .cardsContainer {
+    margin: 0;
+  }
   .mainContainer {
     padding: 1rem;
   }
@@ -311,5 +318,12 @@
     border-top: 6px solid var(--backgroundColor);
     border-bottom: 10px solid var(--backgroundColor);
     background-color: #ff7d1a;
+  }
+  .sortContainer select {
+    font-size: 1.8cqi;
+  }
+  .colorFilter label,
+  .brandFilter label {
+    font-size: 1.8cqi;
   }
 }/*# sourceMappingURL=Products.module.css.map */
