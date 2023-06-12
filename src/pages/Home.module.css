@@ -302,6 +302,7 @@ footer .copyright {
   .homeContainer {
     padding: 0;
     width: 100dvw;
+    overflow-x: hidden;
   }
   .homeContainer section {
     margin: 1rem;

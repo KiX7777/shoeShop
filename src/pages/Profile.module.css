@@ -7,7 +7,6 @@
   }
 }
 .profileContainer {
-  height: calc(100dvh - 10rem);
   position: relative;
   display: grid;
   padding-top: 3rem;
@@ -47,6 +46,21 @@
 }
 .profileContainer input[type=file]::file-selector-button:hover {
   background-color: #eb7419;
+}
+
+.profileContainer::-webkit-scrollbar {
+  width: 4px;
+}
+
+.profileContainer::-webkit-scrollbar-thumb {
+  background-color: #ff7d1a;
+  visibility: hidden;
+  -webkit-transition: all 500ms;
+  transition: all 500ms;
+}
+
+.profileContainer:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
 }
 
 .profileMsg {

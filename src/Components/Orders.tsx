@@ -4,13 +4,12 @@ import { useAppSelector } from '../store/Store'
 import { Order } from '../store/cartStore'
 import { ObjectType } from 'typescript'
 import { OrderProduct } from './CheckoutForm'
-import { formatPrice } from '../helpers'
+import { formatPrice } from '../helpers/helpers'
 import OrdersSkeleton from './OrdersSkeleton'
 
 const Orders = () => {
   const orders = useAppSelector((state) => state.user.previousOrders)
   const [list, setList] = useState<JSX.Element[]>([])
-  const productsList = useAppSelector((state) => state.products.products)
 
   // let list
   useEffect(() => {
@@ -38,7 +37,7 @@ const Orders = () => {
                   </h2>
                   <h2>={formatPrice(ord.total)}</h2>
                 </div>
-                <img src={ord.image} alt='product image' />
+                <img src={ord.image} alt={ord.name} />
               </div>
             ))}
             <h1>TOTAL: {formatPrice(order.total)}</h1>

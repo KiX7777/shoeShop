@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, Suspense, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
-import { Suspense } from 'react'
 import Layout from './UI/Layout'
 import ProductPage from './pages/ProductPage'
 import { useAppDispatch, useAppSelector } from './store/Store'
-import { useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { ref, onValue } from 'firebase/database'
-import { setLocalStorage } from './helpers'
+import { setLocalStorage } from './helpers/helpers'
 import { fetchData } from './store/productsStore'
 import Checkout from './pages/Checkout'
-
 import { userActions } from './store/userStore'
-import { listenchanges } from './hooks/useFirebaseEmailPasswordAuth'
-import { auth, db, updateToken } from './hooks/useFirebaseEmailPasswordAuth'
+import {
+  auth,
+  db,
+  updateToken,
+  listenchanges,
+} from './helpers/FirebaseFunctions'
 import Orders from './Components/Orders'
 
 const Products = React.lazy(() => import('./pages/Products'))
@@ -45,17 +46,14 @@ function App() {
 
         console.log(user)
 
-        // const providers = user.providerData
-        // const currProv = user.providerId
         const userRef = ref(db, `users/${user.uid}`)
 
-        const unsuscribe2 = onValue(userRef, (snapshot) => {
+        onValue(userRef, (snapshot) => {
           let user = snapshot.val()
           console.log(user)
           dispatch(userActions.updateStore(user))
         })
 
-        // getData()
         user.getIdToken().then((res) => {
           setLocalStorage(res)
           updateToken(user.uid, res)
@@ -113,7 +111,6 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/products'>
               <Route index element={<Products />} />
-              {/* <Route path=':product' element={<Product />} /> */}
               <Route path=':product' element={<ProductPage />} />
             </Route>
 

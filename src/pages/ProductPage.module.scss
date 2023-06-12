@@ -15,21 +15,6 @@
   position: relative;
 }
 
-// .mainContainer::after {
-//   content: '';
-//   width: 20%;
-//   height: 20%;
-//   background-image: url('/public/adidasOriginals.png');
-//   opacity: 0.1;
-//   background-size: cover;
-//   background-position: center;
-//   position: absolute;
-//   top: 5%;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   z-index: 10;
-// }
-
 .imageCont {
   @include flex(center, center);
   gap: 1rem;
@@ -44,7 +29,6 @@
   gap: 1rem;
 }
 .infoCont {
-  // flex: 1;
   @include flex(center, flex-start);
   flex-direction: column;
   gap: 2rem;
@@ -173,16 +157,13 @@
 }
 
 .imageCont {
-  // padding: 10rem 7rem;
   gap: 2.5rem;
-  // min-width: 45rem;
   height: 100%;
 }
 
 .mainPic {
   max-width: 100%;
   @include flex(center, center);
-  // min-height: 100%;7
   height: 100%;
   text-align: center;
   flex: 1;
@@ -227,7 +208,6 @@
   background-color: black;
   z-index: 40;
   transition: 300ms;
-  // animation: overlay 300ms ease;
 }
 .left,
 .right {
@@ -262,14 +242,12 @@
 }
 
 .modal {
-  // transform: scale(0.7);
   position: absolute;
   display: none;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 50;
-  // display: ;
 }
 
 .imageAnim {
@@ -373,7 +351,6 @@
     @include flex(center, center);
     justify-content: center;
     color: var(--font-color);
-    // background-color: white;
   }
 }
 
@@ -419,7 +396,6 @@
 
 @media (max-width: 480px) {
   .mainContainer {
-    // flex-direction: column;
     height: calc(100dvh - 10rem);
     padding: 0;
     max-height: 100vh;
@@ -439,28 +415,6 @@
     width: 100%;
     min-width: 0;
   }
-  // .mainPic,
-  // .gallery {
-  //   width: 80%;
-  // }
-
-  // .imageCont {
-  //   padding: 5rem;
-  //   height: 30%;
-  // }
-
-  // .mainPic {
-  //   // min-height: auto;
-  //   display: flex;
-  //   height: 100%;
-  //   width: 100%;
-  //   // max-width: 100%;
-
-  //   img {
-  //     border-radius: 0;
-  //     object-fit: cover;
-  //   }
-  // }
 
   .size {
     width: 40%;

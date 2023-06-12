@@ -3,7 +3,6 @@ import { cartSlice } from './cartStore'
 import { userSlice } from './userStore'
 import { productSlice } from './productsStore'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import React from 'react'
 
 const store = configureStore({
   reducer: {

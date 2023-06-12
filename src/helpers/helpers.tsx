@@ -1,8 +1,5 @@
-import { firebaseConfig } from './firebase'
-import { initializeApp } from 'firebase/app'
-import { useState, useCallback } from 'react'
-import { Product } from './pages/Products'
-import { setPic, updatePic } from './hooks/useFirebaseEmailPasswordAuth'
+import { Product } from '../pages/Products'
+import { setPic, updatePic } from './FirebaseFunctions'
 import {
   getStorage,
   uploadBytesResumable,
@@ -11,7 +8,6 @@ import {
   listAll,
 } from 'firebase/storage'
 
-const app = initializeApp(firebaseConfig)
 const storage = getStorage()
 
 export function formatPrice(price: number) {
@@ -28,10 +24,7 @@ const getURLs = async (url: string) => {
   let urls: string[] = []
 
   console.log(res.items[0])
-  res.items.forEach(
-    (item) => urls.push(item.fullPath)
-    // urls.push(imageUrl.toString())
-  )
+  res.items.forEach((item) => urls.push(item.fullPath))
   console.log(urls)
   return urls
 }
@@ -42,14 +35,7 @@ export const getImages = async (url: string) => {
   let images: string[] = []
   data.forEach((path) => {
     getDownloadURL(ref(storage, path)).then((res) => {
-      // console.log(res)
       images.push(res)
-      // images = images.concat(res)
-      // setImages((prev) => {
-      //   const arr = [...prev, res]
-      //   return arr
-      // })
-      // console.log(arr)
     })
   })
   return images

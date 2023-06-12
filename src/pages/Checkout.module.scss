@@ -21,11 +21,9 @@
   gap: 1rem;
   container-type: inline-size;
   container-name: productCards;
-  // border: 1px solid $primaryOrange;
   box-shadow: var(--shadow);
   overflow: auto;
   width: 70%;
-  // height: 60%;
   max-height: 30rem;
 }
 .productCards::-webkit-scrollbar {

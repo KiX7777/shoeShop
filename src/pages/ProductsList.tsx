@@ -1,4 +1,3 @@
-import React from 'react'
 import { Product } from '../pages/Products'
 import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../store/Store'

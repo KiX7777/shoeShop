@@ -32,6 +32,10 @@
   position: relative;
 }
 
+.notFound {
+  color: var(--font-color);
+}
+
 .mainContainer {
   flex: 1;
   width: 100%;

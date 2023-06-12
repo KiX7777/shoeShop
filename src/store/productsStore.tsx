@@ -1,14 +1,6 @@
-import {
-  Dispatch,
-  PayloadAction,
-  SerializedError,
-  createSlice,
-  isRejectedWithValue,
-} from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Product } from '../pages/Products'
-import { getImages } from '../helpers'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { act } from 'react-dom/test-utils'
 
 export const fetchData = createAsyncThunk(
   'products/fetch',
@@ -24,8 +16,7 @@ export const fetchData = createAsyncThunk(
 
       for (const prod in data) {
         let id = `${data[prod].id}`
-        // console.log(getImages(`${data[prod].url}`))
-        // let images = await getImages(`${data[prod].url}`)
+
         let sortedImgs = [...data[prod].images].sort()
         let el = {
           ...data[prod],
@@ -43,34 +34,10 @@ export const fetchData = createAsyncThunk(
 
       return products
     } catch (err) {
-      // return thunkAPI.rejectWithValue({
-      //   name: 'err',
-      //   message: 'err',
-      //   stack: 'err',
-      // })
       return thunkAPI.rejectWithValue('Error getting data')
     }
   }
 )
-
-// export const getData = () => {
-//   return async (dispatch: Dispatch) => {
-//     async function getProducts() {
-//       const res = await fetch('https://fakestoreapi.com/products')
-//       if (!res.ok) {
-//         throw new Error('Getting data failed!')
-//       }
-//       const data = (await res.json()) as Product[]
-//       return data
-//     }
-//     try {
-//       const data = await getProducts()
-//       dispatch(productSlice.actions.get(data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
 
 interface State {
   products: Product[]

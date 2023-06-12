@@ -1,20 +1,16 @@
-import { Link } from 'react-router-dom'
 import { useEffect, useState, memo } from 'react'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useAppSelector } from '../store/Store'
 import classes from './Products.module.css'
-import Skeleton from 'react-loading-skeleton'
 import ProductCard from '../Components/ProductCard'
-import { LazyLoadImage } from 'react-lazy-load-image-component'
 import SidebarLoading from '../Components/SidebarLoading'
-import { useNavigate } from 'react-router-dom'
 import CardsLoading from '../Components/CardsLoadingSkeleton'
 import {
   sortPriceUp,
   sortNameAsc,
   sortNameDesc,
   sortPriceDown,
-} from '../helpers'
+} from '../helpers/helpers'
 
 export interface Product {
   id: string
@@ -30,13 +26,10 @@ export interface Product {
   images: string[]
   total: number
 }
-let initial = true
 
 const Products = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const location = useLocation()
   let products: Product[]
-  const navigate = useNavigate()
 
   products = useAppSelector<Product[]>((state) => state.products.products)
   const error = useAppSelector((state) => state.products.error)
@@ -128,16 +121,6 @@ const Products = memo(() => {
       }
     })
 
-  const productsList = products.map((prod, idx) => (
-    <li key={`${prod.id}${prod.title}`}>
-      <Link to={`product-${prod.id}`}>
-        {status === 'loading' ? <Skeleton /> : prod.title}
-      </Link>
-    </li>
-  ))
-
-  // let productsCards
-  // if (filteredProducts.length > 0) {
   const productsCards = filteredProducts.map((prod, idx) => (
     <ProductCard product={prod} key={`${prod.id}${prod.title}`} id={idx} />
   ))
@@ -352,7 +335,7 @@ const Products = memo(() => {
           {filteredProducts.length > 0 ? (
             productsCards
           ) : (
-            <h2>No products found</h2>
+            <h2 className={classes.notFound}>No products found</h2>
           )}
         </div>
       </div>

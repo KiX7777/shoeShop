@@ -117,7 +117,6 @@ nav {
   }
 
   li:hover {
-    // border-bottom: $primaryOrange 3px solid;
     box-shadow: inset 0px -3px 0px $primaryOrange;
   }
 
@@ -158,7 +157,6 @@ nav {
   opacity: 0;
   transition: 300ms;
   left: 0;
-  // border: 1px solid $Lightgrayishblue;
   box-shadow: 0 3px 5px rgba(205, 216, 244, 0.535);
   height: 10rem;
   display: flex;
@@ -175,7 +173,6 @@ nav {
 }
 
 .ordersTab:hover {
-  // box-shadow: inset 0px -3px 0px $primaryOrange;
   background-color: $primaryOrange;
 
   a {
@@ -259,15 +256,12 @@ nav {
 
 @media (width<920px) {
   body {
-    width: 100vw;
     margin: 0;
   }
 
   nav {
-    // flex-direction: column;
     height: 6rem;
     padding: 1.2rem;
-    // display: none;
   }
   .darkModeBtn {
     display: none;
@@ -310,9 +304,7 @@ nav {
   }
 
   nav .navLeft {
-    // flex-direction: column;
     width: 100%;
-    // display: none;
   }
   nav .hamburger {
     display: block;
@@ -394,8 +386,7 @@ nav {
     padding: 2rem 0;
     z-index: 50;
     box-shadow: 0 3px 10px rgba($color: #000000, $alpha: 0.1);
-    // justify-content: space-evenly;
-    // justify-content: center;
+
     gap: 5rem;
 
     a {

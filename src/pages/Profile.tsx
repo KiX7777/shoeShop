@@ -1,16 +1,10 @@
 import React from 'react'
 import classes from './Profile.module.css'
-import { useAppSelector } from '../store/Store'
-import { useAppDispatch } from '../store/Store'
-import { logout } from '../store/userStore'
+import { useAppSelector, useAppDispatch } from '../store/Store'
+import { logout, updateProfilePicture } from '../store/userStore'
 import { Navigate } from 'react-router-dom'
 import { useState, useRef } from 'react'
-import { updateProfilePicture } from '../store/userStore'
-import {
-
-  getUserData,
-  changePass,
-} from '../hooks/useFirebaseEmailPasswordAuth'
+import { changePass } from '../helpers/FirebaseFunctions'
 
 const Profile = () => {
   const loggedIn = useAppSelector((state) => state.user.loggedIn)
@@ -33,7 +27,6 @@ const Profile = () => {
     if (oldPass !== currentPass) {
       setIncorrectOld(true)
     }
-    // else{}
     let formvalid =
       oldPass === currentPass && oldPass.length > 5 && newPass.length > 5
 
@@ -75,19 +68,6 @@ const Profile = () => {
             <img src={user.profilePic} alt={`${user.userName}`} />
           </div>
 
-          {/* <img src={URL.createObjectURL(image)} alt='' /> */}
-
-          <button
-            className={classes.loginBtns}
-            type='button'
-            onClick={() => {
-              getUserData()
-              // getData()
-              console.log(user)
-            }}
-          >
-            GET USER INFO
-          </button>
           <button
             onClick={() => {
               setChangePassword((prev) => !prev)

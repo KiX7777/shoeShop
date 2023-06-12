@@ -2,11 +2,8 @@
 @use '../../styles/mixins' as *;
 
 .profileContainer {
-  height: calc(100dvh - 10rem);
   position: relative;
-  // padding: 4rem 2rem;
   display: grid;
-  // grid-template-rows: 1fr 1fr;
   padding-top: 3rem;
   grid-template-columns: 1fr 1fr;
   color: var(--font-color);
@@ -27,6 +24,19 @@
     background-color: #eb7419;
   }
 }
+
+.profileContainer::-webkit-scrollbar {
+  width: 4px;
+}
+.profileContainer::-webkit-scrollbar-thumb {
+  background-color: $primaryOrange;
+  visibility: hidden;
+  transition: all 500ms;
+}
+.profileContainer:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
 .profileMsg {
   position: absolute;
   left: 50%;
@@ -61,11 +71,8 @@
 }
 
 .profileChange {
-  // display: flex;
-  // gap: 2rem;
   justify-self: center;
   margin-top: 10rem;
-  // flex-direction: column;
   animation: appear 400ms ease forwards;
 
   input {

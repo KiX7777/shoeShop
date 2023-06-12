@@ -1,8 +1,6 @@
 .error {
-  // width: 100%;
   background-color: #cc0000;
   height: 4rem;
-  // font-size: 1.8rem;
   text-align: center;
   display: grid;
   place-content: center;
@@ -29,14 +27,3 @@
     font-size: 1.8rem;
   }
 }
-
-// @keyframes disappear {
-//   from {
-//     height: 4rem;
-//     opacity: 1;
-//   }
-//   to {
-//     height: 0;
-//     opacity: 0;
-//   }
-// }

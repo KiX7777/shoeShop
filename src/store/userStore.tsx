@@ -1,9 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import { CartProduct } from './cartStore'
-import { Order } from './cartStore'
-import { setLocalStorage } from '../helpers'
-import { updateImg } from '../helpers'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { CartProduct, Order } from './cartStore'
+import { setLocalStorage, updateImg } from '../helpers/helpers'
 import {
   logOut,
   writed,
@@ -14,8 +11,8 @@ import {
   verifyMail,
   checkUsername,
   changePass,
-} from '../hooks/useFirebaseEmailPasswordAuth'
-import useFirebaseEmailPasswordAuth from '../hooks/useFirebaseEmailPasswordAuth'
+} from '../helpers/FirebaseFunctions'
+import useFirebaseEmailPasswordAuth from '../helpers/FirebaseFunctions'
 
 let initialToken: string = ''
 

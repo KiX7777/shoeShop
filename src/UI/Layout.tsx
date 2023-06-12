@@ -6,8 +6,6 @@ const Layout = (props: {
   children: React.ReactNode
   setDark: React.Dispatch<React.SetStateAction<boolean>>
   darkMode: boolean
-  // setlight: () => void
-  // setdark: () => void
 }) => {
   return (
     <>

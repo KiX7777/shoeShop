@@ -26,6 +26,9 @@
   @include flex(center, center);
   position: relative;
 }
+.notFound {
+  color: var(--font-color);
+}
 
 .mainContainer {
   flex: 1;
@@ -183,16 +186,6 @@
 @media screen and (width>1800px) {
   .mainContainer {
     grid-template-columns: minmax(20rem, 15%) 1fr;
-
-    // select {
-    //   font-size: 2.4rem;
-    // }
-    // h3 {
-    //   font-size: 2.8rem;
-    // }
-    // label {
-    //   font-size: 1.8rem;
-    // }
   }
 }
 
@@ -313,11 +306,6 @@
       transition: 500ms ease;
       border: 1px solid var(--secondaryColor);
     }
-    // .filterContainer {
-    //   overflow-y: scroll;
-    //   height: auto;
-    //   border-radius: 1rem;
-    // }
 
     .sortContainer {
       height: auto;
@@ -367,11 +355,5 @@
       right: 1rem;
       font-size: 2rem;
     }
-
-    // .openFilterMobile {
-    //   opacity: 1;
-    //   transform: scale(1);
-    //   transform-origin: top;
-    // }
   }
 }

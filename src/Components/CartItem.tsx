@@ -3,7 +3,7 @@ import classes from './CartItem.module.css'
 import { useAppDispatch, useAppSelector } from '../store/Store'
 import { cartActions } from '../store/cartStore'
 import { Product } from '../pages/Products'
-import { formatPrice } from '../helpers'
+import { formatPrice } from '../helpers/helpers'
 import { CartProduct } from '../store/cartStore'
 
 const CartItem = ({ id, cartID }: { id: string; cartID: string }) => {

@@ -1,9 +1,8 @@
-import React from 'react'
 import { useAppSelector } from '../store/Store'
 import CartItem from '../Components/CartItem'
 import classes from './Checkout.module.css'
 import CheckoutForm from '../Components/CheckoutForm'
-import { formatPrice } from '../helpers'
+import { formatPrice } from '../helpers/helpers'
 
 const Checkout = () => {
   const cart = useAppSelector((state) => state.cart)

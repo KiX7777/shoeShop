@@ -274,7 +274,6 @@ const Nav = (props: NavProps) => {
             )}
           </div>
           <img
-            // src='/avatar.webp'
             src={profilepic !== '' ? profilepic : '/avatar.webp'}
             referrerPolicy='no-referrer'
             alt='User'

@@ -174,27 +174,6 @@
   background: #ff7d1a;
 }
 
-.container .card .contentBx .color span {
-  width: 20px;
-  height: 20px;
-  background: #ff0;
-  border-radius: 50%;
-  margin: 0 5px;
-  cursor: pointer;
-}
-
-.container .card .contentBx .color span:nth-child(2) {
-  background: #9bdc28;
-}
-
-.container .card .contentBx .color span:nth-child(3) {
-  background: #03a9f4;
-}
-
-.container .card .contentBx .color span:nth-child(4) {
-  background: #e91e63;
-}
-
 .container .card .contentBx button {
   display: inline-block;
   padding: 5px 10px;
@@ -231,7 +210,7 @@
 .price {
   transition: 650ms ease-in-out;
   position: absolute;
-  font-size: 1.6rem;
+  font-size: 1.6rem !important;
   top: 1rem;
   color: var(--font-color);
   left: 1rem;

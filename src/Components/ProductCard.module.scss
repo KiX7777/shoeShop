@@ -45,8 +45,7 @@
   left: 0%;
   font-size: 8em;
   background-size: contain;
-  // filter: invert(1) opacity(0.2);
-  // filter: opacity(0.2);
+
   filter: var(--logofilter);
   width: 100px;
   height: 100px;
@@ -67,7 +66,6 @@
   width: 100%;
   height: 220px;
   transition: 0.55s;
-  // background: url('/public/placeholder.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 100%;
@@ -90,7 +88,6 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  // justify-content: space-evenly;
   justify-content: center;
   gap: 1rem;
   height: 100px;
@@ -111,17 +108,7 @@
   margin: 0;
 }
 
-// .container .card .contentBx h2:after {
-//   content: '';
-//   background: url('https://upload.wikimedia.org/wikipedia/commons/a/a8/Original_Adidas_logo.svg');
-//   background-size: cover;
-//   position: absolute;
-//   top: -50%;
-//   right: 40px;
-//   filter: invert(1);
-//   width: 30px;
-//   height: 30px;
-// }
+
 .container .card .contentBx .size {
   display: flex;
   justify-content: center;
@@ -171,24 +158,7 @@
 .container .card .contentBx .size span:hover {
   background: $primaryOrange;
 }
-.container .card .contentBx .color span {
-  width: 20px;
-  height: 20px;
-  background: #ff0;
-  border-radius: 50%;
-  margin: 0 5px;
-  cursor: pointer;
-}
-.container .card .contentBx .color span:nth-child(2) {
-  background: #9bdc28;
-}
-.container .card .contentBx .color span:nth-child(3) {
-  background: #03a9f4;
-}
 
-.container .card .contentBx .color span:nth-child(4) {
-  background: #e91e63;
-}
 .container .card .contentBx button {
   display: inline-block;
   padding: 5px 10px;
@@ -220,29 +190,15 @@
   background: $primaryOrange;
   transition-delay: 0s;
 }
-// .container .card .contentBx .price {
-//   transition: 500ms ease-in-out;
-//   position: absolute;
-//   font-size: 1.4rem;
-//   top: 0;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   // transition-delay: 0ms;
-//   transform-origin: top;
-// }
-// .container .card:hover .contentBx .price {
-//   top: -50%;
-//   opacity: 0;
-// }
+
 .price {
   transition: 650ms ease-in-out;
   position: absolute;
-  font-size: 1.6rem;
+  font-size: 1.6rem !important;
   top: 1rem;
   color: var(--font-color);
   left: 1rem;
-  // transform: translateX(-50%);
-  // transition-delay: 0ms;
+
   transform-origin: top;
 }
 .container .card:hover .price {

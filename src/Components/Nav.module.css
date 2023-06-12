@@ -212,7 +212,6 @@ nav .hamburger {
 }
 @media (width < 920px) {
   body {
-    width: 100vw;
     margin: 0;
   }
   nav {

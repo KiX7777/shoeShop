@@ -14,7 +14,6 @@
 }
 
 .login {
-  // background-color: lightcoral;
 
   @include flex(center, center);
   width: 100%;
@@ -149,7 +148,6 @@ $button-active-blue: #1669f2;
   width: 100%;
   margin-bottom: 2rem;
   display: grid;
-  // gap: 2rem;
   grid-template-columns: 1fr 0.5fr 1fr;
   grid-template-rows: none;
   align-items: center;
@@ -219,8 +217,6 @@ $button-active-blue: #1669f2;
   }
 }
 
-.messageBox {
-}
 
 @media screen and (width <500px) {
   .loginContainer {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import classes from './ProductPage.module.css'
 import { useAppDispatch, useAppSelector } from '../store/Store'
@@ -7,7 +7,7 @@ import { Product } from './Products'
 import ProductPageLayout from '../UI/ProductPageLayout'
 import Gallery from '../Components/Gallery'
 import { CartProduct } from '../store/cartStore'
-import { formatPrice } from '../helpers'
+import { formatPrice } from '../helpers/helpers'
 
 const ProductPage = () => {
   const dispatch = useAppDispatch()
@@ -42,7 +42,6 @@ const ProductPage = () => {
   function handleAddToCart(prod: CartProduct) {
     const product: CartProduct = {
       ...prod,
-      // cartID: `${prod.id}${prod.size}${prod.title.slice(0, 10)}`,
     }
     dispatch(cartActions.add(product))
     setquantity(1)
@@ -53,15 +52,6 @@ const ProductPage = () => {
       <main className={classes.mainContainer}>
         <div className={classes.imageCont}>
           <Gallery images={product.images} />
-          {/* <div className={classes.mainPic}>
-            <span className={classes.left}>
-              <img src='images/icon-previous.svg' alt='' />
-            </span>
-            <span className={classes.right}>
-              <img src='images/icon-next.svg' alt='' />
-            </span>
-            <img src={product.image} alt='' id='mainpic' />
-          </div> */}
         </div>
 
         <div className={classes.infoCont}>
