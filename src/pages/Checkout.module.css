@@ -62,9 +62,19 @@
   text-align: right;
 }
 
+@media screen and (width < 920px) and (orientation: landscape) {
+  .checkoutContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .productCards p {
+    font-size: 2.6cqi !important;
+  }
+}
 @media screen and (width < 500px) {
   .checkoutContainer {
-    height: calc(100dvh - 7rem);
+    height: calc(100dvh - 6rem);
     grid-template-rows: 20rem 1fr;
     gap: 2.2rem;
   }
