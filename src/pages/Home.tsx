@@ -18,6 +18,16 @@ const Home = () => {
     }
   }, [userMessage])
 
+  async function tryFetch() {
+    try {
+      const res = await fetch(
+        'https://ecommerce-e8b82-default-rtdb.europe-west1.firebasedatabase.app/users/0R6YDetdVnVVeXAV5lg0HbVtg2p2.json'
+      )
+      const data = await res.json()
+      console.log(data)
+    } catch (error) {}
+  }
+
   return (
     <div className={classes.homeContainer}>
       {userMessage && (
@@ -56,7 +66,11 @@ const Home = () => {
       <section className={classes.ctaSection}>
         <div className={classes.ctaContainer}>
           <div className={classes.leftCta}>
-            <img src='/shoes/blazerprm.png' alt='Nike Blazer' />
+            <img
+              src='/shoes/blazerprm.webp'
+              alt='Nike Blazer'
+              onClick={tryFetch}
+            />
           </div>
           <div className={classes.rightCta}>
             <div>

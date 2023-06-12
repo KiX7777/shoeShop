@@ -103,7 +103,22 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
             // console.log(first)
           }}
         >
-          <img loading='lazy' src={product.images[0]} alt={product.title} />
+          <img
+            // src='/placeholder.png'
+            src='/placeholder.png'
+            alt=''
+            style={{
+              left: '60%',
+              transform: 'translate(-50%, -50%)',
+            }}
+            onLoad={(e) => {
+              let img = e.target as HTMLImageElement
+              img.src = `${product.images[0]}`
+              img.style.left = '50%'
+              img.style.transform = 'translate(-50%, -50%) rotate(-25deg)'
+            }}
+          />
+          {/* <ImageSkeleton /> */}
         </div>
         <h3 className={classes.price}>{formatPrice(product.price)}</h3>
         <div className={classes.contentBx}>
@@ -177,8 +192,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
             </div>
           </div>
 
-          <a
-            href='#'
+          <button
             onClick={() => {
               const prod: CartProduct = {
                 ...product,
@@ -192,7 +206,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
             }}
           >
             Add to cart
-          </a>
+          </button>
         </div>
       </div>
     </div>

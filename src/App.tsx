@@ -4,17 +4,15 @@ import './App.css'
 import Home from './pages/Home'
 import { Suspense } from 'react'
 import Layout from './UI/Layout'
-
 import ProductPage from './pages/ProductPage'
 import { useAppDispatch, useAppSelector } from './store/Store'
 import { useEffect } from 'react'
-import { UserCredential, onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 import { ref, onValue } from 'firebase/database'
 import { setLocalStorage } from './helpers'
 import { fetchData } from './store/productsStore'
 import Checkout from './pages/Checkout'
-import Profile from './pages/Profile'
-import { GoogleAuthProvider, getRedirectResult } from 'firebase/auth'
+
 import { userActions } from './store/userStore'
 import { listenchanges } from './hooks/useFirebaseEmailPasswordAuth'
 import { auth, db, updateToken } from './hooks/useFirebaseEmailPasswordAuth'
@@ -22,6 +20,7 @@ import Orders from './Components/Orders'
 
 const Products = React.lazy(() => import('./pages/Products'))
 const NotFound = React.lazy(() => import('./pages/NotFound'))
+const Profile = React.lazy(() => import('./pages/Profile'))
 
 let defaultDark: boolean
 
@@ -104,7 +103,7 @@ function App() {
   return (
     <>
       <Layout setDark={setDarkMode} darkMode={darkMode}>
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={<h1 className='suspense'>Loading...</h1>}>
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/products'>

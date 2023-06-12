@@ -44,28 +44,6 @@ export const user = auth.currentUser
 const dbRef = ref(getDatabase())
 const usersRef = ref(db, 'users')
 
-// export async function getData() {
-//   // const userRef = ref(db, 'users')
-//   let userRef = ref(db, `users/${auth.currentUser.uid}`)
-//   onValue(userRef, (snapshot) => {
-//     let user = snapshot.val()
-//     console.log(user)
-//     dispatch(user)
-//   })
-
-// console.log(token)
-// let users = []
-// onValue(userRef, (snapshot) => {
-//   const data = snapshot.val()
-//   for (const user in data) {
-//     users.push(data[user])
-//   }
-//   console.log(users)
-//   const user = users.find((user) => user.id === auth.currentUser.uid)
-//   console.log(user)
-// })
-// }
-
 export const updateToken = async (id, token) => {
   let userRef = ref(db, `users/${id}`)
   const nodeRef = child(userRef, 'token')
@@ -184,7 +162,6 @@ export const GoogleSign = async () => {
     if (isMobile.matches) {
       await signInWithRedirect(auth, provider)
       result = getRedirectResult(auth)
-
       credential = GoogleAuthProvider.credentialFromResult(result)
       // console.log(credential)
 

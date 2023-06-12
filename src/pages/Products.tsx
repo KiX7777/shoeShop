@@ -136,9 +136,9 @@ const Products = memo(() => {
     </li>
   ))
 
-  let productsCards
+  // let productsCards
   // if (filteredProducts.length > 0) {
-  productsCards = filteredProducts.map((prod, idx) => (
+  const productsCards = filteredProducts.map((prod, idx) => (
     <ProductCard product={prod} key={`${prod.id}${prod.title}`} id={idx} />
   ))
 

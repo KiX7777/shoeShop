@@ -189,13 +189,13 @@
 .container .card .contentBx .color span:nth-child(4) {
   background: #e91e63;
 }
-.container .card .contentBx a {
+.container .card .contentBx button {
   display: inline-block;
   padding: 5px 10px;
   background: #fff;
   background: #333;
   background: var(--secondaryColor);
-
+  border: none;
   border-radius: 4px;
   margin-top: 10px;
   text-decoration: none;
@@ -209,12 +209,14 @@
   transition: 0.5s;
   margin-top: 0;
 }
-.container .card:hover .contentBx a {
+.container .card:hover .contentBx button {
   opacity: 1;
+  cursor: pointer;
   transform: translate(0px);
+
   transition-delay: 0.75s;
 }
-.container .card .contentBx a:hover {
+.container .card .contentBx button:hover {
   background: $primaryOrange;
   transition-delay: 0s;
 }
