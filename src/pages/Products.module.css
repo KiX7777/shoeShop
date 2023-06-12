@@ -1,4 +1,12 @@
 @charset "UTF-8";
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .list a {
   font-size: 18px;
 }
@@ -12,6 +20,7 @@
 }
 
 .productsContainer {
+  animation: pageLoad 1000ms ease-out forwards;
   height: calc(100dvh - 10rem);
   width: 100%;
   display: flex;
@@ -194,9 +203,64 @@
     grid-template-columns: minmax(20rem, 15%) 1fr;
   }
 }
+@media screen and (width < 920px) and (orientation: landscape) {
+  .productsContainer {
+    height: calc(100dvh - 6rem);
+  }
+  .cardsContainer {
+    margin: 0;
+  }
+  .mainContainer {
+    padding: 1rem;
+  }
+  .filterMobileBtn,
+  .closeFilterMobile {
+    display: none;
+  }
+  .sideBar {
+    overflow-y: scroll;
+    height: auto;
+    border-radius: 1rem;
+  }
+  .sideBar::-webkit-scrollbar {
+    width: 10px;
+  }
+  .sideBar::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    border-right: 8px solid var(--backgroundColor);
+    border-top: 6px solid var(--backgroundColor);
+    border-bottom: 10px solid var(--backgroundColor);
+    background-color: #ff7d1a;
+  }
+  .sortContainer select {
+    font-size: 1.8cqi;
+  }
+  .colorFilter label,
+  .brandFilter label {
+    font-size: 1.8cqi;
+  }
+}
+@media screen and (width < 300px) {
+  .cardsContainer {
+    margin: 0;
+  }
+}
+@media screen and (width < 1368px) {
+  .mainContainer select,
+  .mainContainer label {
+    font-size: 2cqi;
+  }
+  .mainContainer h3 {
+    font-size: 2.8cqi;
+  }
+  .mainContainer input {
+    width: 4.8cqi;
+    height: 4.8cqi;
+  }
+}
 @media screen and (width < 500px) {
   .productsContainer {
-    height: calc(100dvh - 7rem);
+    height: calc(100dvh - 6rem);
   }
   .mainContainer {
     padding: 1rem 1.4rem;
@@ -288,42 +352,5 @@
     position: absolute;
     right: 1rem;
     font-size: 2rem;
-  }
-}
-@media screen and (width < 920px) and (orientation: landscape) {
-  .productsContainer {
-    height: calc(100dvh - 6rem);
-  }
-  .cardsContainer {
-    margin: 0;
-  }
-  .mainContainer {
-    padding: 1rem;
-  }
-  .filterMobileBtn,
-  .closeFilterMobile {
-    display: none;
-  }
-  .sideBar {
-    overflow-y: scroll;
-    height: auto;
-    border-radius: 1rem;
-  }
-  .sideBar::-webkit-scrollbar {
-    width: 10px;
-  }
-  .sideBar::-webkit-scrollbar-thumb {
-    border-radius: 2rem;
-    border-right: 8px solid var(--backgroundColor);
-    border-top: 6px solid var(--backgroundColor);
-    border-bottom: 10px solid var(--backgroundColor);
-    background-color: #ff7d1a;
-  }
-  .sortContainer select {
-    font-size: 1.8cqi;
-  }
-  .colorFilter label,
-  .brandFilter label {
-    font-size: 1.8cqi;
   }
 }/*# sourceMappingURL=Products.module.css.map */

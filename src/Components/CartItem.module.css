@@ -1,9 +1,19 @@
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .productCard {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   gap: 1rem;
+  height: -moz-fit-content;
+  height: fit-content;
   justify-content: space-between;
   box-shadow: var(--cartitemshadow);
   background-color: var(--backgroundColor);
@@ -138,5 +148,11 @@
   }
   .productCard .cardTxt p {
     font-size: 1.6rem;
+  }
+}
+@media screen and (width < 500px) {
+  .buttons {
+    flex-direction: row;
+    gap: 1.5rem;
   }
 }/*# sourceMappingURL=CartItem.module.css.map */

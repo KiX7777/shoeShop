@@ -30,7 +30,6 @@ if (localStorage.getItem('dark')) {
   defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 }
 
-let initial = true
 function App() {
   const dispatch = useAppDispatch()
   const user = useAppSelector((state) => state.user)
@@ -40,7 +39,7 @@ function App() {
     if (localStorage.getItem('token')) {
       dispatch(userActions.setLogin())
     }
-    onAuthStateChanged(auth, (user) => {
+    const unsubsrcibe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(userActions.setLogin())
 
@@ -50,7 +49,7 @@ function App() {
         // const currProv = user.providerId
         const userRef = ref(db, `users/${user.uid}`)
 
-        onValue(userRef, (snapshot) => {
+        const unsuscribe2 = onValue(userRef, (snapshot) => {
           let user = snapshot.val()
           console.log(user)
           dispatch(userActions.updateStore(user))
@@ -69,12 +68,18 @@ function App() {
       }
     })
 
-    console.log(auth.currentUser?.uid)
+    return () => {
+      unsubsrcibe()
+    }
   }, [dispatch])
 
   useEffect(() => {
+    let initial = true
     if (initial) {
       dispatch(fetchData())
+      initial = false
+    }
+    return () => {
       initial = false
     }
   }, [dispatch])

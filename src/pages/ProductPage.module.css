@@ -1,4 +1,13 @@
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .mainContainer {
+  animation: pageLoad 1000ms ease-out forwards;
   max-width: 160rem;
   height: calc(100vh - 15rem);
   width: 100%;

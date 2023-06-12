@@ -63,3 +63,10 @@
     }
   }
 }
+
+@media screen and (width <920px) and (orientation: landscape) {
+  .loginContainer {
+    top: 6rem;
+    height: 30rem;
+  }
+}

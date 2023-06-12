@@ -1,4 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:500);
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .loginContainer {
   display: grid;
   align-items: center;
@@ -28,6 +36,7 @@
   font-size: 1.6rem;
   border-radius: 0.5rem;
   width: 100%;
+  color: var(--font-color);
   background-color: var(--inputcolor);
   animation: appear 400ms ease forwards;
   padding: 0.8rem 1rem;

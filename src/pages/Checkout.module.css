@@ -1,3 +1,11 @@
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .checkoutContainer {
   height: calc(100dvh - 10rem);
   display: flex;

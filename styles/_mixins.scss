@@ -19,3 +19,16 @@
   border-radius: 0.5rem;
   transition: 400ms ease;
 }
+
+@mixin loadPage() {
+  animation: pageLoad 1000ms ease-out forwards;
+}
+
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

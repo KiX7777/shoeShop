@@ -16,6 +16,8 @@
 }
 
 .productsContainer {
+  @include loadPage();
+
   height: calc(100dvh - 10rem);
   width: 100%;
   display: flex;
@@ -194,9 +196,77 @@
   }
 }
 
+@media screen and (width <920px) and (orientation: landscape) {
+  .productsContainer {
+    height: calc(100dvh - 6rem);
+  }
+
+  .cardsContainer {
+    margin: 0;
+  }
+  .mainContainer {
+    padding: 1rem;
+  }
+  .filterMobileBtn,
+  .closeFilterMobile {
+    display: none;
+  }
+
+  .sideBar {
+    overflow-y: scroll;
+    height: auto;
+    border-radius: 1rem;
+  }
+
+  .sideBar::-webkit-scrollbar {
+    width: 10px;
+  }
+  .sideBar::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    border-right: 8px solid var(--backgroundColor);
+    border-top: 6px solid var(--backgroundColor);
+    border-bottom: 10px solid var(--backgroundColor);
+    background-color: $primaryOrange;
+  }
+  .sortContainer select {
+    font-size: 1.8cqi;
+  }
+
+  .colorFilter,
+  .brandFilter {
+    label {
+      font-size: 1.8cqi;
+    }
+  }
+}
+
+//FOLDED SCREENS
+
+@media screen and (width<300px) {
+  .cardsContainer {
+    margin: 0;
+  }
+}
+
+@media screen and (width<1368px) {
+  .mainContainer {
+    select,
+    label {
+      font-size: 2cqi;
+    }
+    h3 {
+      font-size: 2.8cqi;
+    }
+    input {
+      width: 4.8cqi;
+      height: 4.8cqi;
+    }
+  }
+}
+
 @media screen and (width <500px) {
   .productsContainer {
-    height: calc(100dvh - 7rem);
+    height: calc(100dvh - 6rem);
   }
   .mainContainer {
     padding: 1rem 1.4rem;
@@ -303,49 +373,5 @@
     //   transform: scale(1);
     //   transform-origin: top;
     // }
-  }
-}
-
-@media screen and (width <920px) and (orientation: landscape) {
-  .productsContainer {
-    height: calc(100dvh - 6rem);
-  }
-
-  .cardsContainer {
-    margin: 0;
-  }
-  .mainContainer {
-    padding: 1rem;
-  }
-  .filterMobileBtn,
-  .closeFilterMobile {
-    display: none;
-  }
-
-  .sideBar {
-    overflow-y: scroll;
-    height: auto;
-    border-radius: 1rem;
-  }
-
-  .sideBar::-webkit-scrollbar {
-    width: 10px;
-  }
-  .sideBar::-webkit-scrollbar-thumb {
-    border-radius: 2rem;
-    border-right: 8px solid var(--backgroundColor);
-    border-top: 6px solid var(--backgroundColor);
-    border-bottom: 10px solid var(--backgroundColor);
-    background-color: $primaryOrange;
-  }
-  .sortContainer select {
-    font-size: 1.8cqi;
-  }
-
-  .colorFilter,
-  .brandFilter {
-    label {
-      font-size: 1.8cqi;
-    }
   }
 }

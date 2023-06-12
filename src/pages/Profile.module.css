@@ -1,3 +1,11 @@
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .profileContainer {
   height: calc(100dvh - 10rem);
   position: relative;
@@ -191,5 +199,15 @@
   }
   .profileChange {
     padding: 1rem;
+  }
+}
+@media screen and (width < 300px) {
+  .passChange,
+  .profileChange {
+    width: 100%;
+  }
+  .passChange input,
+  .profileChange input {
+    width: 100%;
   }
 }/*# sourceMappingURL=Profile.module.css.map */

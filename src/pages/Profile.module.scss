@@ -175,3 +175,13 @@
     padding: 1rem;
   }
 }
+@media screen and (width<300px) {
+  .passChange,
+  .profileChange {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
+}

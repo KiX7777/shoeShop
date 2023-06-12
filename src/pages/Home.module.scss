@@ -319,10 +319,86 @@ footer {
   }
 }
 
+// @media (max-width: 5000px), (width<720px) {
+//   .homeContainer {
+//     margin: 0;
+//   }
+// }
+
+@media (width>̣480px), (width<920px) {
+  .homeContainer {
+    padding: 0;
+    width: 100dvw;
+    section {
+      margin: 1rem;
+    }
+
+    footer {
+      margin: 5rem;
+      padding: 0 3rem;
+
+      .infoContainer {
+        h3 {
+          font-size: 4.4cqi;
+        }
+        p {
+          font-size: 2.4cqi;
+        }
+      }
+    }
+
+    .heroContainer {
+      background: url('/public/danilo-capece-NoVnXXmDNi0-unsplash.webp');
+      background-size: cover;
+      height: 100%;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+
+      a {
+        font-size: 1.8cqi;
+        color: white;
+      }
+
+      .left {
+        width: 100%;
+
+        h1,
+        span {
+          color: white;
+          font-size: 6cqi;
+        }
+
+        p {
+          font-size: 1.8cqi !important;
+          color: white;
+          width: 100%;
+        }
+      }
+
+      .linkPlus {
+        width: 3cqi;
+        height: 3cqi;
+      }
+    }
+    .heroContainer::after {
+      // content: none;
+      background: rgba($color: #000000, $alpha: 0.6);
+      z-index: -1;
+      left: 0;
+      width: 100%;
+    }
+
+    .copyright {
+      bottom: -30%;
+      font-size: 1.2cqi;
+    }
+  }
+}
+
 @media screen and (width<500px) {
   .homeContainer {
     padding: 0;
-
     section {
       margin: 5rem 2rem;
     }
@@ -360,6 +436,7 @@ footer {
         h1,
         span {
           color: white;
+          font-size: 8cqi;
         }
 
         p {
@@ -424,11 +501,5 @@ footer {
   }
   .socials svg {
     width: 5cqi;
-  }
-}
-
-@media (max-width: 480px), (width<920px) and (orientation: landscape) {
-  footer {
-    margin: 0;
   }
 }

@@ -1,3 +1,11 @@
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .cartProducts::-webkit-scrollbar {
   width: 0.5rem;
   height: 1rem;
@@ -159,7 +167,8 @@
 }
 @media screen and (width < 920px) and (orientation: landscape) {
   .cartContainer {
-    top: 7rem;
+    top: 6rem;
+    height: 30rem;
   }
   .cartContainer span {
     font-size: 1.4rem;

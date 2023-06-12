@@ -1,3 +1,11 @@
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .loginContainer {
   width: 35rem;
   flex-direction: column;
@@ -57,5 +65,11 @@
   }
   .loginContainer span {
     font-size: 1.4rem;
+  }
+}
+@media screen and (width < 920px) and (orientation: landscape) {
+  .loginContainer {
+    top: 6rem;
+    height: 30rem;
   }
 }/*# sourceMappingURL=LoginMenu.module.css.map */
