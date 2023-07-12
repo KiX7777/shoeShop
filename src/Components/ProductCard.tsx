@@ -1,44 +1,63 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import classes from './ProductCard.module.css'
-import { useAppDispatch } from '../store/Store'
-import { formatPrice } from '../helpers/helpers'
-import { cartActions } from '../store/cartStore'
-import { useEffect, useRef, useState } from 'react'
-import { CartProduct } from '../store/cartStore'
-import { Product } from '../pages/Products'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import classes from './ProductCard.module.css';
+import { useAppDispatch } from '../store/Store';
+import { formatPrice } from '../helpers/helpers';
+import { cartActions } from '../store/cartStore';
+import { useEffect, useRef, useState } from 'react';
+import { CartProduct } from '../store/cartStore';
+import { Product } from '../pages/Products';
+
+import { motion } from 'framer-motion';
 const ProductCard = ({ product, id }: { product: Product; id: number }) => {
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
-  const sizeRef = useRef<HTMLSpanElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
-  const brandName: string = product.brand
-  let backgroundStyles = {}
-  const [size, setSize] = useState(0)
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const sizeRef = useRef<HTMLSpanElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const brandName: string = product.brand;
+  let backgroundStyles = {};
+  const [size, setSize] = useState(0);
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0,
+    },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.7,
+        type: 'spring',
+      },
+    },
+  };
 
   function handleAddToCart(prod: CartProduct) {
-    const product: CartProduct = {
-      ...prod,
-    }
     if (size === 0) {
-      return
+      return;
     }
-    dispatch(cartActions.add(prod))
-    setSize(0)
+    dispatch(cartActions.add(prod));
+    setSize(0);
   }
 
   useEffect(() => {
-    const allChild = cardRef.current?.children as HTMLCollectionOf<HTMLElement>
-    const els = Array.from(allChild)
+    const allChild = cardRef.current?.children as HTMLCollectionOf<HTMLElement>;
+    const els = Array.from(allChild);
 
-    cardRef.current?.addEventListener('animationend', () => {
+    function setPointerEvents() {
       els.forEach((el) => {
-        const all = el.querySelectorAll('*') as any
-        all.forEach((node: any) => (node.style.pointerEvents = 'auto'))
-      })
-    })
-    return () => {}
-  }, [])
+        const all = el.querySelectorAll('*') as any;
+        all.forEach((node: any) => (node.style.pointerEvents = 'auto'));
+      });
+    }
+
+    cardRef.current?.addEventListener('animationend', setPointerEvents);
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      cardRef.current?.removeEventListener('animationend', setPointerEvents);
+    };
+  }, []);
 
   if (brandName === 'Nike') {
     backgroundStyles = {
@@ -47,7 +66,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
       backgroundImage: "url('/nikeLogo.png')",
       backgroundRepeat: 'no-repeat',
       backgroundSize: '80%',
-    }
+    };
   } else if (brandName === 'Adidas Originals') {
     backgroundStyles = {
       // background:
@@ -56,42 +75,43 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       left: '-5%',
-    }
+    };
   } else if (brandName === 'Jordan') {
     backgroundStyles = {
       backgroundImage: "url('/jordanlogo.svg.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
-    }
+    };
   } else if (brandName === 'Puma') {
     backgroundStyles = {
       backgroundImage: "url('/pumaLogo.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
-    }
+    };
   } else if (brandName === 'Converse') {
     backgroundStyles = {
       backgroundImage: "url('/converse.png')",
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',
       overflow: 'hidden',
-    }
+    };
   } else if (brandName === 'Adidas') {
     backgroundStyles = {
       backgroundImage: "url('/adidaslogo.png')",
       backgroundSize: '80%',
       backgroundRepeat: 'no-repeat',
-    }
+    };
   }
 
   return (
-    <div className={classes.container}>
+    <motion.div className={classes.container} variants={cardVariants}>
       <div
         className={classes.card}
         ref={cardRef}
-        style={{
-          animationDelay: `${id * 200}ms`,
-        }}
+
+        // style={{
+        //   animationDelay: `${id * 200}ms`,
+        // }}
       >
         <div className={classes.backText} style={backgroundStyles}>
           {}
@@ -99,7 +119,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
         <div
           className={classes.imgBx}
           onClick={() => {
-            navigate(`/products/product-${product.id}`)
+            navigate(`/products/product-${product.id}`);
             // console.log(first)
           }}
         >
@@ -112,10 +132,10 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
               transform: 'translate(-50%, -50%)',
             }}
             onLoad={(e) => {
-              let img = e.target as HTMLImageElement
-              img.src = `${product.images[0]}`
-              img.style.left = '50%'
-              img.style.transform = 'translate(-50%, -50%) rotate(-25deg)'
+              let img = e.target as HTMLImageElement;
+              img.src = `${product.images[0]}`;
+              img.style.left = '50%';
+              img.style.transform = 'translate(-50%, -50%) rotate(-25deg)';
             }}
           />
           {/* <ImageSkeleton /> */}
@@ -130,7 +150,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
                 ref={sizeRef}
                 className={size === 40 ? `${classes.activeSize}` : ''}
                 onClick={(e) => {
-                  setSize(Number(e.currentTarget.textContent))
+                  setSize(Number(e.currentTarget.textContent));
                 }}
               >
                 40
@@ -139,7 +159,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
                 ref={sizeRef}
                 className={size === 41 ? `${classes.activeSize}` : ''}
                 onClick={(e) => {
-                  setSize(Number(e.currentTarget.textContent))
+                  setSize(Number(e.currentTarget.textContent));
                 }}
               >
                 41
@@ -148,7 +168,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
                 ref={sizeRef}
                 className={size === 42 ? `${classes.activeSize}` : ''}
                 onClick={(e) => {
-                  setSize(Number(e.currentTarget.textContent))
+                  setSize(Number(e.currentTarget.textContent));
                 }}
               >
                 42
@@ -157,7 +177,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
                 ref={sizeRef}
                 className={size === 43 ? `${classes.activeSize}` : ''}
                 onClick={(e) => {
-                  setSize(Number(e.currentTarget.textContent))
+                  setSize(Number(e.currentTarget.textContent));
                 }}
               >
                 43
@@ -166,7 +186,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
                 ref={sizeRef}
                 className={size === 44 ? `${classes.activeSize}` : ''}
                 onClick={(e) => {
-                  setSize(Number(e.currentTarget.textContent))
+                  setSize(Number(e.currentTarget.textContent));
                 }}
               >
                 44
@@ -175,7 +195,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
                 ref={sizeRef}
                 className={size === 45 ? `${classes.activeSize}` : ''}
                 onClick={(e) => {
-                  setSize(Number(e.currentTarget.textContent))
+                  setSize(Number(e.currentTarget.textContent));
                 }}
               >
                 45
@@ -184,7 +204,7 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
                 ref={sizeRef}
                 className={size === 46 ? `${classes.activeSize}` : ''}
                 onClick={(e) => {
-                  setSize(Number(e.currentTarget.textContent))
+                  setSize(Number(e.currentTarget.textContent));
                 }}
               >
                 46
@@ -200,17 +220,17 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
                 thumb: product.images[0],
                 size: size,
                 cartID: `${product.id}${size}${product.title.slice(0, 10)}`,
-              }
-              handleAddToCart(prod)
-              console.log(size)
+              };
+              handleAddToCart(prod);
+              console.log(size);
             }}
           >
             Add to cart
           </button>
         </div>
       </div>
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default ProductCard
+export default ProductCard;

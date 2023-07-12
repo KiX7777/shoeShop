@@ -1,60 +1,68 @@
-import React from 'react'
-import classes from './Profile.module.css'
-import { useAppSelector, useAppDispatch } from '../store/Store'
-import { logout, updateProfilePicture } from '../store/userStore'
-import { Navigate } from 'react-router-dom'
-import { useState, useRef } from 'react'
-import { changePass } from '../helpers/FirebaseFunctions'
+import React from 'react';
+import classes from './Profile.module.css';
+import { useAppSelector, useAppDispatch } from '../store/Store';
+import { logout, updateProfilePicture } from '../store/userStore';
+import { Navigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
+import { changePass } from '../helpers/FirebaseFunctions';
+import { containerVariants } from './Home';
+import { motion } from 'framer-motion';
 
 const Profile = () => {
-  const loggedIn = useAppSelector((state) => state.user.loggedIn)
-  const user = useAppSelector((state) => state.user)
-  const [incorrectOld, setIncorrectOld] = useState(false)
-  const [longEnough, setLongEnough] = useState(true)
-  const [changePassword, setChangePassword] = useState(false)
-  const dispatch = useAppDispatch()
-  const [changePic, setchangePic] = useState(false)
-  let image: any
-  const currentPass = user.password
-  const oldPassRef = useRef<HTMLInputElement>(null)
-  const newPassRef = useRef<HTMLInputElement>(null)
+  const loggedIn = useAppSelector((state) => state.user.loggedIn);
+  const user = useAppSelector((state) => state.user);
+  const [incorrectOld, setIncorrectOld] = useState(false);
+  const [longEnough, setLongEnough] = useState(true);
+  const [changePassword, setChangePassword] = useState(false);
+  const dispatch = useAppDispatch();
+  const [changePic, setchangePic] = useState(false);
+  let image: any;
+  const currentPass = user.password;
+  const oldPassRef = useRef<HTMLInputElement>(null);
+  const newPassRef = useRef<HTMLInputElement>(null);
 
   function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    let oldPass = oldPassRef.current!.value
-    let newPass = newPassRef.current!.value
+    e.preventDefault();
+    let oldPass = oldPassRef.current!.value;
+    let newPass = newPassRef.current!.value;
 
     if (oldPass !== currentPass) {
-      setIncorrectOld(true)
+      setIncorrectOld(true);
     }
     let formvalid =
-      oldPass === currentPass && oldPass.length > 5 && newPass.length > 5
+      oldPass === currentPass && oldPass.length > 5 && newPass.length > 5;
 
     if (newPass.length < 5) {
-      setLongEnough(false)
-      return
+      setLongEnough(false);
+      return;
     }
 
     if (formvalid) {
-      console.log(oldPass, newPass)
-      changePass(newPass, user.id)
-      oldPass = ''
-      newPass = ''
+      console.log(oldPass, newPass);
+      changePass(newPass, user.id);
+      oldPass = '';
+      newPass = '';
     }
   }
 
   async function handleUpload() {
     if (!image) {
-      return
+      return;
     }
-    dispatch(updateProfilePicture([user.id, image]))
+    dispatch(updateProfilePicture([user.id, image]));
   }
   function handleonChange(e: React.ChangeEvent<HTMLInputElement>) {
-    image = e.target.files![0]
+    image = e.target.files![0];
   }
 
   return (
-    <div className={classes.profileContainer}>
+    <motion.div
+      className={classes.profileContainer}
+      variants={containerVariants}
+      exit='exit'
+      initial='hidden'
+      animate='visible'
+    >
       {!user.loggedIn && <Navigate to='/' />}
       {/* {!loggedIn && <Login />} */}
       {user.userName && (
@@ -70,9 +78,9 @@ const Profile = () => {
 
           <button
             onClick={() => {
-              setChangePassword((prev) => !prev)
+              setChangePassword((prev) => !prev);
               if (changePic) {
-                setchangePic(false)
+                setchangePic(false);
               }
             }}
           >
@@ -80,9 +88,9 @@ const Profile = () => {
           </button>
           <button
             onClick={() => {
-              setchangePic((prev) => !prev)
+              setchangePic((prev) => !prev);
               if (changePassword) {
-                setChangePassword(false)
+                setChangePassword(false);
               }
             }}
           >
@@ -93,7 +101,7 @@ const Profile = () => {
               className={classes.logoutBtn}
               type='button'
               onClick={() => {
-                dispatch(logout())
+                dispatch(logout());
               }}
             >
               LOG OUT
@@ -107,7 +115,7 @@ const Profile = () => {
           <input
             type='file'
             onChange={(e) => {
-              handleonChange(e)
+              handleonChange(e);
             }}
           />
           <button type='button' onClick={handleUpload}>
@@ -119,7 +127,7 @@ const Profile = () => {
         <div className={classes.passChange}>
           <form
             onSubmit={(e) => {
-              handleSubmit(e)
+              handleSubmit(e);
             }}
           >
             <div className={classes.inputContainer}>
@@ -130,7 +138,7 @@ const Profile = () => {
                 onChange={() => {
                   oldPassRef.current?.value !== currentPass
                     ? setIncorrectOld(true)
-                    : setIncorrectOld(false)
+                    : setIncorrectOld(false);
                 }}
               />
               {incorrectOld && <p>Incorrect old password.</p>}{' '}
@@ -143,7 +151,7 @@ const Profile = () => {
                 onChange={() => {
                   newPassRef.current!.value.length < 5
                     ? setLongEnough(false)
-                    : setLongEnough(true)
+                    : setLongEnough(true);
                 }}
               />
               {!longEnough && <p>Passwords be longer than 5 characters.</p>}{' '}
@@ -153,8 +161,8 @@ const Profile = () => {
           </form>
         </div>
       )}
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default Profile
+export default Profile;

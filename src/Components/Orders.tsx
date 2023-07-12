@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import classes from './Orders.module.css'
-import { useAppSelector } from '../store/Store'
-import { Order } from '../store/cartStore'
-import { ObjectType } from 'typescript'
-import { OrderProduct } from './CheckoutForm'
-import { formatPrice } from '../helpers/helpers'
-import OrdersSkeleton from './OrdersSkeleton'
+import { useEffect, useState } from 'react';
+import classes from './Orders.module.css';
+import { useAppSelector } from '../store/Store';
+import { Order } from '../store/cartStore';
+
+import { formatPrice } from '../helpers/helpers';
+import OrdersSkeleton from './OrdersSkeleton';
+import { motion } from 'framer-motion';
+import { containerVariants } from '../pages/Home';
 
 const Orders = () => {
-  const orders = useAppSelector((state) => state.user.previousOrders)
-  const [list, setList] = useState<JSX.Element[]>([])
+  const orders = useAppSelector((state) => state.user.previousOrders);
+  const [list, setList] = useState<JSX.Element[]>([]);
 
-  // let list
   useEffect(() => {
-    const or = orders[0]
-    let products: JSX.Element[] = []
-    let arr: any = []
+    const or = orders[0];
+    let products: JSX.Element[] = [];
+    let arr: any = [];
     if (or) {
       for (const key in or) {
-        let el = or[key as keyof Order]
-        arr.push(el) as Order
+        let el = or[key as keyof Order];
+        arr.push(el) as Order;
       }
 
       arr.forEach((order: Order, idx: number) => {
@@ -42,19 +42,25 @@ const Orders = () => {
             ))}
             <h1>TOTAL: {formatPrice(order.total)}</h1>
           </div>
-        )
-        products.push(elem)
-      })
+        );
+        products.push(elem);
+      });
 
-      setList(products)
+      setList(products);
     }
-  }, [orders])
+  }, [orders]);
   return (
-    <div className={classes.ordersContainer}>
+    <motion.div
+      variants={containerVariants}
+      exit='exit'
+      initial='hidden'
+      animate='visible'
+      className={classes.ordersContainer}
+    >
       {list.length === 0 && <OrdersSkeleton />}
       <div className={classes.ordersList}>{list}</div>
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default Orders
+export default Orders;

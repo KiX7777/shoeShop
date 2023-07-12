@@ -1,30 +1,58 @@
-import classes from './Home.module.css'
-import { Link } from 'react-router-dom'
-import { useRef, useEffect } from 'react'
-import { useAppSelector } from '../store/Store'
+import classes from './Home.module.css';
+import { Link } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
+import { useAppSelector } from '../store/Store';
+import { motion } from 'framer-motion';
+
+export const containerVariants = {
+  hidden: {
+    opacity: 0,
+    x: '-100vw',
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: '100vw',
+    transition: {
+      duration: 0.25,
+    },
+  },
+};
 
 const Home = () => {
-  const userMessage = useAppSelector((state) => state.user.message)
-  const msgRef = useRef<HTMLDivElement>(null)
+  const userMessage = useAppSelector((state) => state.user.message);
+  const msgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const removeEl = () => {
-      msgRef.current?.remove()
-    }
-    window.addEventListener('animationend', () => removeEl)
+      msgRef.current?.remove();
+    };
+    window.addEventListener('animationend', () => removeEl);
 
     return () => {
-      window.removeEventListener('animationend', removeEl)
-    }
-  }, [userMessage])
+      window.removeEventListener('animationend', removeEl);
+    };
+  }, [userMessage]);
 
   return (
-    <div className={classes.homeContainer}>
+    <motion.div
+      className={classes.homeContainer}
+      variants={containerVariants}
+      initial='hidden'
+      animate='visible'
+      exit='exit'
+    >
       {userMessage && (
         <div ref={msgRef} className={classes.userMsg}>
           {userMessage}
         </div>
-      )}{' '}
+      )}
       <section className={classes.hero}>
         <div className={classes.heroContainer}>
           <div className={classes.left}>
@@ -138,8 +166,8 @@ const Home = () => {
           <p>{new Date().getFullYear()}.</p>
         </div>
       </footer>
-    </div>
-  )
-}
+    </motion.div>
+  );
+};
 
-export default Home
+export default Home;

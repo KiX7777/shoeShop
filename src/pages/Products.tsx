@@ -1,132 +1,165 @@
-import { useEffect, useState, memo } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { useAppSelector } from '../store/Store'
-import classes from './Products.module.css'
-import ProductCard from '../Components/ProductCard'
-import SidebarLoading from '../Components/SidebarLoading'
-import CardsLoading from '../Components/CardsLoadingSkeleton'
+import { useEffect, useState, memo } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useAppSelector } from '../store/Store';
+import classes from './Products.module.css';
+import ProductCard from '../Components/ProductCard';
+import SidebarLoading from '../Components/SidebarLoading';
+import CardsLoading from '../Components/CardsLoadingSkeleton';
 import {
   sortPriceUp,
   sortNameAsc,
   sortNameDesc,
   sortPriceDown,
-} from '../helpers/helpers'
+} from '../helpers/helpers';
+import { containerVariants } from './Home';
+import { motion } from 'framer-motion';
 
 export interface Product {
-  id: string
-  category: string
-  brand: string
-  description: string
-  url: string
-  color: string
-  price: number
-  size: number
-  title: string
-  quantity: number
-  images: string[]
-  total: number
+  id: string;
+  category: string;
+  brand: string;
+  description: string;
+  url: string;
+  color: string;
+  price: number;
+  size: number;
+  title: string;
+  quantity: number;
+  images: string[];
+  total: number;
 }
 
+const productVariants = {
+  hidden: {
+    x: '100vw',
+    opacity: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      ease: 'easeOut',
+      type: 'tween',
+      when: 'beforeChildren',
+      duration: 0.1,
+      staggerChildren: 0.05,
+      delayChildren: 0.3,
+    },
+  },
+  // transition: {
+  //   delay: 0.5,
+  //   type: 'spring',
+  //   stiffness: 55,
+  //   duration: 0.7,
+  // },
+};
+
 const Products = memo(() => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  let products: Product[]
+  const [searchParams, setSearchParams] = useSearchParams();
+  let products: Product[];
 
-  products = useAppSelector<Product[]>((state) => state.products.products)
-  const error = useAppSelector((state) => state.products.error)
-  const status = useAppSelector((state) => state.products.status)
-  const [filterMobile, setfilterMobile] = useState(false)
-  const [sort, setsort] = useState('')
+  products = useAppSelector<Product[]>((state) => state.products.products);
+  const error = useAppSelector((state) => state.products.error);
+  const status = useAppSelector((state) => state.products.status);
+  const [filterMobile, setfilterMobile] = useState(false);
+  const [sort, setsort] = useState('');
 
-  const [filteredColors, setFilteredColors] = useState<string[]>([])
-  const [brandFilters, setBrandFilters] = useState<string[]>([])
+  const [filteredColors, setFilteredColors] = useState<string[]>([]);
+  const [brandFilters, setBrandFilters] = useState<string[]>([]);
 
   const handleColorFilter = (color: string) => {
     if (filteredColors.includes(color)) {
-      setFilteredColors(filteredColors.filter((c) => c !== color))
+      setFilteredColors(filteredColors.filter((c) => c !== color));
     } else {
-      setFilteredColors([...filteredColors, color])
+      setFilteredColors([...filteredColors, color]);
     }
-  }
+  };
   const handleBrandFilterChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const brand = event.target.value
+    const brand = event.target.value;
     if (event.target.checked) {
-      setBrandFilters([...brandFilters, brand])
+      setBrandFilters([...brandFilters, brand]);
     } else {
-      setBrandFilters(brandFilters.filter((filter) => filter !== brand))
+      setBrandFilters(brandFilters.filter((filter) => filter !== brand));
     }
-  }
+  };
 
   useEffect(() => {
-    setSearchParams(searchParams)
-  }, [filteredColors, brandFilters, sort, searchParams, setSearchParams])
+    setSearchParams(searchParams);
+  }, [filteredColors, brandFilters, sort, searchParams, setSearchParams]);
 
   useEffect(() => {
-    let colorsQuery = searchParams.get('color')?.split(',')
-    let brandQuery = searchParams.get('brand')?.split(',')
-    let sortQuery = searchParams.get('sort')
+    let colorsQuery = searchParams.get('color')?.split(',');
+    let brandQuery = searchParams.get('brand')?.split(',');
+    let sortQuery = searchParams.get('sort');
     if (colorsQuery) {
-      setFilteredColors(colorsQuery)
+      setFilteredColors(colorsQuery);
     }
     if (brandQuery) {
-      setBrandFilters(brandQuery)
+      setBrandFilters(brandQuery);
     }
     if (sortQuery) {
-      setsort(sortQuery)
+      setsort(sortQuery);
     }
-  }, [searchParams])
+  }, [searchParams]);
 
-  let filteredProducts: Product[]
+  let filteredProducts: Product[];
   filteredProducts = products
     .filter((product) => {
       if (filteredColors.length === 0) {
-        searchParams.delete('color')
-        return true
+        searchParams.delete('color');
+        return true;
       } else {
-        searchParams.set('color', filteredColors.join(','))
-        return filteredColors.includes(product.color)
+        searchParams.set('color', filteredColors.join(','));
+        return filteredColors.includes(product.color);
       }
     })
     .filter((product) => {
       if (brandFilters.length === 0) {
-        searchParams.delete('brand')
-        return true
+        searchParams.delete('brand');
+        return true;
       } else {
-        searchParams.set('brand', brandFilters.join(','))
+        searchParams.set('brand', brandFilters.join(','));
 
-        return brandFilters.includes(product.brand)
+        return brandFilters.includes(product.brand);
       }
     })
     .sort((a, b) => {
       if (sort === 'priceAsc') {
-        searchParams.set('sort', sort)
-        return sortPriceUp(a, b)
+        searchParams.set('sort', sort);
+        return sortPriceUp(a, b);
       } else if (sort === 'priceDesc') {
-        searchParams.set('sort', sort)
+        searchParams.set('sort', sort);
 
-        return sortPriceDown(a, b)
+        return sortPriceDown(a, b);
       } else if (sort === 'nameDesc') {
-        searchParams.set('sort', sort)
+        searchParams.set('sort', sort);
 
-        return sortNameDesc(a, b)
+        return sortNameDesc(a, b);
       } else if (sort === 'nameAsc') {
-        searchParams.set('sort', sort)
+        searchParams.set('sort', sort);
 
-        return sortNameAsc(a, b)
+        return sortNameAsc(a, b);
       } else {
-        searchParams.delete('sort')
+        searchParams.delete('sort');
 
-        return 0
+        return 0;
       }
-    })
+    });
 
   const productsCards = filteredProducts.map((prod, idx) => (
     <ProductCard product={prod} key={`${prod.id}${prod.title}`} id={idx} />
-  ))
+  ));
 
   return (
-    <div className={classes.productsContainer}>
+    <motion.div
+      className={classes.productsContainer}
+      variants={containerVariants}
+      exit='exit'
+      initial='hidden'
+      animate='visible'
+    >
       {error && <div className={classes.error}>{error}</div>}
 
       <div className={classes.mainContainer}>
@@ -140,7 +173,7 @@ const Products = memo(() => {
                 id='sort'
                 defaultValue={'empty'}
                 onChange={(e) => {
-                  setsort(e.target.value)
+                  setsort(e.target.value);
                 }}
               >
                 <option disabled value='empty'>
@@ -155,7 +188,7 @@ const Products = memo(() => {
             <button
               className={classes.filterMobileBtn}
               onClick={() => {
-                setfilterMobile((prev) => !prev)
+                setfilterMobile((prev) => !prev);
               }}
             >
               Filter
@@ -170,7 +203,7 @@ const Products = memo(() => {
               <div
                 className={classes.closeFilterMobile}
                 onClick={() => {
-                  setfilterMobile(false)
+                  setfilterMobile(false);
                 }}
               >
                 X
@@ -178,7 +211,7 @@ const Products = memo(() => {
               <div className={classes.colorFilterContainer}>
                 <h3
                   onClick={() => {
-                    console.log(filteredColors)
+                    console.log(filteredColors);
                   }}
                 >
                   Color
@@ -191,7 +224,7 @@ const Products = memo(() => {
                     checked={filteredColors.includes('black')}
                     id='black'
                     onChange={() => {
-                      handleColorFilter('black')
+                      handleColorFilter('black');
                     }}
                   />
                 </div>
@@ -203,7 +236,7 @@ const Products = memo(() => {
                     checked={filteredColors.includes('blue')}
                     id='Blue'
                     onChange={() => {
-                      handleColorFilter('blue')
+                      handleColorFilter('blue');
                     }}
                   />
                 </div>
@@ -215,7 +248,7 @@ const Products = memo(() => {
                     name='Green'
                     id='Green'
                     onChange={() => {
-                      handleColorFilter('green')
+                      handleColorFilter('green');
                     }}
                   />
                 </div>
@@ -227,7 +260,7 @@ const Products = memo(() => {
                     checked={filteredColors.includes('grey')}
                     id='Grey'
                     onChange={() => {
-                      handleColorFilter('grey')
+                      handleColorFilter('grey');
                     }}
                   />
                 </div>
@@ -239,7 +272,7 @@ const Products = memo(() => {
                     name='Red'
                     id='Red'
                     onChange={() => {
-                      handleColorFilter('red')
+                      handleColorFilter('red');
                     }}
                   />
                 </div>
@@ -251,7 +284,7 @@ const Products = memo(() => {
                     checked={filteredColors.includes('white')}
                     id='White'
                     onChange={() => {
-                      handleColorFilter('white')
+                      handleColorFilter('white');
                     }}
                   />
                 </div>
@@ -329,18 +362,25 @@ const Products = memo(() => {
           </div>
         )}
 
-        <div className={classes.cardsContainer}>
-          {status === 'loading' && <CardsLoading />}
+        {productsCards && (
+          <motion.div
+            className={classes.cardsContainer}
+            variants={productVariants}
+            initial='hidden'
+            animate='visible'
+          >
+            {status === 'loading' && <CardsLoading />}
 
-          {filteredProducts.length > 0 ? (
-            productsCards
-          ) : (
-            <h2 className={classes.notFound}>No products found</h2>
-          )}
-        </div>
+            {filteredProducts.length > 0 ? (
+              productsCards
+            ) : (
+              <h2 className={classes.notFound}>No products found</h2>
+            )}
+          </motion.div>
+        )}
       </div>
-    </div>
-  )
-})
+    </motion.div>
+  );
+});
 
-export default Products
+export default Products;
