@@ -297,7 +297,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 1rem;
-    position: fixed;
+    position: absolute;
     background-color: #ff7d1a;
     z-index: 50;
     width: 90%;
