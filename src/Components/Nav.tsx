@@ -1,56 +1,58 @@
-import { Link, NavLink } from 'react-router-dom'
-import classes from './Nav.module.css'
-import { useEffect, useState, useRef } from 'react'
-import { useAppDispatch } from '../store/Store'
-import { cartActions } from '../store/cartStore'
-import { userActions } from '../store/userStore'
-import { useAppSelector } from '../store/Store'
-import Cart from './Cart'
-import LoginMenu from './LoginMenu'
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import classes from './Nav.module.css';
+import { useEffect, useState, useRef } from 'react';
+import { useAppDispatch } from '../store/Store';
+import { cartActions } from '../store/cartStore';
+import { userActions } from '../store/userStore';
+import { useAppSelector } from '../store/Store';
+import Cart from './Cart';
+import LoginMenu from './LoginMenu';
 
 type NavProps = {
-  setDark: React.Dispatch<React.SetStateAction<boolean>>
-  darkMode: boolean
-}
+  setDark: React.Dispatch<React.SetStateAction<boolean>>;
+  darkMode: boolean;
+};
 
 const Nav = (props: NavProps) => {
-  const cartRef = useRef<HTMLDivElement>(null)
-  const dispatch = useAppDispatch()
+  const cartRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
-  const cart = useAppSelector((state) => state.cart.products)
-  const [loginMenu, setLoginMenu] = useState(false)
-  const loggedIn = useAppSelector((state) => state.user.loggedIn)
-  const prevOrders = useAppSelector((state) => state.user.previousOrders)
+  const cart = useAppSelector((state) => state.cart.products);
+  const [loginMenu, setLoginMenu] = useState(false);
+  const loggedIn = useAppSelector((state) => state.user.loggedIn);
+  const prevOrders = useAppSelector((state) => state.user.previousOrders);
 
-  const [mobileMenu, setmobileMenu] = useState(false)
-  const profilepic = useAppSelector((state) => state.user.profilePic)
-  const productsCount = cart.reduce((acc, curr) => acc + curr.quantity, 0)
+  const location = useLocation();
+
+  const [mobileMenu, setmobileMenu] = useState(false);
+  const profilepic = useAppSelector((state) => state.user.profilePic);
+  const productsCount = cart.reduce((acc, curr) => acc + curr.quantity, 0);
   function handleOpenCart() {
-    dispatch(cartActions.toggleCart())
-    dispatch(userActions.closeLoginMenu())
+    dispatch(cartActions.toggleCart());
+    dispatch(userActions.closeLoginMenu());
   }
 
-  const darkRef = useRef<HTMLInputElement>(null)
-  const mobDarkRef = useRef<HTMLInputElement>(null)
+  const darkRef = useRef<HTMLInputElement>(null);
+  const mobDarkRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (cart.length > 0) {
-      cartRef.current?.classList.add(`${classes.shakeTop}`)
+      cartRef.current?.classList.add(`${classes.shakeTop}`);
     }
 
     const timeout = setTimeout(() => {
-      cartRef.current?.classList.remove(`${classes.shakeTop}`)
-    }, 501)
+      cartRef.current?.classList.remove(`${classes.shakeTop}`);
+    }, 501);
 
     return () => {
-      clearTimeout(timeout)
-    }
-  }, [cart])
+      clearTimeout(timeout);
+    };
+  }, [cart]);
 
   useEffect(() => {
-    darkRef.current!.checked = props.darkMode
-    mobDarkRef.current!.checked = props.darkMode
-  }, [props.darkMode])
+    darkRef.current!.checked = props.darkMode;
+    mobDarkRef.current!.checked = props.darkMode;
+  }, [props.darkMode]);
 
   return (
     <>
@@ -61,7 +63,7 @@ const Nav = (props: NavProps) => {
           opacity: `${mobileMenu ? '1' : '0'}`,
         }}
         onClick={() => {
-          setmobileMenu(false)
+          setmobileMenu(false);
         }}
       ></div>
       <div
@@ -72,7 +74,7 @@ const Nav = (props: NavProps) => {
         <svg
           width='800px'
           onClick={() => {
-            setmobileMenu((prev) => !prev)
+            setmobileMenu((prev) => !prev);
           }}
           className={classes.closemenu}
           height='800px'
@@ -101,20 +103,21 @@ const Nav = (props: NavProps) => {
                 : `${classes.link}`
             }
             onClick={() => {
-              setmobileMenu(false)
+              setmobileMenu(false);
             }}
           >
             Home
           </NavLink>
           <NavLink
             to='/products'
+            state={location.pathname}
             className={(navData) =>
               navData.isActive
                 ? `${classes.link} ${classes.linkActive}`
                 : `${classes.link}`
             }
             onClick={() => {
-              setmobileMenu(false)
+              setmobileMenu(false);
             }}
           >
             Products
@@ -129,7 +132,7 @@ const Nav = (props: NavProps) => {
                     : `${classes.link}  ${classes.mobilleProfileTab}`
                 }
                 onClick={() => {
-                  setmobileMenu(false)
+                  setmobileMenu(false);
                 }}
               >
                 {loggedIn ? 'Profile' : 'Login'}
@@ -143,7 +146,7 @@ const Nav = (props: NavProps) => {
                       : `${classes.link}  ${classes.mobileOrdersTab}`
                   }
                   onClick={() => {
-                    setmobileMenu(false)
+                    setmobileMenu(false);
                   }}
                 >
                   Orders
@@ -163,7 +166,7 @@ const Nav = (props: NavProps) => {
             aria-label='dark mode switch'
             id='darkmodeMobile'
             onChange={() => {
-              props.setDark((prev) => !prev)
+              props.setDark((prev) => !prev);
             }}
           />
         </div>
@@ -173,7 +176,7 @@ const Nav = (props: NavProps) => {
           <svg
             className={classes.hamburger}
             onClick={() => {
-              setmobileMenu((prev) => !prev)
+              setmobileMenu((prev) => !prev);
             }}
             width='800px'
             height='800px'
@@ -210,7 +213,7 @@ const Nav = (props: NavProps) => {
               aria-label='dark mode switch'
               id='darkmode'
               onChange={() => {
-                props.setDark((prev) => !prev)
+                props.setDark((prev) => !prev);
               }}
             />
           </div>
@@ -222,6 +225,7 @@ const Nav = (props: NavProps) => {
           <li>
             <NavLink
               to='/products'
+              state={location.pathname}
               className={(navData) =>
                 navData.isActive
                   ? `${classes.link} ${classes.linkActive}`
@@ -278,9 +282,9 @@ const Nav = (props: NavProps) => {
             referrerPolicy='no-referrer'
             alt='User'
             onClick={() => {
-              setLoginMenu((prev) => !prev)
-              dispatch(userActions.toggleLoginMenu())
-              dispatch(cartActions.closeCart())
+              setLoginMenu((prev) => !prev);
+              dispatch(userActions.toggleLoginMenu());
+              dispatch(cartActions.closeCart());
             }}
             className={classes.profilepic}
           />
@@ -289,7 +293,7 @@ const Nav = (props: NavProps) => {
         <LoginMenu open={loginMenu} />
       </nav>
     </>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

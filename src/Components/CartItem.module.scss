@@ -116,12 +116,12 @@
 @container productCards (width > 300px) {
   .productCard {
     img {
-      width: 6cqi;
+      width: min(60px, 15cqi);
     }
 
     .cardTxt {
       p {
-        font-size: 1.6cqi;
+        font-size: minmax(3.6cqi, 16px);
       }
     }
     .buttons {

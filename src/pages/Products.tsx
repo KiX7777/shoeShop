@@ -1,10 +1,11 @@
 import { useEffect, useState, memo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useAppSelector } from '../store/Store';
 import classes from './Products.module.css';
-import ProductCard from '../Components/ProductCard';
 import SidebarLoading from '../Components/SidebarLoading';
+import ProductCard from '../Components/ProductCard';
 import CardsLoading from '../Components/CardsLoadingSkeleton';
+import Select, { StylesConfig } from 'react-select';
 import {
   sortPriceUp,
   sortNameAsc,
@@ -29,6 +30,17 @@ export interface Product {
   total: number;
 }
 
+const options = [
+  { label: 'Sort', value: '', isDisabled: true },
+  {
+    label: 'Price &uarr;',
+    value: 'priceAsc',
+  },
+  { label: 'Price &darr;', value: 'priceDesc' },
+  { label: 'A-Z', value: 'nameAsc' },
+  { label: 'Z-A', value: 'nameDesc' },
+];
+
 const productVariants = {
   hidden: {
     x: '100vw',
@@ -42,8 +54,7 @@ const productVariants = {
       type: 'tween',
       when: 'beforeChildren',
       duration: 0.1,
-      staggerChildren: 0.05,
-      delayChildren: 0.3,
+      staggerChildren: 0.5,
     },
   },
   // transition: {
@@ -57,6 +68,7 @@ const productVariants = {
 const Products = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();
   let products: Product[];
+  const location = useLocation();
 
   products = useAppSelector<Product[]>((state) => state.products.products);
   const error = useAppSelector((state) => state.products.error);
@@ -153,12 +165,12 @@ const Products = memo(() => {
   ));
 
   return (
-    <motion.div
+    <div
       className={classes.productsContainer}
-      variants={containerVariants}
-      exit='exit'
-      initial='hidden'
-      animate='visible'
+      // variants={containerVariants}
+      // exit='exit'
+      // initial='hidden'
+      // animate='visible'
     >
       {error && <div className={classes.error}>{error}</div>}
 
@@ -369,17 +381,18 @@ const Products = memo(() => {
             initial='hidden'
             animate='visible'
           >
-            {status === 'loading' && <CardsLoading />}
-
+            {productsCards}
+            {/* {status === 'loading' && <CardsLoading />} */}
+            {/* 
             {filteredProducts.length > 0 ? (
               productsCards
             ) : (
               <h2 className={classes.notFound}>No products found</h2>
-            )}
+            )} */}
           </motion.div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 });
 

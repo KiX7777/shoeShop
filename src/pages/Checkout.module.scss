@@ -2,12 +2,13 @@
 @use '../../styles/mixins' as *;
 
 .checkoutContainer {
-  height: calc(100dvh - 10rem);
+  // height: calc(100dvh - 10rem);
   @include flex(initial, center);
   display: grid;
   grid-template-rows: 1fr 2fr;
   flex-direction: column;
   padding: 2rem;
+  gap: 2rem;
   max-width: 150rem;
   container-type: inline-size;
   margin: 0 auto;
@@ -44,7 +45,7 @@
   visibility: visible;
 }
 .totalCheckout {
-  font-size: 2.2cqi;
+  font-size: min(24px, 3.2cqi);
   font-weight: bold;
   color: var(--font-color);
   text-align: right;
@@ -71,7 +72,7 @@
   }
 
   .totalCheckout {
-    font-size: 7cqi;
+    font-size: 5cqi;
   }
 
   .productCards {

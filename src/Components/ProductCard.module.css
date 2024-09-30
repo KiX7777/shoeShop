@@ -22,10 +22,6 @@
   box-shadow: var(--shadow);
   overflow: hidden;
   transition: background 500ms ease;
-  animation: 700ms appear ease forwards;
-}
-.container .card * {
-  pointer-events: none;
 }
 
 .container .card:before {
@@ -59,7 +55,6 @@
   background-repeat: no-repeat;
   font-weight: 800;
   mix-blend-mode: hard-light;
-  z-index: -1;
   overflow: hidden;
   font-style: italic;
   color: rgba(255, 255, 25, 0.05);

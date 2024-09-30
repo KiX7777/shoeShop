@@ -46,13 +46,10 @@ function App() {
       if (user) {
         dispatch(userActions.setLogin());
 
-        console.log(user);
-
         const userRef = ref(db, `users/${user.uid}`);
 
         onValue(userRef, (snapshot) => {
           let user = snapshot.val();
-          console.log(user);
           dispatch(userActions.updateStore(user));
         });
 
@@ -63,7 +60,6 @@ function App() {
         listenchanges(user.uid);
       } else {
         dispatch(userActions.resetState());
-        console.log('there is no user');
         return;
       }
     });
@@ -84,19 +80,12 @@ function App() {
     };
   }, [dispatch]);
 
-  useLayoutEffect(() => {
-    defaultDark
-      ? document.body.setAttribute('data-theme', 'dark')
-      : document.body.setAttribute('data-theme', 'light');
-  }, []);
-
-  useLayoutEffect(() => {
-    const darkLocal = localStorage.getItem('dark');
-    if (darkLocal) {
-      console.log(JSON.parse(darkLocal));
-      setDarkMode(JSON.parse(darkLocal));
-    }
-  }, []);
+  // useLayoutEffect(() => {
+  //   const darkLocal = localStorage.getItem('dark');
+  //   if (darkLocal) {
+  //     setDarkMode(JSON.parse(darkLocal));
+  //   }
+  // }, []);
 
   useLayoutEffect(() => {
     darkMode

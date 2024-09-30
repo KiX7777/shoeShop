@@ -1,39 +1,38 @@
-import React from 'react'
-import classes from './Login.module.css'
-import { useState } from 'react'
-import { Formik } from 'formik'
-import { useNavigate } from 'react-router-dom'
-import * as Yup from 'yup'
+import React from 'react';
+import classes from './Login.module.css';
+import { useState } from 'react';
+import { Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 
-import { GoogleLogin } from '../store/userStore'
+import { GoogleLogin } from '../store/userStore';
 
-import { useAppDispatch, useAppSelector } from '../store/Store'
-import { signUp, logIn, logout } from '../store/userStore'
+import { useAppDispatch, useAppSelector } from '../store/Store';
+import { signUp, logIn, logout } from '../store/userStore';
 
-let isMobile = window.matchMedia('(max-width: 500px)')
-console.log(isMobile.matches)
+let isMobile = window.matchMedia('(max-width: 500px)');
 
 export interface User {
-  username: string
-  password: string
-  email: string
+  username: string;
+  password: string;
+  email: string;
 }
 
 const initialValues: User = {
   username: '',
   password: '',
   email: '',
-}
+};
 
 const Login = () => {
-  const userStore = useAppSelector((state) => state.user)
-  const cart = useAppSelector((state) => state.cart)
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const [loginMode, setloginMode] = useState(true)
-  const specialRegex = /^[\p{L}0-9 .]+$/gu
+  const userStore = useAppSelector((state) => state.user);
+  const cart = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [loginMode, setloginMode] = useState(true);
+  const specialRegex = /^[\p{L}0-9 .]+$/gu;
   const emailRegex =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   return (
     <div className={classes.loginContainer}>
@@ -44,7 +43,7 @@ const Login = () => {
             type='checkbox'
             id='switch'
             onChange={(e) => {
-              setloginMode(!e.target.checked)
+              setloginMode(!e.target.checked);
             }}
           />
           <label htmlFor='switch'>Sign Up</label>
@@ -77,18 +76,18 @@ const Login = () => {
               password: values.password,
               email: values.email,
               cart: cart.products,
-            }
+            };
             if (userStore.loggedIn) {
-              alert('Already logged in!')
-              return
+              alert('Already logged in!');
+              return;
             } else {
               if (!loginMode) {
-                dispatch(signUp(user))
-                resetForm()
+                dispatch(signUp(user));
+                resetForm();
               } else {
-                dispatch(logIn([user.email, user.password]))
+                dispatch(logIn([user.email, user.password]));
 
-                return
+                return;
               }
             }
           }}
@@ -149,12 +148,12 @@ const Login = () => {
                 <button
                   className={classes.googleBtn}
                   onClick={(e) => {
-                    e.preventDefault()
+                    e.preventDefault();
                     if (isMobile.matches) {
                     } else {
                     }
 
-                    dispatch(GoogleLogin())
+                    dispatch(GoogleLogin());
                   }}
                 >
                   <div className={classes.googlebtn}>
@@ -182,15 +181,15 @@ const Login = () => {
           className={classes.loginBtns}
           type='button'
           onClick={() => {
-            dispatch(logout())
-            navigate('/')
+            dispatch(logout());
+            navigate('/');
           }}
         >
           LOG OUT
         </button>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

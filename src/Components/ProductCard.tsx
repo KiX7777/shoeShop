@@ -41,23 +41,23 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
     setSize(0);
   }
 
-  useEffect(() => {
-    const allChild = cardRef.current?.children as HTMLCollectionOf<HTMLElement>;
-    const els = Array.from(allChild);
+  // useEffect(() => {
+  //   const allChild = cardRef.current?.children as HTMLCollectionOf<HTMLElement>;
+  //   const els = Array.from(allChild);
 
-    function setPointerEvents() {
-      els.forEach((el) => {
-        const all = el.querySelectorAll('*') as any;
-        all.forEach((node: any) => (node.style.pointerEvents = 'auto'));
-      });
-    }
+  //   function setPointerEvents() {
+  //     els.forEach((el) => {
+  //       const all = el.querySelectorAll('*') as any;
+  //       all.forEach((node: any) => (node.style.pointerEvents = 'auto'));
+  //     });
+  //   }
 
-    cardRef.current?.addEventListener('animationend', setPointerEvents);
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      cardRef.current?.removeEventListener('animationend', setPointerEvents);
-    };
-  }, []);
+  //   cardRef.current?.addEventListener('animationend', setPointerEvents);
+  //   return () => {
+  //     // eslint-disable-next-line react-hooks/exhaustive-deps
+  //     cardRef.current?.removeEventListener('animationend', setPointerEvents);
+  //   };
+  // }, []);
 
   if (brandName === 'Nike') {
     backgroundStyles = {
@@ -104,10 +104,13 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
   }
 
   return (
-    <motion.div className={classes.container} variants={cardVariants}>
-      <div
+    <div className={classes.container}>
+      <motion.div
         className={classes.card}
         ref={cardRef}
+        initial='hidden'
+        animate='visible'
+        variants={cardVariants}
 
         // style={{
         //   animationDelay: `${id * 200}ms`,
@@ -228,8 +231,8 @@ const ProductCard = ({ product, id }: { product: Product; id: number }) => {
             Add to cart
           </button>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 
